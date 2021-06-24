@@ -59,6 +59,10 @@ class CrearViewSet(viewsets.GenericViewSet):
 
     queryset = User.objects.filter(is_active=True)
     serializer_class = CrearModelSerializer
+    
+    def get_permissions(self):
+        permission_classes = [IsAuthenticated, IsAdminUser, ]
+        return [permission() for permission in permission_classes]  
 
     #ADMINISTRADOR
     @action(detail=False, methods=['post'])
@@ -67,7 +71,7 @@ class CrearViewSet(viewsets.GenericViewSet):
         serializer = AdminSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        #
+        #        
         token = Token.objects.create(user=user)
         #
         data = CrearModelSerializer(user).data
@@ -96,17 +100,6 @@ class CrearViewSet(viewsets.GenericViewSet):
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
 
-    #CLIENTE
-    @action(detail=False, methods=['post'])
-    def cli(self, request):
-        """User sign up."""
-        serializer = ClienteSignUpSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        #token = Token.objects.create(user=user)
-        data = CrearModelSerializer(user).data
-        return Response(data, status=status.HTTP_201_CREATED)
-
     #PROVEEDOR
     @action(detail=False, methods=['post'])
     def pro(self, request):
@@ -118,3 +111,17 @@ class CrearViewSet(viewsets.GenericViewSet):
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
     
+
+class CrearClienteViewSet(viewsets.GenericViewSet):
+    serializer_class = CrearModelSerializer
+
+    #CLIENTE
+    @action(detail=False, methods=['post'])
+    def cli(self, request):
+        """User sign up."""
+        serializer = ClienteSignUpSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        #token = Token.objects.create(user=user)
+        data = CrearModelSerializer(user).data
+        return Response(data, status=status.HTTP_201_CREATED)

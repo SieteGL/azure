@@ -19,6 +19,8 @@ from .serializers import (
 
 # Models
 from .models import User
+# permissions
+from .permissions import IsClienteUser
 
     
 #listar especialistas
@@ -27,12 +29,22 @@ class ListarTipoUsuarios(ListAPIView):
    
     #authentication_classes = (TokenAuthentication, )
     
-    permission_classes = [IsAuthenticated, ]       
+    #permission_classes = [IsAuthenticated, ]#IsClienteUser]  
+
+    def get_permissions(self):
+        permission_classes = [IsAuthenticated, IsAdminUser, IsClienteUser]
+        return [permission() for permission in permission_classes]     
 
     def get_queryset(self):
         usuario = self.request.user
-        valor = self.kwargs['valor']                
-        return User.objects.listar_usuarios(valor)    
+        valor = self.kwargs['valor']  
+        print(valor)
+        #mostrar todos los usuarios 
+        if valor == "9":
+            return User.objects.all()
+            #mostrar usuarios por tipo de usuario
+        else:              
+            return User.objects.listar_usuarios(valor)    
 
 
 #listar Servicios por especialistas

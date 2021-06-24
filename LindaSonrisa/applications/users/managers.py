@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import BaseUserManager
 
+from django.db.models import Q, Sum, F, FloatField, ExpressionWrapper
+
 class UserManager(BaseUserManager, models.Manager):
 
     #administrador de registro
@@ -43,10 +45,11 @@ class UserManager(BaseUserManager, models.Manager):
     #listando usuarios mediante un identificador que es el tipo de usuario
     def listar_usuarios(self, valor):
         return self.filter(
-            #este es el que vale
-            tipo_usuario=valor
-        )        
-
-#        
+            tipo_usuario = valor
+        )
+                 
+        
+       
+      
          
         
