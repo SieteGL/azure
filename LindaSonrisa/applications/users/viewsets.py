@@ -80,7 +80,7 @@ class CrearViewSet(viewsets.GenericViewSet):
         serializer = EspecialistaSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        token = Token.objects.create(user=user)
+        #token = Token.objects.create(user=user)
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
         #return HttpResponseRedirect(reverse(''))
@@ -92,7 +92,7 @@ class CrearViewSet(viewsets.GenericViewSet):
         serializer = RecepSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        token = Token.objects.create(user=user)
+        #token = Token.objects.create(user=user)
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -103,7 +103,7 @@ class CrearViewSet(viewsets.GenericViewSet):
         serializer = ClienteSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        token = Token.objects.create(user=user)
+        #token = Token.objects.create(user=user)
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
 
@@ -114,7 +114,7 @@ class CrearViewSet(viewsets.GenericViewSet):
         serializer = ProveedorSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        token = Token.objects.create(user=user)
+        #token = Token.objects.create(user=user)
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
     

@@ -32,9 +32,9 @@ from .managers import BoletaManager
 #LISTAR TODAS LAS BOLETAS MEDIANTE ALGUN FILTRO EN ESPECIFICO
 class ListBoletaUser(ListAPIView):
    
-    #authentication_classes = (TokenAuthentication, )
+    authentication_classes = (TokenAuthentication, )
     
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     serializer_class = Boletaserializer
     def get_queryset(self):

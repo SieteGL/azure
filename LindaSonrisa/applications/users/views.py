@@ -25,9 +25,9 @@ from .models import User
 class ListarTipoUsuarios(ListAPIView):
     serializer_class = ListarEspecialistas
    
-    authentication_classes = (TokenAuthentication, )
+    #authentication_classes = (TokenAuthentication, )
     
-    permission_classes = [IsAuthenticated, IsAdminUser]       
+    permission_classes = [IsAuthenticated, ]       
 
     def get_queryset(self):
         usuario = self.request.user
