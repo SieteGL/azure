@@ -60,9 +60,9 @@ class CrearViewSet(viewsets.GenericViewSet):
     queryset = User.objects.filter(is_active=True)
     serializer_class = CrearModelSerializer
     
-    def get_permissions(self):
-        permission_classes = [IsAuthenticated, IsAdminUser, ]
-        return [permission() for permission in permission_classes]  
+    #def get_permissions(self):
+    permission_classes = [IsAuthenticated, IsAdminUser, ]
+        #return [permission() for permission in permission_classes]  
 
     #ADMINISTRADOR
     @action(detail=False, methods=['post'])

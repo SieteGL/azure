@@ -36,6 +36,7 @@ from .models import (
 from applications.almacen.models import Almacen
 from applications.users.models import User
 
+from applications.users.permissions import IsClienteUser
 
 
 #managers
@@ -120,9 +121,8 @@ class ListOrdenPedidos(ListAPIView):
 
 #falta por terminar y revisar informacion
 class UpdateEstado(CreateAPIView):
-    authentication_classes = (TokenAuthentication, )
-    #Solo se puede ingresar si se tiene un usuario autenticado... este verifica si esta autenticado
-    #permission_classes = [IsAuthenticated]
+    
+    permission_classes = [IsAuthenticated, IsClienteUser,]
     serializer_class = EstadosSerializer
 
     def get_queryset(self):

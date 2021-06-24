@@ -1,16 +1,17 @@
-from rest_framework import permissions
-from rest_framework.authtoken.models import Token
-#from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission
 
 from .models import User
 
 #client acceso
-class IsClienteUser(permissions.BasePermission):
-
+class IsClienteUser(BasePermission):
+        
     def has_permission(self, request, view):
 
         try:
-            user = User.objects.get(email=request.user)
+            user = User.objects.get(email=request.user.email, is_cli=True)
+            print("***************************************")
+            print(user)
+            print("***************************************")
         except User.DoesNotExist:
             return False
         return True
@@ -28,34 +29,34 @@ class IsAdminUser(permissions.BasePermission):
         return True
 """
 #especialista acceso
-class IsEspecialistUser(permissions.BasePermission):
+class IsEspecialistUser(BasePermission):
 
     def has_permission(self, request, view):
 
         try:
-            user = User.objects.get(email=request.user, tipo_usuario=1)
+            user = User.objects.get(email=request.user.email, is_esp=True)
         except User.DoesNotExist:
             return False
         return True
 
 #employee acceso
-class IsEmployeeUser(permissions.BasePermission):
+class IsEmployeeUser(BasePermission):
 
     def has_permission(self, request, view):
 
         try:
-            user = User.objects.get(email=request.user, tipo_usuario=2)
+            user = User.objects.get(email=request.user.email, is_emp=True)
         except User.DoesNotExist:
             return False
         return True
 
 #supplier acceso
-class IsSupplierUser(permissions.BasePermission):
+class IsSupplierUser(BasePermission):
 
     def has_permission(self, request, view):
 
         try:
-            user = User.objects.get(email=request.user, tipo_usuario=4)
+            user = User.objects.get(email=request.user.email, is_pro=True)
         except User.DoesNotExist:
             return False
         return True

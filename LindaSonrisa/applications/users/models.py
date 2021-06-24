@@ -129,6 +129,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True
     )
 
+    is_esp = models.BooleanField(default=False)
+    is_emp = models.BooleanField(default=False)
+    is_cli = models.BooleanField(default=False)
+    is_pro = models.BooleanField(default=False)
+
     servicios = models.ManyToManyField(Servicios,blank=True)
 
     USERNAME_FIELD = 'email'
