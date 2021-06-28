@@ -24,6 +24,8 @@ from .serializers import (
     PaginationSerializer
     
 )
+from applications.users.permissions import IsEmployeeUser, IsClienteUser
+from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 #models
 from .models import (
     Documento,
@@ -138,6 +140,14 @@ class CrearDocumentos(CreateAPIView):
         document.save()
         return Response({'res' : 'documento agregado'})
 
+class EditarDocumentos(UpdateAPIView):
+    serializer_class = DocumentosSerializer
+    permission_classes = [IsAuthenticated, IsClienteUser, IsAdminUser,]
+    queryset = Documento.objects.all()
 
+class DeleteDocumentos(DestroyAPIView):
+    serializer_class = DocumentosSerializer
+    permission_classes = [IsAuthenticated, IsClienteUser, IsAdminUser,]
+    queryset = Documento.objects.all()
         
     

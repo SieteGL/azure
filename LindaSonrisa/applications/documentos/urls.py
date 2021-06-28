@@ -41,5 +41,15 @@ urlpatterns = [
         'api/agregar/documento',
         views.CrearDocumentos.as_view(),
         name='crear-documento-cliente',
-    ),       
+    ),
+    path(
+        'api/editar/documento/<pk>',
+        views.EditarDocumentos.as_view(),
+        name='editar-documento-cliente',
+    ),
+    path(
+        'api/eliminar/documento/<pk>',
+        views.DeleteDocumentos.as_view(),
+        name='delete -documento-cliente',
+    ),        
 ]

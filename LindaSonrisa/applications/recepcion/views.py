@@ -1,5 +1,6 @@
 #
 #from re import S
+from applications.users.permissions import IsEmployeeUser
 from django.utils import timezone
 from datetime import datetime
 
@@ -36,7 +37,7 @@ from .models import (
 from applications.almacen.models import Almacen
 from applications.users.models import User
 
-from applications.users.permissions import IsClienteUser
+from applications.users.permissions import IsClienteUser, IsSupplierUser
 
 
 #managers
@@ -47,6 +48,7 @@ from applications.users.permissions import IsClienteUser
 
 #combinar la creacion de #Orden mas #Detalles
 class CrearOrdenPedidos(CreateAPIView):
+    permission_classes = [IsAuthenticated, IsEmployeeUser, IsAdminUser] 
 
     serializer_class = OrdenesSerializer
 
@@ -106,6 +108,7 @@ class CrearOrdenPedidos(CreateAPIView):
 
 #Listar por nombre de la orden, de Orden listo 
 class ListOrdenPedidos(ListAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser, IsEmployeeUser] 
     serializer_class = DetallesSerializer
 
     def get_queryset(self):
@@ -114,15 +117,10 @@ class ListOrdenPedidos(ListAPIView):
 
 
 
-
-
-
-
-
 #falta por terminar y revisar informacion
 class UpdateEstado(CreateAPIView):
     
-    permission_classes = [IsAuthenticated, IsClienteUser,]
+    permission_classes = [IsAuthenticated, IsSupplierUser,]
     serializer_class = EstadosSerializer
 
     def get_queryset(self):

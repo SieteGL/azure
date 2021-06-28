@@ -7,11 +7,8 @@ class IsClienteUser(BasePermission):
         
     def has_permission(self, request, view):
 
-        try:
-            user = User.objects.get(email=request.user.email, is_cli=True)
-            print("***************************************")
-            print(user)
-            print("***************************************")
+        try:            
+            user = User.objects.get(email=request.user.email, is_cli=True)                                                   
         except User.DoesNotExist:
             return False
         return True

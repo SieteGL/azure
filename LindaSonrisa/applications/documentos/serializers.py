@@ -29,7 +29,7 @@ class DocumentosSerializer(serializers.ModelSerializer):
         fields = (
             'documento',
             'valor',
-            #'imagen',
+            'imagen',
             'prod_created',
         )
 

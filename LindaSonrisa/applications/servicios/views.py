@@ -1,5 +1,6 @@
 #
 #from re import S
+from applications.users.permissions import IsEmployeeUser
 from django.utils import timezone
 from datetime import datetime
 
@@ -26,14 +27,17 @@ from .models import (
     Servicios,
     ServiciosList
 )
+from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 
 class CrearListServicios(CreateAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser, ]   
     serializer_class = ListServiciosSerializer
 
 
 # list de servicios disponibles con sus valores respectivos
 class ListServicios(ListAPIView):
     serializer_class = ServiciosSerializer
+    permission_classes = [IsAuthenticated, IsEmployeeUser, ]   
 
     def get_queryset(self):
         user = self.request.user
@@ -43,6 +47,7 @@ class ListServicios(ListAPIView):
 class CreateServicioView(CreateAPIView):
     #este muestra la informacion a pantalla 
     serializer_class = ServiciosSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser, ]   
      
 
 

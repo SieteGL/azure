@@ -40,5 +40,5 @@ class ListarTipoUsuarios(ListAPIView):
         else:              
             return User.objects.listar_usuarios(valor)    
 
-
 #listar Servicios por especialistas
+

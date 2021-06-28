@@ -125,7 +125,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     numero = models.CharField(
+        'Número de casa',
         max_length=6,
+        blank=True
+    )
+
+    contacto = models.PositiveIntegerField(
+        'Numero de contacto',
         blank=True
     )
 
