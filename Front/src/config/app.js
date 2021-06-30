@@ -1,0 +1,33 @@
+const API_LOCATION = "http://localhost:8000/api";
+const API_LOCATION_IS_ADMIN = `${API_LOCATION}/especialista/0`;
+const API_LOCATION_TOKEN_REFRESH = `${API_LOCATION}/token/refresh/`;
+
+const STORAGE_KEY_TOKEN = "token";
+const STORAGE_KEY_SETTINGS = "settings";
+
+const USER_TYPE_ADMIN = "admin";
+const USER_TYPE_SPECIALIST = "specialist";
+const USER_TYPE_PROVIDER = "provider";
+const USER_TYPE_RECEPTIONIST = "receptionist";
+
+const USER_TYPE_IDS = {
+  [USER_TYPE_ADMIN]: "admin",
+  [USER_TYPE_SPECIALIST]: "espe",
+  [USER_TYPE_PROVIDER]: "pro",
+  [USER_TYPE_RECEPTIONIST]: "recep"
+};
+
+export default {
+  API_LOCATION,
+  API_LOCATION_IS_ADMIN,
+  API_LOCATION_TOKEN_REFRESH,
+
+  STORAGE_KEY_SETTINGS,
+  STORAGE_KEY_TOKEN,
+
+  USER_TYPE_ADMIN,
+  USER_TYPE_SPECIALIST,
+  USER_TYPE_PROVIDER,
+  USER_TYPE_RECEPTIONIST,
+  USER_TYPE_IDS
+};

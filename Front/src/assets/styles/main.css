@@ -1,0 +1,104 @@
+/*
+ * Se cambiará por un mensaje informativo del error
+ *
+ * .md-theme-default .ls--md-invalid::before {
+ *   background-color: #f55a4e !important;
+ * }
+ */
+
+.md-theme-default .ls--md-invalid > label {
+  color: #f44336 !important;
+}
+
+.ls--option-span {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.ls--option-span .md-ripple > span.md-list-item-text {
+  position: relative;
+}
+
+.ls--login-background {
+  height: 100%;
+  min-height: 100vh;  
+  background-position: top;
+  background-size: cover;
+}
+
+.ls--login-background-1 {
+  background-image: url("../img/login-1.jpg");
+}
+
+.ls--login-background-2 {
+  background-image: url("../img/login-2.jpg");
+}
+
+.ls--login-background-3 {
+  background-image: url("../img/login-3.jpg");
+}
+
+.ls--login-background:after {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  left: 0;
+  top: 0;
+  content: ""; 
+  background: rgba(0,0,0,.5); 
+}
+
+.ls--login-background > .ls--login-wrapper {
+  z-index: 2;
+  position: relative;
+}
+
+
+.ls--create-account {
+  text-align: right;
+}
+.ls--create-account-size {
+  font-size: 1rem;
+}
+.ls--tabs-navigation > .md-tabs-navigation {
+  padding-left: 15px;
+}
+
+/* fix color buttom calendar */
+.md-datepicker-body-header > .md-button.md-theme-default,
+.md-datepicker-panel > .md-button.md-theme-default {
+  background-color: white !important;
+  box-shadow: none;
+}
+.md-datepicker-panel > .md-button.md-theme-default {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+/* fix postion on alert */
+.ls--fixed-on-screen .alert[data-notify="container"] {
+  position: fixed;
+}
+
+/* Steepers */
+.ls--horizontal-steppers .md-button.md-stepper-header {
+  background-color: white !important;
+  box-shadow: none;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.ls--horizontal-steppers .md-stepper-header .md-button-content:before {
+  left: -32px;
+  width: 32px;
+}
+
+.ls--horizontal-steppers .md-steppers-container >.md-stepper {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.ls--mtop-15px {
+  margin-top: 15px;
+}
