@@ -128,7 +128,7 @@ const backend = {
     const authorization = await token.authorization();
 
     return axios.post(
-      `${config.API_LOCATION}/register/create/${config.USER_TYPE_IDS[occupation]}/`,
+      `${config.API_LOCATION}/register/users/${config.USER_TYPE_IDS[occupation]}/`,
       {
         ...user,
         fecha_nacimiento: user.fecha_nacimiento
