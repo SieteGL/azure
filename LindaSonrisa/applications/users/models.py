@@ -132,7 +132,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     contacto = models.PositiveIntegerField(
         'Numero de contacto',
-        blank=True
+        blank=True,
+        null=True
     )
 
     is_esp = models.BooleanField(default=False)

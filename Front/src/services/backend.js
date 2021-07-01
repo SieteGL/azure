@@ -98,7 +98,7 @@ const backend = {
     if (user.fecha_nacimiento === null)
       throw new ValidationException("The date of birth cannot be null");
 
-    return axios.post(`${config.API_LOCATION}/users/create/cli/`, {
+    return axios.post(`${config.API_LOCATION}/register/cli/`, {
       ...user,
       fecha_nacimiento: user.fecha_nacimiento
         .split("-")
