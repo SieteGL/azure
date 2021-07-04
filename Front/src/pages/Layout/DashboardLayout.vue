@@ -15,6 +15,10 @@
         <md-icon>person</md-icon>
         <p>Admin. de Usuarios</p>
       </sidebar-link>
+      <sidebar-link :to="{ name: 'schedule' }">
+        <md-icon>event</md-icon>
+        <p>Agenda</p>
+      </sidebar-link>
       <sidebar-link :to="{ name: 'availability' }">
         <md-icon>event</md-icon>
         <p>Ver Disponibilidad</p>

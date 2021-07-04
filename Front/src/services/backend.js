@@ -58,15 +58,34 @@ const doctorsContainer = {
 
 const backend = {
   /**
+   * Verifica si el usuario es del tipo administrador
    *
    * @param {string} token
    *
    * @returns {boolean}
    */
-  async isAdmin(token) {
+  async isAdmin(token, email) {
     return axios
       .get(config.API_LOCATION_IS_ADMIN, { headers: { Authorization: token } })
-      .then(() => true)
+      .then(({ data: { results: admins } }) =>
+        admins.some(item => item.email === email)
+      )
+      .catch(() => false);
+  },
+
+  /**
+   * Verifica si el usuario es del tipo especilista
+   * @param {*} token
+   * @returns
+   */
+  async isSpecialist(token, email) {
+    return axios
+      .get(config.API_LOCATION_IS_SPECIALIST, {
+        headers: { Authorization: token }
+      })
+      .then(({ data: { results: specialists } }) =>
+        specialists.some(item => item.email === email)
+      )
       .catch(() => false);
   },
 
@@ -164,6 +183,50 @@ const backend = {
     }
 
     return doctorsContainer[`${speciality}`];
+  },
+
+  /**
+   * Crea una hora en la agenda del doctor
+   *
+   * { "fecha": "2021-07-03", "hora": [{ "hora": "12:00" }] }
+   *
+   * @param {string} date
+   * @param {string} hour
+   *
+   * @returns {Promise}
+   */
+  async doctorsScheduleEvent(date, hour) {
+    if (date === null)
+      throw new ValidationException("Debe seleccionar la fecha del evento");
+    if (hour === null || hour === false)
+      throw new ValidationException("Debe seleccionar la hora del evento");
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.post(
+      `${config.API_LOCATION}/crear/agenda`,
+      {
+        fecha: date,
+        hora: [{ hora: hour }]
+      },
+      {
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
+  },
+
+  async doctorsScheduleEvents() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/agenda`, {
+      headers: {
+        Authorization: authorization
+      }
+    });
   },
 
   async doctorsSchedule(speciality, doctor) {

@@ -2,6 +2,7 @@ import Content from "@/pages/Layout/Content.vue";
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import Availability from "@/pages/Availability.vue";
+import Schedule from "@/pages/Schedule.vue";
 import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
@@ -56,6 +57,16 @@ const routes = [
           requiresAuth: true
         },
         component: UserManager
+      },
+      {
+        path: "schedule",
+        name: "schedule",
+        meta: {
+          title: "Crear agenda",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Schedule
       },
       {
         path: "availability",

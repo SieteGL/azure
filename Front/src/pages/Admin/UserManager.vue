@@ -15,7 +15,7 @@
                   <md-select v-model="occupation">
                     <md-option
                       class="ls--option-span"
-                      v-for="(item, idx) in collection.activities"
+                      v-for="(item, idx) in activities"
                       v-bind:key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
@@ -75,7 +75,7 @@
                   <md-select v-model="gender">
                     <md-option
                       class="ls--option-span"
-                      v-for="(item, idx) in collection.genders"
+                      v-for="(item, idx) in genders"
                       v-bind:key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
@@ -92,7 +92,7 @@
                   >
                     <md-option
                       class="ls--option-span"
-                      v-for="(item, idx) in collection.regions"
+                      v-for="(item, idx) in regions"
                       v-bind:key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
@@ -106,11 +106,11 @@
                   <md-select
                     v-model="city"
                     @md-selected="onChangeLoadDistricts($event)"
-                    :disabled="collection.disabledCities"
+                    :disabled="citiesDisabled"
                   >
                     <md-option
                       class="ls--option-span"
-                      v-for="(item, idx) in collection.cities"
+                      v-for="(item, idx) in cities"
                       v-bind:key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
@@ -121,13 +121,10 @@
               <div class="md-layout-item md-medium-size-100 md-size-50">
                 <md-field :class="vuelidate('district')">
                   <label>Comuna</label>
-                  <md-select
-                    v-model="district"
-                    :disabled="collection.disabledDistricts"
-                  >
+                  <md-select v-model="district" :disabled="districtsDisabled">
                     <md-option
                       class="ls--option-span"
-                      v-for="(item, idx) in collection.districts"
+                      v-for="(item, idx) in districts"
                       v-bind:key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
@@ -230,9 +227,7 @@ export default {
         return;
       }
 
-      const {
-        collection: { regions, cities, districts }
-      } = this;
+      const { regions, cities, districts } = this;
 
       const iregion = regions.find(item => item.code === this.region);
       const icity = cities.find(item => item.code === this.city);
@@ -290,14 +285,14 @@ export default {
     },
 
     onChangeLoadCities(event) {
-      this.collection.cities = cut.city(event);
-      this.collection.disabledCities = event === null;
+      this.cities = cut.city(event);
+      this.citiesDisabled = event === null;
       this.city = null;
     },
 
     onChangeLoadDistricts(event) {
-      this.collection.districts = cut.district(event);
-      this.collection.disabledDistricts = event === null;
+      this.districts = cut.district(event);
+      this.districtsDisabled = event === null;
       this.district = null;
     }
   },
@@ -309,26 +304,13 @@ export default {
   },
 
   data: () => ({
-    collection: {
-      regions: cut.regions,
-      cities: cut.city(null),
-      disabledCities: true,
-      districts: cut.district(null),
-      disabledDistricts: true,
-      activities: [
-        { code: config.USER_TYPE_ADMIN, name: "Administrador" },
-        { code: config.USER_TYPE_SPECIALIST, name: "Especialista" },
-        { code: config.USER_TYPE_PROVIDER, name: "Proovedor" },
-        { code: config.USER_TYPE_RECEPTIONIST, name: "Recepcionista" }
-      ],
-      genders: [
-        { code: "M", name: "Masculino" },
-        { code: "F", name: "Femenino" },
-        { code: "O", name: "Otro" }
-      ]
-    },
+    activities: [
+      { code: config.USER_TYPE_ADMIN, name: "Administrador" },
+      { code: config.USER_TYPE_SPECIALIST, name: "Especialista" },
+      { code: config.USER_TYPE_PROVIDER, name: "Proovedor" },
+      { code: config.USER_TYPE_RECEPTIONIST, name: "Recepcionista" }
+    ],
     sending: false,
-
     occupation: null,
     name: null,
     lastname: null,
@@ -337,10 +319,25 @@ export default {
     phone: null,
     ocupation: null,
     birthdate: null,
+
     gender: null,
+    genders: [
+      { code: "M", name: "Masculino" },
+      { code: "F", name: "Femenino" },
+      { code: "O", name: "Otro" }
+    ],
+
     region: null,
+    regions: cut.regions,
+
     city: null,
+    cities: cut.city(null),
+    citiesDisabled: true,
+
     district: null,
+    districts: cut.district(null),
+    districtsDisabled: true,
+
     address: null,
     house: null,
     password: null,
