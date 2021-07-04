@@ -1,5 +1,5 @@
 const API_LOCATION = "http://localhost:8000/api";
-const API_LOCATION_IS_ADMIN = `${API_LOCATION}/especialista/0`;
+const API_LOCATION_IS_ADMIN = `${API_LOCATION}/usuarios/0`;
 const API_LOCATION_TOKEN_REFRESH = `${API_LOCATION}/token/refresh/`;
 
 const STORAGE_KEY_TOKEN = "token";
