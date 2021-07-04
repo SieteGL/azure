@@ -16,5 +16,15 @@ urlpatterns = [
         'api/crear/agenda',
         views.CrearAgenda.as_view(),
         name='agenda-crear',
-    )
+    ),
+    path(
+        'api/eliminar/hora/<pk>',
+        views.EliminarHora.as_view(),
+        name='eliminar-hora',
+    ),
+    path(
+        'api/tomar/hora',
+        views.TomarHora.as_view(),
+        name='agregar-hora-paciente',
+    ),
 ]    

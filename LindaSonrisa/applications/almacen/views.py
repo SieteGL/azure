@@ -61,6 +61,3 @@ class CargarAlmacenRecepcion(CreateAPIView):
                 return Response({'RES' : 'No valido'})       
         Almacen.objects.bulk_create(lista_recepcion)                
         return Response({'res': 'ok'})
-
-    
-             

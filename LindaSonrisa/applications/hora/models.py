@@ -39,8 +39,15 @@ class Agenda(models.Model):
 #cliente
 class Reserva(models.Model):
 
-    hora = models.DateField(
+    fecha = models.DateField(
+        'Fecha de hora tomada',
+        null=True     
+    )
 
+    hora = models.CharField(
+        'Hora tomada',
+        max_length=6,
+        null=True        
     )
 
     hora_cliente = models.ForeignKey(

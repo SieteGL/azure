@@ -16,3 +16,9 @@ class AgendaHoraSerializer(serializers.Serializer):
 class CrearAgendaSerializer(serializers.Serializer): 
     fecha = serializers.DateField()         
     hora = AgendaHoraSerializer(many=True)
+
+class PkSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+
+class TomarHoraSerializer(serializers.Serializer):
+    agenda = PkSerializer(many=True)

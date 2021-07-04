@@ -5,14 +5,10 @@ from . import views
 
 #app_name = "users_app"
 
-urlpatterns = [
-    
+urlpatterns = [    
     path(
-        'api/especialista/<valor>',
+        'api/usuarios/<valor>',
         views.ListarTipoUsuarios.as_view(),
         name='especialista-lista'
-    ),
-    
-        
-            
+    ),           
 ]

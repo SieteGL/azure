@@ -27,7 +27,7 @@ from .permissions import IsClienteUser
 class ListarTipoUsuarios(ListAPIView):
 
     serializer_class = ListarEspecialistas
-    permission_classes = [IsAuthenticated, IsAdminUser, ]       
+    permission_classes = [IsAuthenticated, IsClienteUser, ]       
 
     def get_queryset(self):
         usuario = self.request.user
