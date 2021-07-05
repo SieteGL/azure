@@ -56,3 +56,5 @@ class Reserva(models.Model):
         verbose_name = 'hora del cliente'
     )
 
+    objects = AgendaManager()
+

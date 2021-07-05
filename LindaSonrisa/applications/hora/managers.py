@@ -18,3 +18,7 @@ class AgendaManager(models.Manager):
         return self.filter(
             especialista_agenda_id__email=email
         )
+    def listar_horas(self, email):
+        return self.filter(
+            hora_cliente_id__email=email
+        )

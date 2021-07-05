@@ -18,7 +18,8 @@ from rest_framework.generics import (
 from .serializers import (
     CrearAgendaSerializer,
     AgendaSerializer,
-    TomarHoraSerializer
+    TomarHoraSerializer,
+    HoraSerializer
 )
 # models
 from .models import (
@@ -94,3 +95,9 @@ class TomarHora(CreateAPIView):
             lista_agenda.append(rsv)
         Reserva.objects.bulk_create(lista_agenda)    
         return Response({'SUCCESS','HORA TOMADA CON EXITO'})
+
+class ListHora(ListAPIView):
+    serializer_class = HoraSerializer
+    def get_queryset(self):
+        email = self.request.user.email
+        return Reserva.objects.listar_horas(email)
