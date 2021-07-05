@@ -4,7 +4,9 @@
       <notifications class="ls--fixed-on-screen"></notifications>
       <div class="content">
         <div class="md-layout md-alignment-top-center">
-          <div class="md-layout-item md-medium-size-100 md-size-33">
+          <div
+            class="md-layout-item md-xsmall-size-100 md-small-size-80 md-medium-size-50 md-large-size-50 md-xlarge-size-40"
+          >
             <md-card>
               <md-card-header data-background-color="green">
                 <h4 class="title">Registro</h4>
@@ -12,10 +14,125 @@
               </md-card-header>
               <md-card-content>
                 <div class="md-layout">
-                  <div class="md-layout-item md-small-size-100 md-size-100">
+                  <div class="md-layout-item md-medium-size-100  md-size-50">
+                    <md-field :class="vuelidate('name')">
+                      <label>Nombre</label>
+                      <md-input v-model="name" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100  md-size-50">
+                    <md-field :class="vuelidate('lastname')">
+                      <label>Apellido</label>
+                      <md-input v-model="lastname" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('run')">
+                      <label>RUN</label>
+                      <md-input v-model="run" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
                     <md-field :class="vuelidate('username')">
                       <label>Email</label>
                       <md-input v-model="username" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('gender')">
+                      <label>Genero</label>
+                      <md-select v-model="gender">
+                        <md-option
+                          class="ls--option-span"
+                          v-for="(item, idx) in genders"
+                          v-bind:key="idx"
+                          :value="item.code"
+                          >{{ item.name }}</md-option
+                        >
+                      </md-select>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-datepicker
+                      v-model="birthdate"
+                      :class="vuelidate('birthdate')"
+                      :md-model-type="String"
+                      :md-disabled-dates="disabledDates"
+                      md-immediately
+                    >
+                      <label>Fecha De Nacimiento</label>
+                    </md-datepicker>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('phone')">
+                      <label>Contacto</label>
+                      <span class="md-prefix">+56</span>
+                      <md-input v-model="phone" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('region')">
+                      <label>Región</label>
+                      <md-select
+                        v-model="region"
+                        @md-selected="onChangeLoadCities($event)"
+                      >
+                        <md-option
+                          class="ls--option-span"
+                          v-for="(item, idx) in regions"
+                          v-bind:key="idx"
+                          :value="item.code"
+                          >{{ item.name }}</md-option
+                        >
+                      </md-select>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('city')">
+                      <label>Provincia</label>
+                      <md-select
+                        v-model="city"
+                        @md-selected="onChangeLoadDistricts($event)"
+                        :disabled="citiesDisabled"
+                      >
+                        <md-option
+                          class="ls--option-span"
+                          v-for="(item, idx) in cities"
+                          v-bind:key="idx"
+                          :value="item.code"
+                          >{{ item.name }}</md-option
+                        >
+                      </md-select>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('district')">
+                      <label>Comuna</label>
+                      <md-select
+                        v-model="district"
+                        :disabled="districtsDisabled"
+                      >
+                        <md-option
+                          class="ls--option-span"
+                          v-for="(item, idx) in districts"
+                          v-bind:key="idx"
+                          :value="item.code"
+                          >{{ item.name }}</md-option
+                        >
+                      </md-select>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('address')">
+                      <label>Dirección</label>
+                      <md-input v-model="address" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('house')">
+                      <label>Número</label>
+                      <span class="md-prefix">#</span>
+                      <md-input v-model="house" type="text"></md-input>
                     </md-field>
                   </div>
                   <div class="md-layout-item md-medium-size-100 md-size-50">
@@ -36,116 +153,6 @@
                         v-model="confirmPassword"
                         type="password"
                       ></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-field :class="vuelidate('name')">
-                      <label>Nombre</label>
-                      <md-input v-model="name" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-field :class="vuelidate('lastname')">
-                      <label>Apellido</label>
-                      <md-input v-model="lastname" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-33">
-                    <md-field :class="vuelidate('run')">
-                      <label>Rut</label>
-                      <md-input v-model="run" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-33">
-                    <md-tooltip md-direction="top"
-                      >Fecha de nacimiento</md-tooltip
-                    >
-                    <md-datepicker
-                      v-model="birthdate"
-                      :class="vuelidate('birthdate')"
-                      :md-model-type="String"
-                      md-immediately
-                    >
-                      <label>Fecha De Nac.</label>
-                    </md-datepicker>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-33">
-                    <md-field :class="vuelidate('gender')">
-                      <label>Genero</label>
-                      <md-select v-model="gender">
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in collection.genders"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-100">
-                    <md-field :class="vuelidate('region')">
-                      <label>Región</label>
-                      <md-select
-                        v-model="region"
-                        @md-selected="onChangeLoadCities($event)"
-                      >
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in collection.regions"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-50">
-                    <md-field :class="vuelidate('city')">
-                      <label>Provincia</label>
-                      <md-select
-                        v-model="city"
-                        @md-selected="onChangeLoadDistricts($event)"
-                        :disabled="collection.disabledCities"
-                      >
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in collection.cities"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-50">
-                    <md-field :class="vuelidate('district')">
-                      <label>Comuna</label>
-                      <md-select
-                        v-model="district"
-                        :disabled="collection.disabledDistricts"
-                      >
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in collection.districts"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-70">
-                    <md-field :class="vuelidate('address')">
-                      <label>Dirección</label>
-                      <md-input v-model="address" type="text"></md-input>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100 md-size-30">
-                    <md-field :class="vuelidate('house')">
-                      <label>Número</label>
-                      <span class="md-prefix">#</span>
-                      <md-input v-model="house" type="text"></md-input>
                     </md-field>
                   </div>
                 </div>
@@ -197,6 +204,7 @@ export default {
       "lastname",
       "run",
       "username",
+      "phone",
       "birthdate",
       "gender",
       "region",
@@ -209,15 +217,24 @@ export default {
     ]),
   methods: {
     onChangeLoadCities(event) {
-      this.collection.cities = cut.city(event);
-      this.collection.disabledCities = event === null;
+      this.cities = cut.city(event);
+      this.citiesDisabled = event === null;
       this.city = null;
     },
 
     onChangeLoadDistricts(event) {
-      this.collection.districts = cut.district(event);
-      this.collection.disabledDistricts = event === null;
+      this.districts = cut.district(event);
+      this.districtsDisabled = event === null;
       this.district = null;
+    },
+
+    disabledDates(date) {
+      const current = new Date();
+
+      date.setHours(0, 0, 0, 0);
+      current.setHours(0, 0, 0, 0);
+
+      return date > current;
     },
 
     submit() {
@@ -228,9 +245,7 @@ export default {
         return;
       }
 
-      const {
-        collection: { regions, cities, districts }
-      } = this;
+      const { regions, cities, districts } = this;
 
       const iregion = regions.find(item => item.code === this.region);
       const icity = cities.find(item => item.code === this.city);
@@ -239,29 +254,29 @@ export default {
       this.sending = true;
       backend
         .register({
-          email: this.username,
-          rut: this.run,
-          password: this.password,
-          password_confirmation: this.confirmPassword,
           nombre: this.name,
           apellido: this.lastname,
-          sexo: this.gender,
+          rut: this.run,
+          email: this.username,
+          contacto: this.phone,
           fecha_nacimiento: this.birthdate,
+          sexo: this.gender,
           region: iregion.name,
           ciudad: icity.name,
           comuna: idistrict.name,
           direccion: this.address,
-          numero: this.house
+          numero: this.house,
+          password: this.password,
+          password_confirmation: this.confirmPassword
         })
         .then(response => {
           this.sending = false;
 
-          this.username = null;
-          this.password = null;
-          this.confirmPassword = null;
           this.name = null;
           this.lastname = null;
           this.run = null;
+          this.username = null;
+          this.phone = null;
           this.birthdate = null;
           this.gender = null;
           this.region = null;
@@ -269,6 +284,8 @@ export default {
           this.district = null;
           this.address = null;
           this.house = null;
+          this.password = null;
+          this.confirmPassword = null;
 
           this.$v.$reset();
           this.showNotificationMessage("Usuario registrado con exito", {
@@ -283,32 +300,37 @@ export default {
   },
   data() {
     return {
-      collection: {
-        regions: cut.regions,
-        cities: cut.city(null),
-        disabledCities: true,
-        districts: cut.district(null),
-        disabledDistricts: true,
-        genders: [
-          { code: "M", name: "Masculino" },
-          { code: "F", name: "Femenino" },
-          { code: "O", name: "Otro" }
-        ]
-      },
       sending: false,
-      username: null,
-      password: null,
-      confirmPassword: null,
+
       name: null,
       lastname: null,
       run: null,
+      username: null,
+      phone: null,
       birthdate: null,
+
       gender: null,
+      genders: [
+        { code: "M", name: "Masculino" },
+        { code: "F", name: "Femenino" },
+        { code: "O", name: "Otro" }
+      ],
+
       region: null,
+      regions: cut.regions,
+
       city: null,
+      cities: cut.city(null),
+      citiesDisabled: true,
+
       district: null,
+      districts: cut.district(null),
+      districtsDisabled: true,
+
       address: null,
-      house: null
+      house: null,
+      password: null,
+      confirmPassword: null
     };
   }
 };

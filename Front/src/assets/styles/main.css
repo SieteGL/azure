@@ -102,3 +102,13 @@
 .ls--mtop-15px {
   margin-top: 15px;
 }
+
+.ls--calendar > .cv-header .currentPeriod,
+.ls--calendar > .cv-header .periodLabel,
+.ls--calendar > .cv-header-days .cv-header-day {
+  text-transform: capitalize;
+}
+
+.ls--calendar-view {
+  min-height: 55em;
+}

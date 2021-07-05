@@ -4,7 +4,9 @@
       <notifications class="ls--fixed-on-screen"></notifications>
       <div class="content">
         <div class="md-layout md-alignment-top-center">
-          <div class="md-layout-item md-medium-size-100 md-size-33">
+          <div
+            class="md-layout-item md-xsmall-size-100 md-small-size-80 md-medium-size-40 md-large-size-40 md-xlarge-size-30"
+          >
             <md-card>
               <md-card-header data-background-color="green">
                 <h4 class="title">Inicio Sesión</h4>
@@ -82,7 +84,15 @@ export default {
         .then(async tokens => {
           const token = new Token(tokens);
           const authorization = await token.store().authorization();
-          const isAdmin = await backend.isAdmin(authorization);
+
+          // TODO
+          // Validar el especilista
+          // const isSpecialist = await backend.isSpecialist(
+          //   authorization,
+          //   this.username
+          // );
+
+          const isAdmin = await backend.isAdmin(authorization, this.username);
 
           this.$settings.set("isAdmin", isAdmin);
           this.$router.push("/dashboard");
@@ -97,11 +107,6 @@ export default {
   },
   data() {
     return {
-      snackbar: {
-        show: false,
-        position: "center",
-        duration: 4000
-      },
       sending: false,
       username: null,
       password: null

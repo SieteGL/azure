@@ -53,7 +53,7 @@
                       </md-select>
                     </md-field>
                   </div>
-                  
+
                   <div class="md-layout-item md-medium-size-100  md-size-100">
                     <md-button
                       class="md-raised"
@@ -245,8 +245,13 @@ export default {
       this.selected = item;
     },
 
-    disabledDates: date => {
-      return date < new Date();
+    disabledDates(date) {
+      const current = new Date();
+
+      date.setHours(0, 0, 0, 0);
+      current.setHours(0, 0, 0, 0);
+
+      return date < current;
     }
   },
 
