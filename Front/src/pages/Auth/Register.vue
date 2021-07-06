@@ -3,12 +3,12 @@
     <div class="ls--login-wrapper">
       <notifications class="ls--fixed-on-screen"></notifications>
       <div class="content">
-        <div class="md-layout md-alignment-top-center">
+        <div class="md-layout md-alignment-center-center ls--min-height-100vh">
           <div
             class="md-layout-item md-xsmall-size-100 md-small-size-80 md-medium-size-50 md-large-size-50 md-xlarge-size-40"
           >
             <md-card>
-              <md-card-header data-background-color="green">
+              <md-card-header data-background-color="pruebacolor">
                 <h4 class="title">Registro</h4>
                 <p class="category">Completa tu registro</p>
               </md-card-header>
@@ -158,7 +158,7 @@
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-medium-size-100">
-                    <md-button
+                    <md-button data-background-color="colorboton"
                       class="md-primary md-block"
                       v-on:click="submit"
                       :disabled="sending"

@@ -51,7 +51,7 @@ export default {
     },
     themeBackgroundImage: {
       type: String,
-      default: require("@/assets/img/sidebar-2.jpg")
+      default: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
     },
     imgLogo: {
       type: String,

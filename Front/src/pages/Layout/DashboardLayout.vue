@@ -13,7 +13,7 @@
       <sidebar-link v-if="showAdminButton" :to="{ name: 'user-manager' }">
         <md-tooltip md-direction="right">Administrador de usuarios</md-tooltip>
         <md-icon>person</md-icon>
-        <p>Admin. de Usuarios</p>
+        <p>Usuarios</p>
       </sidebar-link>
       <sidebar-link :to="{ name: 'schedule' }">
         <md-icon>event</md-icon>
@@ -21,7 +21,7 @@
       </sidebar-link>
       <sidebar-link :to="{ name: 'availability' }">
         <md-icon>event</md-icon>
-        <p>Ver Disponibilidad</p>
+        <p>Reserva de Hora</p>
       </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
@@ -65,7 +65,7 @@ export default {
     return {
       showAdminButton: false,
       themeColor: "green",
-      themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
+      themeBackgroundImage: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
     };
   }
 };

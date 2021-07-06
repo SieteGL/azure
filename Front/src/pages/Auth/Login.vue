@@ -3,19 +3,20 @@
     <div class="ls--login-wrapper">
       <notifications class="ls--fixed-on-screen"></notifications>
       <div class="content">
-        <div class="md-layout md-alignment-top-center">
+        <div class="md-layout md-alignment-center-center ls--min-height-100vh">
           <div
             class="md-layout-item md-xsmall-size-100 md-small-size-80 md-medium-size-40 md-large-size-40 md-xlarge-size-30"
           >
+          
             <md-card>
-              <md-card-header data-background-color="green">
+              <md-card-header data-background-color="pruebacolor">
                 <h4 class="title">Inicio Sesión</h4>
                 <p class="category">Ingrese sus datos</p>
               </md-card-header>
               <md-card-content>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100 md-size-100">
-                    <md-field :class="vuelidate('username')">
+                <div class="md-layout"> 
+                  <div class="md-layout-item md-medium-size-100 md-size-100"> <!-- el largo del campo de texto -->
+                    <md-field :class="vuelidate('username')"> <!-- Campo donde se registrara el email -->
                       <label>Email</label>
                       <md-input v-model="username" type="text"></md-input>
                     </md-field>
@@ -29,7 +30,7 @@
                 </div>
                 <div class="md-layout">
                   <div class="md-layout-item md-medium-size-100">
-                    <md-button
+                    <md-button data-background-color="colorboton"
                       class="md-primary md-block"
                       v-on:click="submit"
                       :disabled="sending"
@@ -46,11 +47,11 @@
                   <div
                     class="md-layout-item md-medium-size-100 ls--create-account"
                   >
-                    <router-link
+                    <router-link 
                       :to="{ name: 'register' }"
                       class="ls--create-account-size"
-                      >crear cuenta de usuario</router-link
-                    >
+                      >Crear cuenta de usuario</router-link>
+                    
                   </div>
                 </div>
               </md-card-content>
@@ -59,8 +60,16 @@
         </div>
       </div>
     </div>
+    <div class="md-layout md-alignment-center-center ls--min-height-10vh">
+    <footer class="footer">
+                  <p> Clínica Dental Linda Sonrisa © Todos los derechos reservados / Avenida Los Flamencos 6752 Of 611, Huechuraba, Santiago.</p> 
+    </footer>
+    </div>
   </div>
+  
+  
 </template>
+
 
 <script>
 import backend from "@/services/backend.js";
