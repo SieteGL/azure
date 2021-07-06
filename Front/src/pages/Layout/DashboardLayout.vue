@@ -8,10 +8,10 @@
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link :to="{ name: 'dashboard' }">
         <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+        <p>hay que borrarlo</p>
       </sidebar-link>
       <sidebar-link v-if="showAdminButton" :to="{ name: 'user-manager' }">
-        <md-tooltip md-direction="right">Administrador de usuarios</md-tooltip>
+        <md-tooltip md-direction="right">Crear usuarios</md-tooltip>
         <md-icon>person</md-icon>
         <p>Usuarios</p>
       </sidebar-link>

@@ -4,8 +4,8 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
           <md-card-header :data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+            <h4 class="title">Toma De Hora</h4>
+            <p class="category">Seleccione la Hora y Fecha de un Especialista Disponible</p>
           </md-card-header>
           <md-card-content>
             <md-steppers
@@ -15,8 +15,8 @@
             >
               <md-step
                 id="first"
-                md-label="First Step"
-                md-description="Optional"
+                md-label="Selección de profesional"
+                md-description="Opcional"
                 :md-done.sync="first"
               >
                 <div class="md-layout">
@@ -113,7 +113,7 @@
 
               <md-step
                 id="second"
-                md-label="Second Step"
+                md-label="Busqueda de disponibilidad"
                 :md-done.sync="second"
               >
                 <div class="md-layout-item md-medium-size-100 md-size-50">
@@ -158,7 +158,7 @@
                 <div class="md-layout">
                   <div class="md-layout-item md-medium-size-100  md-size-50">
                     <md-field>
-                      <label>Pacient</label>
+                      <label>Paciente</label>
                       <md-input type="text"></md-input>
                     </md-field>
                   </div>
@@ -174,7 +174,7 @@
                 </div>
               </md-step>
 
-              <md-step id="third" md-label="Third Step" :md-done.sync="third">
+              <md-step id="third" md-label="Confirmación" :md-done.sync="third">
                 <md-button
                   class="md-raised md-primary"
                   @click="setDone('third')"
