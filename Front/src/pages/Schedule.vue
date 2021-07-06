@@ -4,8 +4,8 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
           <md-card-header :data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+            <h4 class="title">Agendar Horario Especialista</h4>
+            <p class="category">Ingrese los horarios disponibles del Especialista</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
@@ -14,10 +14,10 @@
                   <label>Calendario</label>
                   <md-select v-model="displayPeriodUom">
                     <md-option class="ls--option-span" value="month"
-                      >Month</md-option
+                      >Mes</md-option
                     >
                     <md-option class="ls--option-span" value="week"
-                      >Week</md-option
+                      >Semana</md-option
                     >
                   </md-select>
                 </md-field>
@@ -54,8 +54,8 @@
       <div class="md-layout-item md-medium-size-100 md-size-33">
         <md-card>
           <md-card-header :data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+            <h4 class="title">Fecha y Horario disponible para el Especialista</h4>
+            <p class="category">Seleccione fecha y horarios disponibles</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">

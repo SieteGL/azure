@@ -4,8 +4,8 @@
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
           <md-card-header :data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+            <h4 class="title">Crear Usuarios</h4>
+            <p class="category">Ingrese los datos requeridos para crear nuevos usuarios</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
