@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header :data-background-color="themeColor">
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Toma De Hora</h4>
             <p class="category">Seleccione la Hora y Fecha de un Especialista Disponible</p>
           </md-card-header>
@@ -55,7 +55,7 @@
                   </div>
 
                   <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-button
+                    <md-button data-background-color="colorboton"
                       class="md-raised"
                       :class="chooseColorClass(themeColor)"
                       @click="loadMedicalSchedules"

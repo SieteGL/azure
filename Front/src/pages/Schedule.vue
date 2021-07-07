@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header :data-background-color="themeColor">
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Agendar Horario Especialista</h4>
             <p class="category">Ingrese los horarios disponibles del Especialista</p>
           </md-card-header>
@@ -53,7 +53,7 @@
       </div>
       <div class="md-layout-item md-medium-size-100 md-size-33">
         <md-card>
-          <md-card-header :data-background-color="themeColor">
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Fecha y Horario disponible para el Especialista</h4>
             <p class="category">Seleccione fecha y horarios disponibles</p>
           </md-card-header>
@@ -82,7 +82,7 @@
                 </md-field>
               </div>
               <div class="md-layout-item md-medium-size-100">
-                <md-button class="md-primary md-block" @click="submit"
+                <md-button data-background-color="colorboton" class="md-primary md-block" @click="submit"
                   >Crear evento</md-button
                 >
               </div>

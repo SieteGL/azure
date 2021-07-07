@@ -1,4 +1,7 @@
 <template>
+<header>
+  <h3> Prueba Header </h3>
+  </header>
   <div class="ls--login-background ls--login-background-1">
     <div class="ls--login-wrapper">
       <notifications class="ls--fixed-on-screen"></notifications>
@@ -7,6 +10,9 @@
           <div
             class="md-layout-item md-xsmall-size-100 md-small-size-80 md-medium-size-40 md-large-size-40 md-xlarge-size-30"
           >
+          <md-app-toolbar>
+            <h4 class="title">Prueba barra de arriba</h4>
+            </md-app-toolbar>
           
             <md-card>
               <md-card-header data-background-color="pruebacolor">

@@ -3,7 +3,8 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header :data-background-color="themeColor">
+          <!-- :data-background-color="themeColor" -->
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Crear Usuarios</h4>
             <p class="category">Ingrese los datos requeridos para crear nuevos usuarios</p>
           </md-card-header>
@@ -163,7 +164,7 @@
             </div>
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
-                <md-button
+                <md-button data-background-color="colorboton"
                   class="md-primary md-block"
                   v-on:click="submit"
                   :disabled="sending"
@@ -171,7 +172,7 @@
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button class="md-danger md-block">Cancelar</md-button>
+                <md-button data-background-color="" class="md-danger md-block">Cancelar</md-button>
               </div>
               <div
                 v-if="sending"
