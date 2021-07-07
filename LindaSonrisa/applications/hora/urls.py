@@ -33,4 +33,22 @@ urlpatterns = [
         name='listar-hora-paciente',
     ),
 
+    ###
+    path(
+        'api/listar/especialistas',
+        views.ListarEspecialistas.as_view(),
+        name='listar-especialistas',
+    ),
+    path(
+        'api/listar/agenda/especialista/<pk>',
+        views.ListHorasEsp.as_view(),
+        name='listar-horas-disponibles',
+    ),
+    path(
+        'api/listar/especialistas/especialidades/<pk>',
+        views.ListEspecialidades.as_view(),
+        name='listar-especialistas-especialidades',
+    ),
+
+
 ]    

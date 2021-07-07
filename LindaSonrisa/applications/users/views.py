@@ -28,7 +28,7 @@ class ListarTipoUsuarios(ListAPIView):
 
     serializer_class = ListarEspecialistas
     permission_classes = [IsAuthenticated, IsAdminUser, ]       
-
+    
     def get_queryset(self):
         usuario = self.request.user
         valor = self.kwargs['valor']  

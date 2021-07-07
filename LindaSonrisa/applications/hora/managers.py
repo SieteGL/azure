@@ -22,3 +22,14 @@ class AgendaManager(models.Manager):
         return self.filter(
             hora_cliente_id__email=email
         )
+        #dejar en stand-by
+    def listar_agenda_especialista(self, val):
+        consulta = self.filter(
+           especialista_agenda__id =val
+        )
+        return consulta
+
+    """def especialistas(self):
+        return self.filter(
+            tipo_usuario=1
+        )"""        
