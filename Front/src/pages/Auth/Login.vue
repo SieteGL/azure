@@ -1,7 +1,5 @@
 <template>
-<header>
-  <h3> Prueba Header </h3>
-  </header>
+
   <div class="ls--login-background ls--login-background-1">
     <div class="ls--login-wrapper">
       <notifications class="ls--fixed-on-screen"></notifications>
