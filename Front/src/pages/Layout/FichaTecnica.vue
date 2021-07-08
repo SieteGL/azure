@@ -24,7 +24,7 @@
               </div>
             </div>
 
-            <!-- declaracion de los radio buttons Alergias-->
+            <!-- declaracion de los radio buttons Alergiass-->
             <div class="md-layout-item md-medium-size-100  md-size-50">
               <p class="category">¿Usted Presenta Alguna Alergia?</p>
               <md-radio v-model="radio" value="accent">Si</md-radio>
