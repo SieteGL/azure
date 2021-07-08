@@ -7,6 +7,7 @@ import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
+import FichaTecnica from "@/pages/Layout/FichaTecnica.vue";
 
 const routes = [
   {
@@ -77,7 +78,20 @@ const routes = [
           requiresAuth: true
         },
         component: Availability
+      },
+
+      {
+        path: "fichatecnica",
+        name: "fichatecnica",
+        meta:{
+          title: "Ficha Técnica Paciente",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: FichaTecnica
+
       }
+      
     ]
   }
 ];

@@ -55,7 +55,7 @@ export default {
     },
     imgLogo: {
       type: String,
-      default: require("@/assets/img/pngwing.com (3).png")
+      default: require("@/assets/img/logo icono 80x80-02.png")
     },
     themeColor: {
       type: String,
