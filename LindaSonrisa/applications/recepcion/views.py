@@ -48,7 +48,7 @@ from applications.users.permissions import IsClienteUser, IsSupplierUser
 
 #combinar la creacion de #Orden mas #Detalles
 class CrearOrdenPedidos(CreateAPIView):
-    permission_classes = [IsAuthenticated, IsEmployeeUser, IsAdminUser] 
+    permission_classes = [IsAuthenticated, IsAdminUser] 
 
     serializer_class = OrdenesSerializer
 
@@ -79,13 +79,14 @@ class CrearOrdenPedidos(CreateAPIView):
 
             fecha_ids = det['fecha_vencimiento']
             
-            fecha_idss = fecha_ids.strftime("%d%m%Y")                             
+            #fecha_idss = fecha_ids.strftime("%d%m%Y")                             
             #falta revisar como dejar un campo fecha vacio mediante serializer
-            if len(fecha_idss) > 8:
-                print(fecha_idss,familia_id,id_proveedor)
+            if len(fecha_ids) > 8:
+                print(fecha_ids,familia_id,id_proveedor)
                 code = id_proveedor + familia_id + "00000000" + "asd"
             else:
-                code = id_proveedor + familia_id + fecha_idss + "asd"                    
+                code = id_proveedor + familia_id + fecha_ids + "asd"                    
+            
             
             tot = det['cantidad']*det['precio_unitario']
             #detalles tiene orden

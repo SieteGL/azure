@@ -69,7 +69,6 @@ class CrearAgenda(CreateAPIView):
                 return Response({'SUCCESS': 'HORA AGREGADA CON EXITO'})
         else:
             return Response({'ERROR': 'USTED NO ES UN ESPECIALISTA ...'})
-
 #Eliminar una hora especifica pasar id de la hora que se desea eliminar. LO VE ESPECIALISTA
 class EliminarHora(DestroyAPIView):
     serializer_class = AgendaSerializer

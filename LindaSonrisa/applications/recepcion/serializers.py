@@ -13,7 +13,7 @@ class DetallesSerializers(serializers.Serializer):
     nombre_producto = serializers.CharField()
     familia = serializers.CharField()
     descripcion = serializers.CharField()
-    fecha_vencimiento=serializers.DateField(input_formats=['%d-%m-%Y'], required=False)
+    fecha_vencimiento=serializers.CharField()
     proveedor = serializers.EmailField()
 
 #validando que el nombre de la orden sea unico.

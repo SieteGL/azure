@@ -58,3 +58,6 @@ class Reserva(models.Model):
 
     objects = AgendaManager()
 
+    def __str__(self):
+        return str(self.id)+ ' ----- '+ str(self.fecha)+' *** '+str(self.hora)
+
