@@ -27,6 +27,10 @@
         <md-icon>article</md-icon>
         <p>Ficha Técnica</p>
       </sidebar-link>
+      <sidebar-link :to="{ name: 'documentobeneficio' }">
+        <md-icon>upload</md-icon>
+        <p>Ingrese Documentos</p>
+      </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
         <p>Cerrar sessión</p>

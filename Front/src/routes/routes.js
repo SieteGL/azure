@@ -8,6 +8,8 @@ import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
 import FichaTecnica from "@/pages/Layout/FichaTecnica.vue";
+import AgregarDocumentoBeneficio from "@/pages/Layout/AgregarDocumentoBeneficio";
+
 
 const routes = [
   {
@@ -90,6 +92,17 @@ const routes = [
         },
         component: FichaTecnica
 
+      },
+      
+      {
+        path: "documentobeneficio",
+        name: "documentobeneficio",
+        meta: {
+          title: "Documentos Para Beneficios",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: AgregarDocumentoBeneficio
       }
       
     ]
