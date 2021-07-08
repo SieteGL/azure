@@ -52,8 +52,10 @@ class UserManager(BaseUserManager, models.Manager):
             tipo_usuario = valor
         )
                  
-        
-       
+    def listar_especialidades(self, val):
+        return self.filter(
+            especialidades__icontains=val
+        )
       
          
         

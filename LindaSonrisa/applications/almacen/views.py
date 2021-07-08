@@ -19,10 +19,20 @@ from applications.recepcion.models import Detalles
 class ListarAlmacen(ListAPIView):
     serializer_class = AlmacenSerializers
 
-    def get_queryset(self):
-        usuario = self.request.user
-        #modificar para email o por tipo_usuario
-        return Almacen.objects.almacen_por_email(usuario)
+    def get(self, request, *args, **kwargs):
+        code = self.request.query_params.get('code'),
+        fechaIn = self.request.query_params.get('dateI'),
+        fechaFn = self.request.query_params.get('dateF'),
+        stock = self.request.query_params.get('stock'),
+        precio = self.request.query_params.get('precio'),
+        #
+        return Almacen.objects.filtrar_almacen(code)
+                              
+
+
+
+
+
 
 #realizar la carga del almacen en applications.ordenes        
 
@@ -61,3 +71,4 @@ class CargarAlmacenRecepcion(CreateAPIView):
                 return Response({'RES' : 'No valido'})       
         Almacen.objects.bulk_create(lista_recepcion)                
         return Response({'res': 'ok'})
+

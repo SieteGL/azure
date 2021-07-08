@@ -19,13 +19,16 @@ from .serializers import (
     CrearAgendaSerializer,
     AgendaSerializer,
     TomarHoraSerializer,
-    HoraSerializer
+    HoraSerializer,
+    UsuarioSerializer
 )
 # models
 from .models import (
     Agenda,
     Reserva
 )
+
+from applications.users.models import User
 # se debe pensar en que el especialista pondra a disposicion sus horas para que un cliente pueda tomar estas
 
 #  dia datetime/ horas integerfield / especialista  USER/
@@ -73,7 +76,7 @@ class EliminarHora(DestroyAPIView):
     queryset = Agenda.objects.all()  
 
 ###########
-#El cliente podra visualizar las horas disponibles. Que el especialsita entrego Linea.45
+#El cliente podrá visualizar las horas disponibles. Que el especialsita entrego Linea.45
 class TomarHora(CreateAPIView):
     serializer_class = TomarHoraSerializer
 
@@ -101,3 +104,33 @@ class ListHora(ListAPIView):
     def get_queryset(self):
         email = self.request.user.email
         return Reserva.objects.listar_horas(email)
+
+#lista informacion especialista full para ser mostrado en el front
+
+#lista de especialistas muestra todos los especialistas del sistema
+class ListarEspecialistas(ListAPIView):
+    serializer_class = UsuarioSerializer
+
+    def get_queryset(self):
+        return User.objects.listar_especialistas()
+
+#lista las especialidades y dependiendo del pk (id) muestra los doctores disponibles
+class ListEspecialidades(ListAPIView):
+    serializer_class = UsuarioSerializer
+    def get_queryset(self):
+        val = self.kwargs['pk']
+        if val == '9':
+            #ver si es correcto.
+            return User.objects.listar_especialistas()
+        else:            
+            return User.objects.listar_especialidades(val)
+
+#espera el pk del especialista para mostrar sus horas disponibles
+class ListHorasEsp(ListAPIView):
+    serializer_class = AgendaSerializer
+    def get_queryset(self):
+        val = self.kwargs['pk']
+        return Agenda.objects.listar_agenda_especialista(val)
+
+#listar usuarios donde su tipo de usuario sea tipo_usuario=1 y mostrar la lista 
+ #de especialidades.
