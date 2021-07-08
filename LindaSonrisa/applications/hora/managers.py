@@ -32,4 +32,9 @@ class AgendaManager(models.Manager):
     """def especialistas(self):
         return self.filter(
             tipo_usuario=1
-        )"""        
+        )"""
+    def recuperar_hora(self, hora):
+        consulta = self.filter(
+            id=hora
+        )  
+        return consulta              

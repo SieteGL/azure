@@ -44,7 +44,7 @@ class UserManager(BaseUserManager, models.Manager):
 
     def listar_especialistas(self):
         return self.filter(
-           tipo_usuario=1
+           tipo_usuario=1 
         )
     #listando usuarios mediante un identificador que es el tipo de usuario
     def listar_usuarios(self, valor):

@@ -89,6 +89,7 @@ class TomarHora(CreateAPIView):
             #recuperamos id de la agenda del especialista...(hora fecha)
             #crear signal para eliminar fecha de disponibilidad de la agenda
             hora = Agenda.objects.get(id=agd['pk'])
+            
             #if hora != FileExistsError:
             rsv = Reserva(
                 fecha = hora.fecha,
@@ -96,7 +97,11 @@ class TomarHora(CreateAPIView):
                 hora_cliente = self.request.user
             )
             lista_agenda.append(rsv)
-        Reserva.objects.bulk_create(lista_agenda)    
+        Reserva.objects.bulk_create(lista_agenda)
+        #despues de agregar realizo la eliminacion de la hora del especialista.
+        #recuperamos hora!
+        agendita = Agenda.objects.recuperar_hora(hora.id)
+        agendita.delete()  
         return Response({'SUCCESS','HORA TOMADA CON EXITO'})
 
 class ListHora(ListAPIView):
