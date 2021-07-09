@@ -80,29 +80,23 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-
       if (this.$v.$invalid) {
         this.showNotificationMessage("Debe completar los campos seleccionados");
         return;
       }
-
       this.sending = true;
       backend
         .login(this.username, this.password)
         .then(async tokens => {
           const token = new Token(tokens);
           const authorization = await token.store().authorization();
-
-          // TODO
-          // Validar el especilista
-          // const isSpecialist = await backend.isSpecialist(
-          //   authorization,
-          //   this.username
-          // );
-
           const isAdmin = await backend.isAdmin(authorization, this.username);
-
+          const isSpecialist = await backend.isSpecialist(
+            authorization,
+            this.username
+          );
           this.$settings.set("isAdmin", isAdmin);
+          this.$settings.set("isSpecialist", isSpecialist);
           this.$router.push("/dashboard");
         })
         .catch(error => {

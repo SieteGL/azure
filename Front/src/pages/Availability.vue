@@ -8,180 +8,91 @@
             <p class="category">Seleccione la Hora y Fecha de un Especialista Disponible</p>
           </md-card-header>
           <md-card-content>
-            <md-steppers
-              class="ls--horizontal-steppers"
-              :md-active-step.sync="active"
-              md-linear
-            >
-              <md-step
-                id="first"
-                md-label="Selección de profesional"
-                md-description="Opcional"
-                :md-done.sync="first"
-              >
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-50">
-                    <md-field>
-                      <label>Especilidad</label>
-                      <md-select
-                        v-model="speciality"
-                        @md-selected="onChangeLoadDoctors($event)"
-                      >
-                        <md-option class="ls--option-span"></md-option>
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in specialties"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-                  <div class="md-layout-item md-medium-size-100  md-size-50">
-                    <md-field>
-                      <label>Doctor</label>
-                      <md-select v-model="doctor">
-                        <md-option class="ls--option-span"></md-option>
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in doctors"
-                          v-bind:key="idx"
-                          :value="item.code"
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
-
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-button data-background-color="colorboton"
-                      class="md-raised"
-                      :class="chooseColorClass(themeColor)"
-                      @click="loadMedicalSchedules"
-                      >Buscar hora</md-button
-                    >
-                  </div>
-                </div>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <div v-if="doctorsSchedule.length">
-                      <md-table
-                        class="ls--mtop-15px"
-                        v-model="doctorsSchedule"
-                        @md-selected="onSelectDoctorsSchedule"
-                        :table-header-color="themeColor"
-                      >
-                        <md-table-row
-                          md-selectable="single"
-                          slot="md-table-row"
-                          slot-scope="{ item }"
-                        >
-                          <md-table-cell md-label="Doctor">{{
-                            item.name
-                          }}</md-table-cell>
-                          <md-table-cell md-label="Fecha">{{
-                            item.date
-                          }}</md-table-cell>
-                          <md-table-cell md-label="Hora">{{
-                            item.time
-                          }}</md-table-cell>
-                          <md-table-cell md-label="Duración">{{
-                            item.duration
-                          }}</md-table-cell>
-                        </md-table-row>
-                      </md-table>
-                    </div>
-                    <div v-else>
-                      <h4 class="text-center">
-                        No hay doctores para visualizar
-                      </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-button
-                      class="md-raised md-primary"
-                      @click="setDone('first', 'second')"
-                      :disabled="secondStep"
-                      >Siguiente</md-button
-                    >
-                  </div>
-                </div>
-              </md-step>
-
-              <md-step
-                id="second"
-                md-label="Busqueda de disponibilidad"
-                :md-done.sync="second"
-              >
-                <div class="md-layout-item md-medium-size-100 md-size-50">
-                  <md-datepicker
-                    :md-model-type="String"
-                    :md-disabled-dates="disabledDates"
-                    md-immediately
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-100 md-size-50">
+                <md-field>
+                  <label>Especialidad</label>
+                  <md-select
+                    v-model="speciality"
+                    @md-selected="onChangeSpeciality($event)"
                   >
-                    <label>Fecha</label>
-                  </md-datepicker>
-                </div>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <!--
-                    <md-table
-                      class="ls--mtop-15px"
-                      v-model="doctors"
-                      :table-header-color="themeColor"
+                    <md-option class="ls--option-span"></md-option>
+                    <md-option
+                      class="ls--option-span"
+                      v-for="(item, idx) in specialties"
+                      v-bind:key="idx"
+                      :value="item.code"
+                      >{{ item.name }}</md-option
                     >
-                      <md-table-row
-                        md-selectable="single"
-                        slot="md-table-row"
-                        slot-scope="{ item }"
-                      >
-                        <md-table-cell md-label="Doctor">{{
-                          item.name
-                        }}</md-table-cell>
-                        <md-table-cell md-label="Fecha">{{
-                          item.date
-                        }}</md-table-cell>
-                        <md-table-cell md-label="Hora">{{
-                          item.time
-                        }}</md-table-cell>
-                        <md-table-cell md-label="Duración">{{
-                          item.duration
-                        }}</md-table-cell>
-                      </md-table-row>
-                    </md-table>
-                    -->
-                  </div>
-                </div>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-50">
-                    <md-field>
-                      <label>Paciente</label>
-                      <md-input type="text"></md-input>
-                    </md-field>
-                  </div>
-                </div>
-                <div class="md-layout">
-                  <div class="md-layout-item md-medium-size-100  md-size-100">
-                    <md-button
-                      class="md-raised md-primary"
-                      @click="setDone('second', 'third')"
-                      >Siguiente</md-button
-                    >
-                  </div>
-                </div>
-              </md-step>
-
-              <md-step id="third" md-label="Confirmación" :md-done.sync="third">
-                <md-button
-                  class="md-raised md-primary"
-                  @click="setDone('third')"
-                  >Confirmar</md-button
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-medium-size-100 md-size-50">
+                <md-field>
+                  <label>Doctor</label>
+                  <md-select v-model="doctor">
+                    <md-option class="ls--option-span"></md-option>
+                    <md-option
+                      class="ls--option-span"
+                      v-for="(item, idx) in doctors"
+                      v-bind:key="idx"
+                      :value="item.id"
+                      >{{ item.nombre }} {{ item.apellido }}
+                    </md-option>
+                  </md-select>
+                </md-field>
+              </div>
+              <div
+                class="md-layout-item md-medium-size-100 md-large-size-30 md-size-20"
+              >
+                <md-button class="md-info md-block" @click="loadDoctorsHours"
+                  ><md-icon>search</md-icon> Buscar hora</md-button
                 >
-              </md-step>
-            </md-steppers>
+              </div>
+            </div>
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-100 md-size-100">
+                <div v-if="doctorsSchedule.length">
+                  <md-table
+                    class="ls--mtop-15px"
+                    v-model="doctorsSchedule"
+                    :table-header-color="themeColor"
+                    @md-selected="onSelectDoctorsSchedule"
+                  >
+                    <md-table-row
+                      md-selectable="single"
+                      slot="md-table-row"
+                      slot-scope="{ item }"
+                    >
+                      <md-table-cell md-label="Doctor">{{
+                        item.name
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Fecha">{{
+                        item.date
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Hora">{{
+                        item.time
+                      }}</md-table-cell>
+                    </md-table-row>
+                  </md-table>
+                </div>
+                <div v-else>
+                  <h4 class="text-center">
+                    No hay horas disponibles para visualizar
+                  </h4>
+                </div>
+              </div>
+              <div
+                class="md-layout-item md-medium-size-100 md-large-size-30 md-size-20"
+              >
+                <md-button
+                  class="md-primary md-block"
+                  @click="submit"
+                  :disabled="doctorSelected === null"
+                  >Tomar hora</md-button
+                >
+              </div>
+            </div>
           </md-card-content>
         </md-card>
       </div>
@@ -191,67 +102,92 @@
 
 <script>
 import backend from "@/services/backend.js";
+import ValidationException from "@/exceptions/ValidationException.js";
 
 export default {
-  beforeMount() {
-    backend
-      .specialties()
-      .then(specialties => {
-        this.specialties = specialties;
-      })
-      .catch(error => {});
-    backend
-      .doctors(null)
-      .then(doctors => {
-        this.doctors = doctors;
-      })
-      .catch(error => {});
+  mounted() {
+    this.loadSpecialties();
+    this.loadDoctors();
   },
 
   methods: {
-    onChangeLoadDoctors(event) {
+    submit() {
+      this.$confirm("Esta usted seguro?")
+        .then(async () => {
+          try {
+            await backend.doctorsScheduleTake(this.doctorSelected.id);
+
+            this.speciality = false;
+            this.doctor = false;
+            this.doctorSelected = null;
+            this.doctorsSchedule = [];
+          } catch (error) {
+            if (error.name === "ValidationException") {
+              throw error;
+            }
+            throw new ValidationException(
+              "Error al asignar la hora al cliente"
+            );
+          }
+        })
+        .catch(error => {
+          this.showNotificationMessage(this.chooseNotificationMessage(error));
+        });
+    },
+
+    loadDoctors() {
       backend
-        .doctors(event === false ? null : event)
+        .doctors()
         .then(doctors => {
           this.doctors = doctors;
+          this.doctorsOriginal = doctors;
           this.doctor = false;
         })
         .catch(error => {});
     },
 
-    onSelectDoctorsSchedule(item = null) {
-      this.doctorSelected = item;
-      this.secondStep = item === null;
-    },
-
-    loadMedicalSchedules() {
+    loadSpecialties() {
       backend
-        .doctorsSchedule(this.speciality || null, this.doctor || null)
-        .then(doctors => {
-          this.doctorsSchedule = doctors;
+        .specialties()
+        .then(specialties => {
+          this.specialties = specialties;
         })
         .catch(error => {});
     },
 
-    setDone(id, index) {
-      this[id] = true;
+    /**
+     * Carga los horarios de los doctores seleccionados
+     */
+    loadDoctorsHours() {
+      backend
+        .doctorsSchedule(this.speciality, this.doctor)
+        .then(({ data: { results } }) => {
+          const doctor = this.doctors.find(item => item.id === this.doctor);
+          const today = new Date();
 
-      if (index) {
-        this.active = index;
-      }
+          this.doctorsSchedule = results
+            .filter(item => today < new Date(`${item.fecha} ${item.hora}`))
+            .map(item => ({
+              id: item.id,
+              name: `${doctor.nombre} ${doctor.apellido}`,
+              date: item.fecha,
+              time: item.hora
+            }));
+        });
     },
 
-    onSelect(item) {
-      this.selected = item;
+    onChangeSpeciality(event) {
+      this.doctors = this.doctorsOriginal.filter(
+        ({ especialidades }) =>
+          event === false || especialidades === String(event)
+      );
+      this.doctorsSchedule = [];
+      this.doctor = false;
+      this.doctorSelected = null;
     },
 
-    disabledDates(date) {
-      const current = new Date();
-
-      date.setHours(0, 0, 0, 0);
-      current.setHours(0, 0, 0, 0);
-
-      return date < current;
+    onSelectDoctorsSchedule(item = null) {
+      this.doctorSelected = item;
     }
   },
 
@@ -262,26 +198,15 @@ export default {
   },
 
   data: () => ({
-    selected: null,
-    active: "first",
-
-    first: false,
-    second: false,
-    secondStep: true,
-    third: false,
-
     speciality: false,
     specialties: [],
 
     doctor: false,
     doctorSelected: null,
     doctors: [],
+    doctorsOriginal: [],
     doctorsSchedule: []
   })
 };
 </script>
 
-<style lang="scss" scoped>
-.md-steppers {
-}
-</style>

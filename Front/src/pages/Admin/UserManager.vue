@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <!-- :data-background-color="themeColor" -->
+          
           <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Crear Usuarios</h4>
             <p class="category">Ingrese los datos requeridos para crear nuevos usuarios</p>
@@ -13,11 +13,14 @@
               <div class="md-layout-item md-medium-size-100  md-size-50">
                 <md-field :class="vuelidate('occupation')">
                   <label>Usuario</label>
-                  <md-select v-model="occupation">
+                  <md-select
+                    v-model="occupation"
+                    @md-selected="onChangeOccupation($event)"
+                  >
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in activities"
-                      v-bind:key="idx"
+                      :key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
                     >
@@ -25,6 +28,24 @@
                   <span class="md-helper-text"
                     >Seleccione el tipo de usuario del sistema</span
                   >
+                </md-field>
+              </div>
+              <div
+                v-if="specialityDisplay"
+                class="md-layout-item md-medium-size-100  md-size-50"
+              >
+                <md-field :class="vuelidate('speciality')">
+                  <label>Especialidad</label>
+                  <md-select v-model="speciality">
+                    <md-option class="ls--option-span"></md-option>
+                    <md-option
+                      class="ls--option-span"
+                      v-for="(item, idx) in specialties"
+                      :key="idx"
+                      :value="item.code"
+                      >{{ item.name }}</md-option
+                    >
+                  </md-select>
                 </md-field>
               </div>
             </div>
@@ -77,7 +98,7 @@
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in genders"
-                      v-bind:key="idx"
+                      :key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
                     >
@@ -94,7 +115,7 @@
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in regions"
-                      v-bind:key="idx"
+                      :key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
                     >
@@ -112,7 +133,7 @@
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in cities"
-                      v-bind:key="idx"
+                      :key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
                     >
@@ -126,7 +147,7 @@
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in districts"
-                      v-bind:key="idx"
+                      :key="idx"
                       :value="item.code"
                       >{{ item.name }}</md-option
                     >
@@ -172,7 +193,7 @@
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button data-background-color="" class="md-danger md-block">Cancelar</md-button>
+                <md-button data-background-color="" v-on:click="clear" class="md-danger md-block">Limpiar Formulario</md-button>
               </div>
               <div
                 v-if="sending"
@@ -203,6 +224,7 @@ export default {
   validations: () =>
     rules([
       "occupation",
+      "userManagerSpeciality as speciality",
       "name",
       "lastname",
       "run",
@@ -218,6 +240,15 @@ export default {
       "password",
       "confirmPassword"
     ]),
+
+  mounted() {
+    backend
+      .specialties()
+      .then(specialties => {
+        this.specialties = specialties;
+      })
+      .catch(error => {});
+  },
 
   methods: {
     submit() {
@@ -238,6 +269,7 @@ export default {
       backend
         .registerUser(
           {
+            especialidades: this.speciality,
             nombre: this.name,
             apellido: this.lastname,
             rut: this.run,
@@ -258,21 +290,7 @@ export default {
         .then(response => {
           this.sending = false;
 
-          this.occupation = null;
-          this.name = null;
-          this.lastname = null;
-          this.run = null;
-          this.username = null;
-          this.phone = null;
-          this.birthdate = null;
-          this.gender = null;
-          this.region = null;
-          this.city = null;
-          this.district = null;
-          this.address = null;
-          this.house = null;
-          this.password = null;
-          this.confirmPassword = null;
+          this.clear();
 
           this.$v.$reset();
           this.showNotificationMessage("Usuario registrado con exito", {
@@ -285,6 +303,25 @@ export default {
         });
     },
 
+    clear() {
+      this.occupation = null;
+      this.speciality = null;
+      this.name = null;
+      this.lastname = null;
+      this.run = null;
+      this.username = null;
+      this.phone = null;
+      this.birthdate = null;
+      this.gender = null;
+      this.region = null;
+      this.city = null;
+      this.district = null;
+      this.address = null;
+      this.house = null;
+      this.password = null;
+      this.confirmPassword = null;
+    },
+
     onChangeLoadCities(event) {
       this.cities = cut.city(event);
       this.citiesDisabled = event === null;
@@ -295,6 +332,15 @@ export default {
       this.districts = cut.district(event);
       this.districtsDisabled = event === null;
       this.district = null;
+    },
+
+    onChangeOccupation(event) {
+      if (event === config.USER_TYPE_SPECIALIST) {
+        this.specialityDisplay = true;
+      } else {
+        this.speciality = null;
+        this.specialityDisplay = false;
+      }
     }
   },
 
@@ -320,6 +366,10 @@ export default {
     phone: null,
     ocupation: null,
     birthdate: null,
+
+    speciality: null,
+    specialityDisplay: false,
+    specialties: [],
 
     gender: null,
     genders: [

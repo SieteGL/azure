@@ -4,58 +4,6 @@ import storage from "@/services/storage.js";
 import Token from "@/services/Token.js";
 import ValidationException from "@/exceptions/ValidationException.js";
 
-const doctorsContainer = {
-  "1": [
-    {
-      code: 1,
-      name: "Dakota Rice",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "30"
-    },
-    {
-      code: 2,
-      name: "Minerva Hooper",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "45"
-    }
-  ],
-  "2": [],
-  "3": [
-    {
-      code: 3,
-      name: "Sage Rodriguez",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "30"
-    },
-    {
-      code: 4,
-      name: "Philip Chaney",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "60"
-    },
-    {
-      code: 5,
-      name: "Doris Greene",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "30"
-    }
-  ],
-  "4": [
-    {
-      code: 6,
-      name: "Mason Porter",
-      date: "2021-05-10",
-      time: "15:30",
-      duration: "30"
-    }
-  ]
-};
-
 const backend = {
   /**
    * Verifica si el usuario es del tipo administrador
@@ -165,24 +113,47 @@ const backend = {
 
   async specialties() {
     return [
-      { code: 1, name: "Odontologo" },
-      { code: 2, name: "Ortodoncia" },
-      { code: 3, name: "Radiologo" },
-      { code: 4, name: "Prostodoncista" }
+      { code: 0, name: "Odontologo" },
+      { code: 1, name: "Ortodoncista" },
+      { code: 2, name: "Radiologo" },
+      { code: 3, name: "Prostodoncista" }
     ];
   },
 
-  async doctors(speciality) {
-    if (speciality === null) {
-      return [
-        ...doctorsContainer["1"],
-        ...doctorsContainer["2"],
-        ...doctorsContainer["3"],
-        ...doctorsContainer["4"]
-      ];
-    }
+  async doctors() {
+    const token = Token.load();
+    const authorization = await token.authorization();
 
-    return doctorsContainer[`${speciality}`];
+    return axios
+      .get(`${config.API_LOCATION}/listar/especialistas`, {
+        headers: { Authorization: authorization }
+      })
+      .then(({ data: { results: specialists } }) => specialists);
+  },
+
+  /**
+   * Recupera las horas disponibles de un especilista utilizando el email.
+   *
+   * @param {string} speciality
+   * @param {string} doctor
+   *
+   * @returns {Promise}
+   */
+  async doctorsSchedule(speciality, doctor) {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(
+      `${config.API_LOCATION}/listar/agenda/especialista/${doctor}`,
+      {
+        params: {
+          limit: 1000
+        },
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
   },
 
   /**
@@ -218,31 +189,68 @@ const backend = {
     );
   },
 
+  /**
+   * Recupera las horas disponible del mismo especilista
+   *
+   * @returns {Promise}
+   */
   async doctorsScheduleEvents() {
     const token = Token.load();
     const authorization = await token.authorization();
 
     return axios.get(`${config.API_LOCATION}/listar/agenda`, {
+      params: {
+        limit: 1000
+      },
       headers: {
         Authorization: authorization
       }
     });
   },
 
-  async doctorsSchedule(speciality, doctor) {
-    const schedule =
-      speciality !== null
-        ? doctorsContainer[`${speciality}`]
-        : [
-            ...doctorsContainer["1"],
-            ...doctorsContainer["2"],
-            ...doctorsContainer["3"],
-            ...doctorsContainer["4"]
-          ];
+  /**
+   * Recupera las horas disponible del mismo especilista
+   *
+   * @returns {Promise}
+   */
+  async doctorsScheduleClientEvents() {
+    const token = Token.load();
+    const authorization = await token.authorization();
 
-    return doctor === null
-      ? schedule
-      : schedule.filter(item => item.code === doctor);
+    return axios.get(`${config.API_LOCATION}/listar/hora`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  /**
+   * { "agenda": [{ "pk": 1 }] }
+   *
+   * @param {number} specialist
+   * @returns
+   */
+  async doctorsScheduleTake(schedule) {
+    // TODO
+    // Validar posibles valores
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.post(
+      `${config.API_LOCATION}/tomar/hora`,
+      {
+        agenda: [{ pk: schedule }]
+      },
+      {
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
   }
 };
 

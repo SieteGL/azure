@@ -19,7 +19,7 @@
         <md-icon>event</md-icon>
         <p>Agenda</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'availability' }">
+      <sidebar-link v-if="!showSpecialistButton" :to="{ name: 'availability' }">
         <md-icon>event</md-icon>
         <p>Reserva de Hora</p>
       </sidebar-link>
@@ -66,14 +66,16 @@ export default {
 
   beforeMount() {
     this.showAdminButton = this.$settings.get("isAdmin", false);
+    this.showSpecialistButton = this.$settings.get("isSpecialist", false);
     this.themeColor = this.$settings.get("themeColor", "green");
   },
 
   data() {
     return {
       showAdminButton: false,
+      showSpecialistButton: false,
       themeColor: "green",
-      themeBackgroundImage: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
+      themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
     };
   }
 };

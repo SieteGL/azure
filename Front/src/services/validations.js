@@ -1,5 +1,6 @@
 import {
   required,
+  requiredIf,
   email,
   sameAs,
   minLength,
@@ -13,6 +14,11 @@ import {
 
 const validations = {
   required: { required },
+  userManagerSpeciality: {
+    required: requiredIf(function(nestedModel) {
+      return this.occupation === "specialist";
+    })
+  },
   occupation: { required },
   name: {
     required,

@@ -16,6 +16,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from "vue";
+import VueSimpleAlert from "vue-simple-alert";
 import Vuelidate from "vuelidate";
 import VueRouter from "vue-router";
 import App from "./App";
@@ -57,6 +58,10 @@ Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(GlobalHelpers);
 Vue.use(Notifications);
+Vue.use(VueSimpleAlert, {
+  confirmButtonText: "Aceptar",
+  cancelButtonText: "Cancelar"
+});
 
 // Datepicker locale
 const { material: datepicker } = Vue;

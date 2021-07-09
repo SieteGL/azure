@@ -51,7 +51,10 @@
           </md-card-content>
         </md-card>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33">
+      <div
+        v-if="isSpecialist"
+        class="md-layout-item md-medium-size-100 md-size-33"
+      >
         <md-card>
           <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Fecha y Horario disponible para el Especialista</h4>
@@ -110,8 +113,13 @@ export default {
     CalendarViewHeader
   },
 
+  beforeMount() {
+    this.isSpecialist = this.$settings.get("isSpecialist", false);
+  },
+
   mounted() {
-    this.loadEvents();
+    if (this.isSpecialist) this.loadEvents();
+    else this.loadClientEvents();
   },
 
   methods: {
@@ -147,7 +155,29 @@ export default {
         });
     },
 
+    loadClientEvents() {
+      backend
+        .doctorsScheduleClientEvents()
+        .then(({ data: { results } }) => {
+          this.events = results.map(item => ({
+            id: item.id,
+            response: {
+              ...item
+            },
+            startDate: `${item.fecha} ${item.hora}`,
+            title: "Ocupado"
+          }));
+        })
+        .catch(() => {
+          console.log("Error el recuperar el horario");
+        });
+    },
+
     setEventDate(event, items) {
+      if (!this.isSpecialist) {
+        return;
+      }
+
       const date = event.toISOString().substr(0, 10);
       const hours = items.map(
         ({ originalItem: { response } }) => response.hora
@@ -161,7 +191,6 @@ export default {
 
     setShowDate(date) {
       this.showDate = date;
-      console.log("set show date");
     }
   },
 
@@ -172,6 +201,8 @@ export default {
   },
 
   data: () => ({
+    isSpecialist: false,
+
     showDate: new Date(),
     showTimes: true,
 
