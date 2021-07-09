@@ -169,6 +169,8 @@ class EspecialistaSignUpSerializer(serializers.Serializer):
 
     direccion = serializers.CharField(max_length=50, required=True)
 
+    especialidades = serializers.CharField(max_length=50, required=True)
+
     numero = serializers.IntegerField(min_value=1, max_value=10000)
 
     
