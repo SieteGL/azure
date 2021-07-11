@@ -3,15 +3,15 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header data-background-color="pruebacolor">
-            <h4 class="title">Agendar Horario Especialista</h4>
-            <p class="category">Ingrese los horarios disponibles del Especialista</p>
+          <md-card-header :data-background-color="themeColor">
+            <h4 class="title">Employees Stats</h4>
+            <p class="category">New employees on 15th September, 2016</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-100  md-size-50">
                 <md-field>
-                  <label>Calendario</label>
+                  <label>Mostrar el calendario en</label>
                   <md-select v-model="displayPeriodUom">
                     <md-option class="ls--option-span" value="month"
                       >Mes</md-option
@@ -28,12 +28,13 @@
                 class="md-layout-item md-medium-size-100 md-size-100 ls--calendar-view"
               >
                 <calendar-view
-                  :items="events"
-                  :display-period-uom="displayPeriodUom"
-                  :show-date="showDate"
-                  :show-times="showTimes"
-                  :starting-day-of-week="startingDayOfWeek"
-                  @click-date="setEventDate"
+                  v-bind:items="events"
+                  v-bind:display-period-uom="displayPeriodUom"
+                  v-bind:show-date="showDate"
+                  v-bind:show-times="showTimes"
+                  v-bind:starting-day-of-week="startingDayOfWeek"
+                  v-on:click-date="setEventDate"
+                  v-on:click-item="dropEvent"
                   class="theme-default ls--calendar"
                   itemContentHeight="1.5em"
                   locale="es"
@@ -42,8 +43,8 @@
                   <calendar-view-header
                     slot="header"
                     slot-scope="t"
-                    :header-props="t.headerProps"
-                    @input="setShowDate"
+                    v-bind:header-props="t.headerProps"
+                    v-on:input="setShowDate"
                   />
                 </calendar-view>
               </div>
@@ -56,9 +57,9 @@
         class="md-layout-item md-medium-size-100 md-size-33"
       >
         <md-card>
-          <md-card-header data-background-color="pruebacolor">
-            <h4 class="title">Fecha y Horario disponible para el Especialista</h4>
-            <p class="category">Seleccione fecha y horarios disponibles</p>
+          <md-card-header v-bind:data-background-color="themeColor">
+            <h4 class="title">Employees Stats</h4>
+            <p class="category">New employees on 15th September, 2016</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
@@ -76,16 +77,16 @@
                     <md-option
                       class="ls--option-span"
                       v-for="(item, idx) in eventHours"
-                      :key="idx"
-                      :value="item.value"
-                      :disabled="item.disabled"
+                      v-bind:key="idx"
+                      v-bind:value="item.value"
+                      v-bind:disabled="item.disabled"
                       >{{ item.value }}</md-option
                     >
                   </md-select>
                 </md-field>
               </div>
               <div class="md-layout-item md-medium-size-100">
-                <md-button data-background-color="colorboton" class="md-primary md-block" @click="submit"
+                <md-button class="md-primary md-block" v-on:click="submit"
                   >Crear evento</md-button
                 >
               </div>
@@ -170,6 +171,25 @@ export default {
         })
         .catch(() => {
           console.log("Error el recuperar el horario");
+        });
+    },
+
+    dropEvent(event) {
+      if (!this.isSpecialist) {
+        return;
+      }
+
+      this.$confirm("Desea eliminar la hora seleccionada?")
+        .then(async () => {
+          const response = await backend.doctorsScheduleEventDrop(event);
+          this.loadEvents();
+        })
+        .catch(error => {
+          if (typeof error === "undefined") {
+            return;
+          }
+
+          this.showNotificationMessage(this.chooseNotificationMessage(error));
         });
     },
 

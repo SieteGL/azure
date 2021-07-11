@@ -8,10 +8,10 @@
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link :to="{ name: 'dashboard' }">
         <md-icon>dashboard</md-icon>
-        <p>hay que borrarlo</p>
+        <p>HAY QUE BORRARLO</p>
       </sidebar-link>
       <sidebar-link v-if="showAdminButton" :to="{ name: 'user-manager' }">
-        <md-tooltip md-direction="right">Crear usuarios</md-tooltip>
+        <md-tooltip md-direction="right">Administrador de usuarios</md-tooltip>
         <md-icon>person</md-icon>
         <p>Usuarios</p>
       </sidebar-link>
@@ -21,20 +21,23 @@
       </sidebar-link>
       <sidebar-link v-if="!showSpecialistButton" :to="{ name: 'availability' }">
         <md-icon>event</md-icon>
-        <p>Reserva de Hora</p>
+        <p>Reserva De Hora</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'fichatecnica' }">
+      <sidebar-link :to="{ name: 'client-data-sheet' }">
         <md-icon>article</md-icon>
         <p>Ficha Técnica</p>
       </sidebar-link>
+
       <sidebar-link :to="{ name: 'documentobeneficio' }">
         <md-icon>upload</md-icon>
         <p>Adjuntar Documentos</p>
       </sidebar-link>
+
       <sidebar-link :to="{ name: 'listaProcedimiento' }">
         <md-icon>article</md-icon>
         <p>Procedimientos</p>
       </sidebar-link>
+      
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
         <p>Cerrar sessión</p>

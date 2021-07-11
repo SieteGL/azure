@@ -21,7 +21,7 @@
                       class="ls--option-span"
                       v-for="(item, idx) in specialties"
                       v-bind:key="idx"
-                      :value="item.code"
+                      v-bind:value="item.code"
                       >{{ item.name }}</md-option
                     >
                   </md-select>
@@ -36,7 +36,7 @@
                       class="ls--option-span"
                       v-for="(item, idx) in doctors"
                       v-bind:key="idx"
-                      :value="item.id"
+                      v-bind:value="item.id"
                       >{{ item.nombre }} {{ item.apellido }}
                     </md-option>
                   </md-select>
@@ -45,7 +45,9 @@
               <div
                 class="md-layout-item md-medium-size-100 md-large-size-30 md-size-20"
               >
-                <md-button class="md-info md-block" @click="loadDoctorsHours"
+                <md-button
+                  class="md-info md-block"
+                  v-on:click="loadDoctorsHours"
                   ><md-icon>search</md-icon> Buscar hora</md-button
                 >
               </div>
@@ -56,8 +58,8 @@
                   <md-table
                     class="ls--mtop-15px"
                     v-model="doctorsSchedule"
-                    :table-header-color="themeColor"
-                    @md-selected="onSelectDoctorsSchedule"
+                    v-bind:table-header-color="themeColor"
+                    v-on:md-selected="onSelectDoctorsSchedule"
                   >
                     <md-table-row
                       md-selectable="single"
@@ -87,8 +89,8 @@
               >
                 <md-button
                   class="md-primary md-block"
-                  @click="submit"
-                  :disabled="doctorSelected === null"
+                  v-on:click="submit"
+                  v-bind:disabled="doctorSelected === null"
                   >Tomar hora</md-button
                 >
               </div>
@@ -131,6 +133,10 @@ export default {
           }
         })
         .catch(error => {
+          if (typeof error === "undefined") {
+            return;
+          }
+
           this.showNotificationMessage(this.chooseNotificationMessage(error));
         });
     },

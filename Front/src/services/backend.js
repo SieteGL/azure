@@ -209,6 +209,21 @@ const backend = {
   },
 
   /**
+   * Elimina una hora de la agenda
+   */
+  async doctorsScheduleEventDrop(event) {
+    if (event === null)
+      throw new ValidationException("Debe seleccionar el evento a eliminar");
+
+    // const token = Token.load();
+    // const authorization = await token.authorization();
+
+    return axios.delete(
+      `${config.API_LOCATION}/eliminar/agenda/hora/${event.id}`
+    );
+  },
+
+  /**
    * Recupera las horas disponible del mismo especilista
    *
    * @returns {Promise}
@@ -244,6 +259,29 @@ const backend = {
       `${config.API_LOCATION}/tomar/hora`,
       {
         agenda: [{ pk: schedule }]
+      },
+      {
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
+  },
+
+  async clientDataSheet(data) {
+    // TODO
+    // Validar posibles valores
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.post(
+      `${config.API_LOCATION}/agregar/ficha`,
+      {
+        alergia: data.alergia ? "S" : "N",
+        alergias: data.alergias || "NO",
+        enfermedad: data.enfermedad ? "S" : "N",
+        enfermedades: data.enfermedades || "NO"
       },
       {
         headers: {

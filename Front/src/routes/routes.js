@@ -3,6 +3,7 @@ import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
 import Dashboard from "@/pages/Dashboard.vue";
 import Availability from "@/pages/Availability.vue";
 import Schedule from "@/pages/Schedule.vue";
+import ClientDataSheet from "@/pages/ClientDataSheet.vue";
 import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
@@ -82,28 +83,15 @@ const routes = [
         },
         component: Availability
       },
-
       {
-        path: "fichatecnica",
-        name: "fichatecnica",
-        meta:{
-          title: "Ficha Técnica Paciente",
-          hideFooter: true,
-          requiresAuth: true
-        },
-        component: FichaTecnica
-
-      },
-      
-      {
-        path: "documentobeneficio",
-        name: "documentobeneficio",
+        path: "client-data-sheet",
+        name: "client-data-sheet",
         meta: {
-          title: "Documentos Para Beneficios",
+          title: "Ficha Tecnica",
           hideFooter: true,
           requiresAuth: true
         },
-        component: AgregarDocumentoBeneficio
+        component: ClientDataSheet
       },
 
       {
@@ -115,7 +103,18 @@ const routes = [
           requiresAuth: true
         },
         component: ListaProcedimientos
-      }
+      },
+
+      {
+        path: "documentobeneficio",
+        name: "documentobeneficio",
+        meta: {
+          title: "Documento Beneficio",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: AgregarDocumentoBeneficio
+      },
       
     ]
   }

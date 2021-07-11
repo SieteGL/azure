@@ -50,21 +50,7 @@
                   <label>Multiple</label>
                     <md-file v-model="multiple" multiple />
                 </md-field>
-                <!--Se agregara campo cliente para ingresar el usuario-->
-                <div class="md-layout-item md-medium-size-100 md-size-50">
-                    <md-field :class="vuelidate('gender')"> <!--Preguntar como modificar el nombre "gender" para habilitarlo al documento-->
-                      <label>Paciente/Usuario</label> 
-                      <md-select v-model="usuario">
-                        <md-option
-                          class="ls--option-span"
-                          v-for="(item, idx) in usuario"
-                          v-bind:key="idx"
-                          :value="item.code" 
-                          >{{ item.name }}</md-option
-                        >
-                      </md-select>
-                    </md-field>
-                  </div>
+               
                <div class="md-layout">
                  <div class="md-layout-item md-medium-size-50">
                    <md-button data-background-color="colorboton"

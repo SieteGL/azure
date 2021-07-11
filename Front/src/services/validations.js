@@ -14,11 +14,6 @@ import {
 
 const validations = {
   required: { required },
-  userManagerSpeciality: {
-    required: requiredIf(function(nestedModel) {
-      return this.occupation === "specialist";
-    })
-  },
   occupation: { required },
   name: {
     required,
@@ -62,6 +57,25 @@ const validations = {
   confirmPassword: {
     required,
     sameAsPassword: sameAs("password")
+  },
+
+  /*
+   * Validaciones especiales por página
+   */
+  userManagerSpeciality: {
+    required: requiredIf(function() {
+      return this.occupation === "specialist";
+    })
+  },
+  clientDataSheetAllergyType: {
+    required: requiredIf(function() {
+      return this.allergy;
+    })
+  },
+  clientDataSheetDiseaseType: {
+    required: requiredIf(function() {
+      return this.disease;
+    })
   }
 };
 
