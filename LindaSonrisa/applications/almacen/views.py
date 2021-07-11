@@ -66,9 +66,9 @@ class CargarAlmacenRecepcion(CreateAPIView):
                     precio_unitario = almacenaje.precio_unitario,
                     total = almacenaje.total,
                     empleado = self.request.user
-                )                
-                lista_recepcion.append(alm)     
-                return Response({'RES' : 'No valido'})       
-        Almacen.objects.bulk_create(lista_recepcion)                
+                )
+                lista_recepcion.append(alm)
+                return Response({'RES' : 'No valido'})
+        Almacen.objects.bulk_create(lista_recepcion)              
         return Response({'res': 'ok'})
 

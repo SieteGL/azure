@@ -53,6 +53,7 @@ class Detalles(models.Model):
     )
 
     familia = models.CharField(
+        #fk a futuro
         'tipo producto',
         max_length=50,
         blank=True
@@ -97,6 +98,7 @@ class Detalles(models.Model):
     #     verbose_name='ALMACEN ACTUALIZAR PRODUCTOS',
     #     null=True
     # )
+    #filtro para el sistema
     valid = models.BooleanField(default=False,null=True)
 
     recepcionado = models.BooleanField()

@@ -150,6 +150,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         upload_to='User',
     )
 
+    """Codigo_proveedor = models.CharField(
+        max_length=10,
+        blank=True
+    )"""
+
     USERNAME_FIELD = 'email'
 
     REQUIRED_FIELDS = ['rut','nombre','apellido']

@@ -55,6 +55,7 @@ class FichaTecnica(models.Model):
         return str(self.id)
             
 
+#generar quien genera los procedimientos 
 class Procedimientos(models.Model):
     """relacion con ficha tecnica"""
 
@@ -88,7 +89,7 @@ class Procedimientos(models.Model):
     cliente = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        verbose_name='cliente y especialista'
+        verbose_name='Cliente'
     )
 
     #agregar especialista a cargo ver como poner 2 valores de tipo User.models

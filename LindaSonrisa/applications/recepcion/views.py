@@ -88,6 +88,7 @@ class CrearPedido(CreateAPIView):
             tot = details['cantidad']*details['precio_unitario']
 
             # PRIMEROS 3 DIGITOS
+            print(id_proveedor)
             r = id_proveedor.rut[0:1]
             c = id_proveedor.email[0:1]
             n = id_proveedor.nombre[0:1]
@@ -128,7 +129,7 @@ class CrearPedido(CreateAPIView):
             )
             list_detalles.append(detalles)
             Detalles.objects.bulk_create(list_detalles)                
-        return Response({'SUCCESS': 'OBJECTO CREADO CON EXITO   '})
+        return Response({'SUCCESS': 'OBJECTO CREADO CON EXITO'})
             # else:
             #     det = Detalles.objects.all()
             #     for d in det:
@@ -160,11 +161,13 @@ class CrearRecepcion(CreateAPIView):
         details = serializer.validated_data['detalles']
 
         for detalles in details:
+            #Orden no detalles
             id_detalles = Detalles.objects.get(id=detalles['pk'])
 
             recepcion = Recepcion(
                 receptor = self.request.user,
-                detalles_recepcion = id_detalles,                
+                #cambiar a Orden
+                detalles_recepcion = id_detalles,
                 valido = serializer.validated_data['valido'],
                 agregado = serializer.validated_data['agregado']
             )
@@ -210,16 +213,11 @@ class ActualizarEstado(CreateAPIView):
         return Response({'SUCCES': 'ACTUALIZACION COMPLETA'})
 
 
-
-
-
-
-
 #Devuelve los detalles por proveedor, para resivir pk 
 class ListOrdenesProveedores(ListAPIView):
     serializer_class = DetallesProveedor
     def get_queryset(self):    
-        user = self.request.user        
+        user = self.request.user   
         return Detalles.objects.ordenes_por_proveedor(user)
 
 
