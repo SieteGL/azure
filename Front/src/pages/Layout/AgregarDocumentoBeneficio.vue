@@ -37,7 +37,7 @@
                   <p class="category">Ingrese valor de su documento (AFP, Liquidación o Finiquito)</p>
                 </div>
                   <div class="md-layout-item md-medium-size-100  md-size-50">
-                    <md-field :class="vuelidate('lastname')">
+                    <md-field>
                       <label>Ingrese monto</label>
                       <md-input v-model="lastname" type="text"></md-input>
                     </md-field>

@@ -44,6 +44,23 @@
                     <md-textarea v-model="textarea"></md-textarea>
                       </md-field>
                 </div>
+
+                <div class="md-layout-item md-medium-size-100 md-size-50">
+                <md-field :class="vuelidate('gender')">
+                  <label>Paciente</label>
+                  <md-select v-model="paciente">
+                    <md-option
+                      class="ls--option-span"
+                      v-for="(item, idx) in pacientes"
+                      :key="idx"
+                      :value="item.code"
+                      >{{ item.name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </div>
+
+
                 
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
@@ -242,6 +259,12 @@ export default {
       { code: "C", name: "CORONA" },
       { code: "T", name: "TRATAMIENTO CONDUCTO" }
 
+    ],
+
+    paciente: null,
+    pacientes: [
+      { code: "J", name: "Javier Carrasco" }
+      
     ],
 
     region: null,
