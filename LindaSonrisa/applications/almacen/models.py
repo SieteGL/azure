@@ -8,7 +8,7 @@ from .managers import AlmacenManager
 class Familia(models.Model):
         
 
-    categoria = models.CharField(        
+    categoria = models.CharField(
         'sub-tipo',
         max_length=20,
         blank=True
@@ -35,6 +35,7 @@ class Almacen(models.Model):
         blank=True
     )
 
+    #cambiar a FK 
     familia = models.CharField(
         'tipo producto',
         max_length=50,
@@ -85,5 +86,6 @@ class Almacen(models.Model):
     def __str__(self):
         return str(self.nombre_producto)+' - '+str(self.codigo)
         
-            
-    
+    #precio venta 
+    #stock critico
+    #

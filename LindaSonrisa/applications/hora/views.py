@@ -100,7 +100,7 @@ class TomarHora(CreateAPIView):
         #despues de agregar realizo la eliminacion de la hora del especialista.
         #recuperamos hora!
         agendita = Agenda.objects.recuperar_hora(hora.id)
-        agendita.delete()  
+        agendita.delete()
         return Response({'SUCCESS','HORA TOMADA CON EXITO'})
 
 class ListHora(ListAPIView):
