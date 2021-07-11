@@ -39,13 +39,12 @@
             <br>
             <div class="md-layout-item md-medium-size-100  md-size-50">
                   <p class="category">Descripción del o los Procedimientos</p>
+                  <md-field>
+                  <label>Describa su procediimiento</label>
+                    <md-textarea v-model="textarea"></md-textarea>
+                      </md-field>
                 </div>
-                  <div class="md-layout-item md-medium-size-100  md-size-50">
-                    <md-field :class="vuelidate('name')">
-                      <label>Ingrese Descripción</label>
-                      <md-input v-model="name" type="text"></md-input>
-                    </md-field>
-                  </div>
+                
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
                 <md-button data-background-color="colorboton"
