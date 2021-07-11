@@ -13,6 +13,11 @@ urlpatterns = [
         name='crear-ficha-cliente',
     ),
     path(
+        'api/listar/ficha/<pk>',
+        views.CrearFichaTecnica.as_view(),
+        name='listar-ficha-cliente',
+    ),
+    path(
         'api/listar/procedimiento',
         views.ListarProcedimientos.as_view(),
         name='listar-procedimiento-cliente',

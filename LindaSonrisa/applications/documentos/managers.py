@@ -13,3 +13,7 @@ class ConsultasManager(models.Manager):
             cliente=cliente
         )
         return consulta
+    def ficha_usuario(self, valor):
+        return self.filter(
+            cliente_id=valor
+        )        

@@ -31,3 +31,12 @@ class RecepcionManager(models.Manager):
             proveedor__tipo_usuario=4,                                    
         )
         return consulta
+
+    def traer_proveedores(self):
+        return self.filter(
+            proveedor__=4
+        )        
+    def ordenes_por_proveedor(self, user):
+        return self.filter(
+            proveedor_id=user
+        )

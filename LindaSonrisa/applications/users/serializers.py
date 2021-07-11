@@ -15,6 +15,12 @@ from .models import User
 #
 from applications.servicios.models import Servicios
 
+
+class ListProveedores(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('rut','email','id')
+
 class PaginationSerializer(pagination.PageNumberPagination):
     page_size = 5
     max_page_size = 50
@@ -173,6 +179,8 @@ class EspecialistaSignUpSerializer(serializers.Serializer):
 
     numero = serializers.IntegerField(min_value=1, max_value=10000)
 
+    contacto = serializers.IntegerField()
+
     
 
     def validate(self, data):
@@ -216,6 +224,8 @@ class RecepSignUpSerializer(serializers.Serializer):
 
     numero = serializers.IntegerField(min_value=1, max_value=10000)
 
+    contacto = serializers.IntegerField()
+
     def validate(self, data):
         passwd = data['password']
         passwd_conf = data['password_confirmation']
@@ -258,6 +268,8 @@ class ClienteSignUpSerializer(serializers.Serializer):
 
     numero = serializers.IntegerField(min_value=1, max_value=10000)
 
+    contacto = serializers.IntegerField()
+
     def validate(self, data):
         passwd = data['password']
         passwd_conf = data['password_confirmation']
@@ -298,6 +310,8 @@ class ProveedorSignUpSerializer(serializers.Serializer):
     direccion = serializers.CharField(max_length=50, required=True)
 
     numero = serializers.IntegerField(min_value=1, max_value=10000)
+
+    contacto = serializers.IntegerField()
 
     def validate(self, data):
         passwd = data['password']

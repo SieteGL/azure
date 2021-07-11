@@ -56,6 +56,11 @@ class UserManager(BaseUserManager, models.Manager):
         return self.filter(
             especialidades__icontains=val
         )
+
+    def traer_proveedores(self):
+        return self.filter(
+            tipo_usuario=4,                      
+        )            
       
          
         

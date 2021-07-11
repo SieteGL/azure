@@ -10,5 +10,10 @@ urlpatterns = [
         'api/usuarios/<valor>',
         views.ListarTipoUsuarios.as_view(),
         name='usuarios-lista'
-    ),           
+    ),
+    path(
+        'api/proveedores/sistema',
+        views.ListarProveedores.as_view(),
+        name='usuarios-lista'
+    ),                
 ]

@@ -14,7 +14,8 @@ from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 
 # Serializers
 from .serializers import (        
-    ListarEspecialistas
+    ListarEspecialistas,
+    ListProveedores
 )
 
 # Models
@@ -42,3 +43,8 @@ class ListarTipoUsuarios(ListAPIView):
 
 #listar Servicios por especialistas
 
+class ListarProveedores(ListAPIView):
+    serializer_class = ListProveedores
+
+    def get_queryset(self):        
+        return User.objects.traer_proveedores()

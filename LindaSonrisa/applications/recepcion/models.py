@@ -66,9 +66,10 @@ class Detalles(models.Model):
 
     fecha_vencimiento = models.DateField(
         'Fecha vencimiento',
+        max_length=10,
         blank=True,
         null=True,
-    )   
+    )
 
     cantidad = models.PositiveIntegerField(
         'Cantidad por producto',
@@ -85,18 +86,20 @@ class Detalles(models.Model):
         default=True,
         blank=True,        
     )
-    proveedor = models.EmailField(
-        'Email proveedor',
-        blank=True,
-        null=True
-    )
-    almacen = models.ForeignKey(
-        Almacen,
+    proveedor = models.ForeignKey(
+        User,
         on_delete=models.CASCADE,
-        verbose_name='ALMACEN ACTUALIZAR PRODUCTOS',
-        null=True
+        verbose_name='Proveedor'
     )
+    # almacen = models.ForeignKey(
+    #     Almacen,
+    #     on_delete=models.CASCADE,
+    #     verbose_name='ALMACEN ACTUALIZAR PRODUCTOS',
+    #     null=True
+    # )
     valid = models.BooleanField(default=False,null=True)
+
+    recepcionado = models.BooleanField()
 
     objects = RecepcionManager()
 
@@ -158,7 +161,7 @@ class Estado(models.Model):
         verbose_name_plural = '4- Estados de los productos'
  
     def __str__(self):
-        return str(self.id)+str(self.orden)
+        return str(self.id)+' -- '+str(self.orden)
 
 
 class Recepcion(models.Model):
@@ -176,13 +179,15 @@ class Recepcion(models.Model):
         verbose_name='Detalles del pedido recepcionado'
     )
 
-    almacen = models.ForeignKey(
-        Almacen,
-        on_delete=models.CASCADE,
-        verbose_name='ALMACEN ACTUALIZAR PRODUCTOS'
-    )
+    # almacen = models.ForeignKey(
+    #     Almacen,
+    #     on_delete=models.CASCADE,
+    #     verbose_name='ALMACEN ACTUALIZAR PRODUCTOS'
+    # )
     #lo recibido concuerda con lo pedido
     valido = models.BooleanField()
+
+    agregado = models.BooleanField()
 
     class Meta:
         verbose_name='3- Recepcion de productos'

@@ -143,6 +143,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     servicios = models.ManyToManyField(Servicios,blank=True)
 
+    imagen = models.ImageField(
+        'Avatar Especialista',
+        blank=True, 
+        null=True,
+        upload_to='User',
+    )
+
     USERNAME_FIELD = 'email'
 
     REQUIRED_FIELDS = ['rut','nombre','apellido']
@@ -162,9 +169,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     display_tipo_usuario.short_description = 'tipo usuario'
 
-   
-
-    
+       
     class Meta:
         verbose_name = "Usuarios registrado"    
 

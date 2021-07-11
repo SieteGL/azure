@@ -1,4 +1,5 @@
 from rest_framework import serializers, pagination
+from rest_framework.fields import BooleanField
 #
 from .models import Orden, Detalles, Estado, Recepcion
 #
@@ -6,21 +7,22 @@ from .models import Orden, Detalles, Estado, Recepcion
 from rest_framework.validators import UniqueValidator
 
 
-class DetallesSerializers(serializers.Serializer):
-    #pk = serializers.IntegerField() 
+class DetallesSerializers(serializers.Serializer):    
     cantidad = serializers.IntegerField() 
     precio_unitario = serializers.IntegerField()
     nombre_producto = serializers.CharField()
     familia = serializers.CharField()
     descripcion = serializers.CharField()
-    fecha_vencimiento=serializers.CharField()
-    proveedor = serializers.EmailField()
+    fecha_vencimiento=serializers.CharField(required=False, allow_null=True)        
+    pk = serializers.IntegerField()
+    recepcionado = BooleanField()
+
 
 #validando que el nombre de la orden sea unico.
 class OrdenesSerializer(serializers.Serializer):
     name = serializers.CharField(validators=[UniqueValidator(queryset=Orden.objects.all())])
     #proveedor = serializers.EmailField()
-    #model Detalle
+    #model Detalle    
     detalle = DetallesSerializers(many=True)
 
 class ActualizarAlmacen(serializers.Serializer):
@@ -48,10 +50,20 @@ class DetallesSerializer(serializers.ModelSerializer):
             'descripcion',
             'cantidad',
             'precio_unitario',
-            'total'
+            'total',
+            'valid'
         )
         
-
+class RecepcionSerializer(serializers.ModelSerializer):
+    detalles_recepcion = DetallesSerializer()
+    class Meta:
+        model = Recepcion
+        fields = (
+            'id',
+            'receptor',
+            'detalles_recepcion',
+            'valido'
+        )
 
 #Serializar estados 
 class EstadosSerializer(serializers.ModelSerializer):    
@@ -66,3 +78,27 @@ class EstadoSerializer(serializers.Serializer):
     Observaciones = serializers.CharField()
 
 
+
+class ReceptorSerializer(serializers.Serializer):
+    valido = serializers.BooleanField()
+    agregado = serializers.BooleanField()
+    detalles = ActualizarAlmacen(many=True)
+
+
+class OrdenPKSerializers(serializers.Serializer):
+    pk = serializers.IntegerField()
+
+class ActualizarSerializer(serializers.Serializer):
+    ordenes = OrdenPKSerializers(many=True)
+    estados = serializers.CharField()
+    observacion = serializers.CharField()
+
+
+class DetallesProveedor(serializers.ModelSerializer):
+    #ordenes = OrdenSerializer()
+    class Meta:
+        model = Detalles
+        fields = ( 
+            'codigo',
+            'proveedor',
+        )    

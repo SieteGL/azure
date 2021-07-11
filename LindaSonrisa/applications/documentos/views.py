@@ -57,6 +57,11 @@ class CrearFichaTecnica(CreateAPIView):
 
         return Response({'res':'Ficha tecnica del paciente creada'})
 
+class ListFichaTecnica(ListAPIView):
+    serializer_class = FichaTecnicaSerializer
+    def get_queryset(self):
+        valor = self.kwargs['id']
+        return FichaTecnica.objects.ficha_usuario(valor)
 
 #############################################################
 
