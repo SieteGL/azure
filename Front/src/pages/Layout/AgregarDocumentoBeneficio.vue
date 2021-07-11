@@ -32,6 +32,17 @@
                       </md-select>
                     </md-field>
                   </div>
+                  <br>
+                  <div class="md-layout-item md-medium-size-100  md-size-50">
+                  <p class="category">Ingrese valor de su documento (AFP, Liquidación o Finiquito)</p>
+                </div>
+                  <div class="md-layout-item md-medium-size-100  md-size-50">
+                    <md-field :class="vuelidate('lastname')">
+                      <label>Ingrese monto</label>
+                      <md-input v-model="lastname" type="text"></md-input>
+                    </md-field>
+                  </div>
+                  <br>
                   <div class="md-layout-item md-medium-size-100  md-size-50">
                   <p class="category">Cargar Documento</p>
                 </div>
@@ -39,10 +50,33 @@
                   <label>Multiple</label>
                     <md-file v-model="multiple" multiple />
                 </md-field>
-                
+                <!--Se agregara campo cliente para ingresar el usuario-->
+                <div class="md-layout-item md-medium-size-100 md-size-50">
+                    <md-field :class="vuelidate('gender')"> <!--Preguntar como modificar el nombre "gender" para habilitarlo al documento-->
+                      <label>Paciente/Usuario</label> 
+                      <md-select v-model="usuario">
+                        <md-option
+                          class="ls--option-span"
+                          v-for="(item, idx) in usuario"
+                          v-bind:key="idx"
+                          :value="item.code" 
+                          >{{ item.name }}</md-option
+                        >
+                      </md-select>
+                    </md-field>
+                  </div>
                <div class="md-layout">
-                 <div class="md-layout-item md-medium-size-100  md-size-50">
+                 <div class="md-layout-item md-medium-size-50">
+                   <md-button data-background-color="colorboton"
+                  class="md-primary md-block"
+                  v-on:click="submit"
+                  :disabled="sending"
+                  >Guardar</md-button>
                  </div>
+               </div>
+               <div class="md-layout">
+                  <div class="md-layout-item md-medium-size-100 ls--create-account">
+                  </div>
                </div>
                <div class="md-layout">
                  <div class="md-layout-item md-medium-size-50">
@@ -50,7 +84,21 @@
                   class="md-primary md-block"
                   v-on:click="submit"
                   :disabled="sending"
-                  >Agregar</md-button>
+                  >Editar</md-button>
+                 </div>
+               </div>
+               <div class="md-layout">
+                  <div class="md-layout-item md-medium-size-100 ls--create-account">
+                  </div>
+               </div>
+
+               <div class="md-layout">
+                 <div class="md-layout-item md-medium-size-50">
+                   <md-button data-background-color="colorboton"
+                  class="md-primary md-block"
+                  v-on:click="submit"
+                  :disabled="sending"
+                  >Limpiar</md-button>
                  </div>
                </div>
                <div class="md-layout">
@@ -207,6 +255,11 @@ export default {
       { code: "A", name: "AFP" },
       { code: "F", name: "Finiquito" },
       { code: "L", name: "Liquidación" }
+    ],
+
+    usuario: [
+      { code: "A", name: "username" }
+      
     ],
 
     region: null,
