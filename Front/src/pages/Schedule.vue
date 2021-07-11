@@ -3,9 +3,9 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header :data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+          <md-card-header data-background-color="pruebacolor">
+            <h4 class="title">Agenda Tu Horario</h4>
+            <p class="category">Seleccione el horario que más le acomode</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
@@ -57,9 +57,9 @@
         class="md-layout-item md-medium-size-100 md-size-33"
       >
         <md-card>
-          <md-card-header v-bind:data-background-color="themeColor">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
+          <md-card-header data-background-color="pruebacolor">
+            <h4 class="title">Tomar Hora</h4>
+            <p class="category">Seleccione horario</p>
           </md-card-header>
           <md-card-content>
             <div class="md-layout">
@@ -86,7 +86,7 @@
                 </md-field>
               </div>
               <div class="md-layout-item md-medium-size-100">
-                <md-button class="md-primary md-block" v-on:click="submit"
+                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
                   >Crear evento</md-button
                 >
               </div>

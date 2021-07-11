@@ -68,7 +68,7 @@
                   class="md-primary md-block"
                   v-on:click="submit"
                   :disabled="sending"
-                  >Crea cliente</md-button
+                  >Agregar</md-button
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
