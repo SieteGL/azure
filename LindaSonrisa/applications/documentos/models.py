@@ -55,28 +55,41 @@ class FichaTecnica(models.Model):
         return str(self.id)
             
 
+class EspecialistaProcedimiento(models.Model):
+
+    fecha = models.DateField(
+
+    )
+    especialista = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        verbose_name='Especialista'
+    )
+
+
 #generar quien genera los procedimientos 
 class Procedimientos(models.Model):
     """relacion con ficha tecnica"""
 
-    PROCEDIMIENTO = (
-        ('0','FRENILLOS'),
-        ('1','REVISON'),
-        ('2','TAPADURA'),
-        ('3','EXTRACCION'),
-        ('4','CORONA'),
-        ('5','TRATAMIENTO CONDUCTO'),
-    )
-    
-    fecha_procedimientos = models.DateField(
-        'Fecha del procedimiento',
-        blank=True,
-        null=True
-    )
+    #ODONTOLOGO GENERAL
+    ODONTOLOGO = '0'
+    #FRENILLOS | ORTODONCIA
+    ORTODONCISTA = '1'
+    #RADIOGRAFIAS | BITE WING 
+    RADIOLOGO = '2'
+    #PROTESIS
+    PROSTODONCISTA = '3'
+
+    PROCEDERES = [
+        (ODONTOLOGO,'Odontologo General'),
+        (ORTODONCISTA,'Ortodoncista'),
+        (RADIOLOGO,'Radiologo'),
+        (PROSTODONCISTA,'Prostodoncista'),
+    ]      
 
     tipo_procedimiento = models.CharField(
         max_length=1,
-        choices=PROCEDIMIENTO,
+        choices=PROCEDERES,
         blank=True
     )
 
@@ -91,6 +104,11 @@ class Procedimientos(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Cliente'
     )
+    Especialista_Procedimiento = models.ForeignKey(
+        EspecialistaProcedimiento,
+        on_delete=models.CASCADE,
+        verbose_name='Procedimientos'
+    )
 
     #agregar especialista a cargo ver como poner 2 valores de tipo User.models
 
@@ -100,7 +118,7 @@ class Procedimientos(models.Model):
         verbose_name_plural = 'Procedimientos'
 
     def __str__(self):
-        return str(self.id)+' - '+str(self.fecha_procedimientos)
+        return str(self.id)+' - '+str(self.cliente)
         
 
 #view economico

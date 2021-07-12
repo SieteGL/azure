@@ -21,16 +21,19 @@ from .serializers import (
     ProcesarDocumentos,
     ProcesarProcedimientos,
     ProcesarFichaTecnica,
-    PaginationSerializer
+    PaginationSerializer,
+    
     
 )
 from applications.users.permissions import IsEmployeeUser, IsClienteUser
+from applications.users.models import User
 from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 #models
 from .models import (
     Documento,
     Procedimientos,
-    FichaTecnica
+    FichaTecnica,
+    EspecialistaProcedimiento
 )
 #managers
 from .managers import ConsultasManager
@@ -76,7 +79,7 @@ class ListarProcedimientos(ListAPIView):
         return Procedimientos.objects.procedimientos_por_cliente(cliente)
 
 #Agregar procedimiento a cliente
-class CrearProcedimientos(CreateAPIView):
+"""class CrearProcedimientos(CreateAPIView):
 
     serializer_class = ProcesarProcedimientos
     pagination_class = PaginationSerializer
@@ -93,7 +96,7 @@ class CrearProcedimientos(CreateAPIView):
         )
         procedimientos.save()
 
-        return Response({'res' : 'Procedimiento del cliente agregado'})
+        return Response({'res' : 'Procedimiento del cliente agregado'})"""
 
 #actualizar procedimiento del paciente
 class EditarProcedimientos(UpdateAPIView):
@@ -156,3 +159,31 @@ class DeleteDocumentos(DestroyAPIView):
     queryset = Documento.objects.all()
         
     
+class ProcedimientoCrear(CreateAPIView):
+    serializer_class = ProcesarProcedimientos
+
+    def create(self, request, *args, **kwargs):
+        serializer = ProcesarProcedimientos(data=request.data)
+        serializer.is_valid(raise_exception=True)        
+
+        procederes = EspecialistaProcedimiento.objects.create(
+            fecha = timezone.now(),
+            especialista = self.request.user
+        )
+        procedimientos_list = []
+
+        procedimientos = serializer.validated_data['proceder']
+
+        for proce in procedimientos:
+            cliente = User.objects.get(id=proce['pk'])
+
+            procedimniento = Procedimientos(
+                tipo_procedimiento=serializer.validated_data['tipo_procedimiento'],
+                descripcion_procedimiento=serializer.validated_data['descripcion_procedimiento'],
+                cliente = cliente,
+                Especialista_Procedimiento=procederes           
+            )
+            procedimientos_list.append(procedimniento)
+        Procedimientos.objects.bulk_create(procedimientos_list)
+        return Response({'SUCCESS':'PROCEDIMIENTO AGREGADO CON EXITO'})
+

@@ -27,7 +27,8 @@ from .serializers import (
     RecepcionSerializer,    
     ReceptorSerializer,
     ActualizarSerializer,
-    DetallesProveedor
+    DetallesProveedor,
+    DetalleSerializer
 )
 
 
@@ -97,9 +98,17 @@ class CrearPedido(CreateAPIView):
             familia = familia[0:3]
             #
             vencimiento = details['fecha_vencimiento']
-            vencimiento = vencimiento
-
-            if len(vencimiento) == 10:
+            #vence = datetime.strptime(vencimiento, '%Y/%m/%d')
+            # ahora = datetime.now()
+            # ahora = ahora.date()
+            # ahora = ahora.strftime('%Y-%m-%d')
+            # print(vencimiento)
+            # print('espacio')
+            # print(ahora)
+            ahora = '2099-12-31'
+            #si fecha de vencimiento es igual a hoy quiere decir que no vence.
+            #y quiere decir que no vence
+            if vencimiento != ahora:
                 año = vencimiento[0:4]
                 mes = vencimiento[5:7]
                 dia = vencimiento[8:10]
@@ -128,7 +137,7 @@ class CrearPedido(CreateAPIView):
                 recepcionado=details['recepcionado']
             )
             list_detalles.append(detalles)
-            Detalles.objects.bulk_create(list_detalles)                
+        Detalles.objects.bulk_create(list_detalles)                
         return Response({'SUCCESS': 'OBJECTO CREADO CON EXITO'})
             # else:
             #     det = Detalles.objects.all()
@@ -162,6 +171,8 @@ class CrearRecepcion(CreateAPIView):
 
         for detalles in details:
             #Orden no detalles
+            #revisar si esta bien porque quiero revisar por cada uno si los productos son correctos
+            #no la orden en si; Si no ver si lo que estoy recibiendo a detalle (mninucioso) es correcto
             id_detalles = Detalles.objects.get(id=detalles['pk'])
 
             recepcion = Recepcion(
@@ -184,10 +195,13 @@ class CrearRecepcion(CreateAPIView):
                 #y luego realizar el cambio de estado y no poder listarlo mas y no sea 
                 #agregado al almacen de nuevo
 
+                #Pensar que si necesito con urgencia 1 producto lo puedo aceptar, sin aceptar los demas 
+                # y poder atender un paciente si es nececsario
+
         Recepcion.objects.bulk_create(list_recepcion)
         
         
-        return Response({'SUCCESS': 'PRODUCTOS RECEPCIONADOS CON EXITO'})    
+        return Response({'SUCCESS':'PRODUCTOS RECEPCIONADOS CON EXITO'})    
 
 
 class ActualizarEstado(CreateAPIView):
@@ -219,6 +233,12 @@ class ListOrdenesProveedores(ListAPIView):
     def get_queryset(self):    
         user = self.request.user   
         return Detalles.objects.ordenes_por_proveedor(user)
+
+
+class ListDetalles(ListAPIView):
+    serializer_class = DetalleSerializer
+    def get_queryset(self):
+        return Detalles.objects.all()
 
 
 
