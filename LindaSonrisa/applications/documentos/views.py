@@ -69,7 +69,7 @@ class ListFichaTecnica(ListAPIView):
 #############################################################
 
 #Listar procedimientos por clientes
-class ListarProcedimientos(ListAPIView):
+class ListarProcedimientosCliente(ListAPIView):
     
     serializer_class = ProcedimientoSerializer
     pagination_class = PaginationSerializer
@@ -77,6 +77,14 @@ class ListarProcedimientos(ListAPIView):
     def get_queryset(self):
         cliente = self.request.user
         return Procedimientos.objects.procedimientos_por_cliente(cliente)
+
+
+class ListarProcedimientos(ListAPIView):
+    serializer_class = ProcedimientoSerializer
+    def get_queryset(self):        
+        
+        return Procedimientos.objects.all()
+
 
 #Agregar procedimiento a cliente
 """class CrearProcedimientos(CreateAPIView):
@@ -186,4 +194,5 @@ class ProcedimientoCrear(CreateAPIView):
             procedimientos_list.append(procedimniento)
         Procedimientos.objects.bulk_create(procedimientos_list)
         return Response({'SUCCESS':'PROCEDIMIENTO AGREGADO CON EXITO'})
+        
 

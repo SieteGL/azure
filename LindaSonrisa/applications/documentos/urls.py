@@ -18,9 +18,14 @@ urlpatterns = [
         name='listar-ficha-cliente',
     ),
     path(
+        'api/listar/procedimiento/cliente',
+        views.ListarProcedimientosCliente.as_view(),
+        name='listar-procedimiento-por-cliente',
+    ),
+    path(
         'api/listar/procedimiento',
         views.ListarProcedimientos.as_view(),
-        name='listar-procedimiento-cliente',
+        name='listar-procedimientos-clientes',
     ),
     path(
         'api/agregar/procedimiento',
