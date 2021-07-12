@@ -60,11 +60,17 @@ class CrearFichaTecnica(CreateAPIView):
 
         return Response({'res':'Ficha tecnica del paciente creada'})
 
-class ListFichaTecnica(ListAPIView):
+
+#consumir el endpoint donde vienen todos los usuarios
+class ListFichaTecnicaUsuario(ListAPIView):
     serializer_class = FichaTecnicaSerializer
     def get_queryset(self):
-        valor = self.kwargs['id']
+        valor = self.request.user
         return FichaTecnica.objects.ficha_usuario(valor)
+
+class ListFichaTecnica(ListAPIView):
+    def get_queryset(self):        
+        return FichaTecnica.objects.all()
 
 #############################################################
 
@@ -127,15 +133,12 @@ class EliminarProcedimientos(DestroyAPIView):
 #ver si es necesario realizar alguna revision extra de documentos.
 
 #Listar Documentos x usuario
-class ListDocumentsUser(ListAPIView):
-    #queryset = User.objects.filter(is_active=True)
+class ListDocumentsUser(ListAPIView):    
     serializer_class = DocumentosSerializer
-    pagination_class = PaginationSerializer
+    #pagination_class = PaginationSerializer
 
-    def get_queryset(self):               
-        cliente = self.request.user
-        #mostrando todos los datos ingresados por el usuario 
-        return Documento.objects.documentos_por_user()
+    def get_queryset(self):        
+        return Documento.objects.all()
 
 #Crear Documentos funcion usuarios
 class CrearDocumentos(CreateAPIView):

@@ -27,6 +27,7 @@ class DocumentosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Documento
         fields = (
+            'id',
             'documento',
             'valor',
             'imagen',
