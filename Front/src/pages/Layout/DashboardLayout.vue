@@ -37,6 +37,11 @@
         <md-icon>article</md-icon>
         <p>Procedimientos</p>
       </sidebar-link>
+
+      <sidebar-link :to="{ name: 'almacen' }">
+        <md-icon>store_mall_directory</md-icon>
+        <p>Almacen</p>
+      </sidebar-link>
       
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
@@ -82,7 +87,7 @@ export default {
       showAdminButton: false,
       showSpecialistButton: false,
       themeColor: "green",
-      themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
+      themeBackgroundImage: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
     };
   }
 };

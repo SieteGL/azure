@@ -8,9 +8,9 @@ import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
-import FichaTecnica from "@/pages/Layout/FichaTecnica.vue";
 import AgregarDocumentoBeneficio from "@/pages/Layout/AgregarDocumentoBeneficio.vue";
 import ListaProcedimientos from "@/pages/Layout/ListaProcedimientos.vue";
+import Almacen from "@/pages/Almacen.vue";
 
 
 const routes = [
@@ -115,6 +115,19 @@ const routes = [
         },
         component: AgregarDocumentoBeneficio
       },
+
+      {
+        path: "almacen",
+        name: "almacen",
+        meta: {
+          title: "Almacen",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Almacen
+      },
+
+      
       
     ]
   }
