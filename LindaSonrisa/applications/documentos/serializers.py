@@ -43,7 +43,12 @@ class ProcesarDocumentos(serializers.Serializer):
     valor = serializers.CharField()
     imagen = serializers.ImageField()
 
+
+class pkSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+
 class ProcesarProcedimientos(serializers.Serializer):
+    proceder = pkSerializer(many=True)
     tipo_procedimiento = serializers.CharField()
     descripcion_procedimiento = serializers.CharField()
 

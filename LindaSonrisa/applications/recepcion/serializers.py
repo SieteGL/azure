@@ -102,3 +102,29 @@ class DetallesProveedor(serializers.ModelSerializer):
             'codigo',
             'proveedor',
         )    
+
+
+class OrdenesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden
+        fields = ('__all__')  
+
+class DetalleSerializer(serializers.ModelSerializer):
+    ordenes = OrdenesSerializer()
+    class Meta:
+        model = Detalles
+        fields = ( 
+            'ordenes',
+            'id',
+            'codigo',                     
+            'nombre_producto',
+            'familia',            
+            'descripcion',
+            'fecha_vencimiento',
+            'cantidad',
+            'precio_unitario',
+            'total',
+            'proveedor',
+            'valid',
+            'recepcionado'
+        )        

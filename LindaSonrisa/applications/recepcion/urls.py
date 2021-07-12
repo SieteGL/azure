@@ -36,7 +36,7 @@ urlpatterns = [
         name='crear',
     ),
     path(
-        'api/listar/ordenes',
+        'api/listar/recepcion',
         views.ListRecepcion.as_view(),
         name='listar'
     ),
@@ -53,6 +53,11 @@ urlpatterns = [
     path(
         'api/crear/actualizacion/estados',
         views.ActualizarEstado.as_view(),
+        name='Actualizar-estado'
+    ),
+    path(
+        'api/listar/ordenes/',
+        views.ListDetalles.as_view(),
         name='Actualizar-estado'
     ),
     

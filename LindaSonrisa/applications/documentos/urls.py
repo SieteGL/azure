@@ -24,7 +24,7 @@ urlpatterns = [
     ),
     path(
         'api/agregar/procedimiento',
-        views.CrearProcedimientos.as_view(),
+        views.ProcedimientoCrear.as_view(),
         name='crear-procedimiento-cliente',
     ),
     path(
@@ -56,5 +56,10 @@ urlpatterns = [
         'api/eliminar/documento/<pk>',
         views.DeleteDocumentos.as_view(),
         name='delete -documento-cliente',
-    ),        
+    ),
+    # path(
+    #     'api/eliminar/documento/<pk>',
+    #     views.ProcedimientoCrear.as_view(),
+    #     name='delete -documento-cliente',
+    # ),       
 ]
