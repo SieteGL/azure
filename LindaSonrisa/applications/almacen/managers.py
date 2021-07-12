@@ -38,4 +38,9 @@ class AlmacenManager(models.Manager):
             stock__icontains=filtros['stock']            
         )
 
+    # def almacen_por_codigo(self):
+    #     return self.filter(
+    #         codigo=
+    #     )
+
     

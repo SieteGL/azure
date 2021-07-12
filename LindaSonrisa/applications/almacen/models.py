@@ -37,7 +37,7 @@ class Almacen(models.Model):
 
     #cambiar a FK 
     familia = models.CharField(
-        'tipo producto',
+        'Familia',
         max_length=50,
         blank=True
     )
@@ -52,7 +52,6 @@ class Almacen(models.Model):
         'Fecha vencimiento',
         blank=True,
         null=True,
-
     )   
 
     cantidad = models.PositiveIntegerField(
@@ -71,11 +70,11 @@ class Almacen(models.Model):
         blank=True,        
     )
     #
-    
-    empleado = models.ForeignKey(
+    proveedor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+    
 
     objects = AlmacenManager()
     
@@ -89,3 +88,39 @@ class Almacen(models.Model):
     #precio venta 
     #stock critico
     #
+
+class Disponible(models.Model):
+
+    codigo = models.CharField(
+        'codigo del producto',
+        max_length=17,
+        blank=True
+    )
+
+    nombre_producto = models.CharField(
+        'Nombre del producto',
+        max_length=25,
+        blank=True
+    )   
+
+    familia = models.CharField(
+        'Familia',
+        max_length=50,
+        blank=True
+    )
+
+    fecha_vencimiento = models.DateField(
+        'Fecha vencimiento',
+        blank=True,
+        null=True,
+    )  
+
+    stock = models.PositiveIntegerField(
+        'Cantidad por producto',
+        blank=True
+    )
+
+    stock_critico = models.PositiveIntegerField(
+        'Stock critico',
+        blank=True
+    ) 

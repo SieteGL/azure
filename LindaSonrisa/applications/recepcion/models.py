@@ -189,7 +189,7 @@ class Recepcion(models.Model):
     #lo recibido concuerda con lo pedido
     valido = models.BooleanField()
 
-    agregado = models.BooleanField()
+    agregado = models.BooleanField(default=False)
 
     class Meta:
         verbose_name='3- Recepcion de productos'

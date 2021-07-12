@@ -10,7 +10,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 # response
 from rest_framework.response import Response
-# Vistas
+# Vistasf
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -28,7 +28,8 @@ from .serializers import (
     ReceptorSerializer,
     ActualizarSerializer,
     DetallesProveedor,
-    DetalleSerializer
+    DetalleSerializer,
+    OrdenessSerializer
 )
 
 
@@ -53,10 +54,10 @@ from applications.users.permissions import IsClienteUser, IsSupplierUser
 
 #Crear orden y detalles del pedido
 class CrearPedido(CreateAPIView):
-    serializer_class = OrdenesSerializer
+    serializer_class = OrdenessSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = OrdenesSerializer(data=request.data)
+        serializer = OrdenessSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         tot = 0

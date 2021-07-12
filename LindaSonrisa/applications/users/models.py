@@ -141,9 +141,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_cli = models.BooleanField(default=False)
     is_pro = models.BooleanField(default=False)
 
-    servicios = models.ManyToManyField(Servicios,blank=True)
+    #servicios = models.ManyToManyField(Servicios,blank=True)
 
-    imagen = models.ImageField(
+    avatar = models.ImageField(
         'Avatar Especialista',
         blank=True, 
         null=True,

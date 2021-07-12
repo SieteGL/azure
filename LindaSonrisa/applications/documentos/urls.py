@@ -14,7 +14,7 @@ urlpatterns = [
     ),
     path(
         'api/listar/ficha/<pk>',
-        views.CrearFichaTecnica.as_view(),
+        views.ListFichaTecnica.as_view(),
         name='listar-ficha-cliente',
     ),
     path(

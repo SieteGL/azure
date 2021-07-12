@@ -7,6 +7,7 @@ from applications.almacen.models import Almacen
 from .managers import ServiciosManager
 
 class ServiciosList(models.Model):
+    
     servicio = models.CharField(
         'servicio prestado',
         max_length=120,
@@ -23,12 +24,10 @@ class ServiciosList(models.Model):
 
 
 class Servicios(models.Model):
+    
 
-    #PAQUETES DE SERVICIOS PARA REALIZAR 
-
-    servicios_lista = models.ManyToManyField(ServiciosList)
-
-    #servicios por especialidad osea la especialidad tiene muchos servicios y el especialista tiene especialiadad "servicios por especialidad"    
+    servicios_lista = models.ManyToManyField(ServiciosList)             
+            
     name = models.CharField(
         'paquete de servicio',
         max_length=25,
@@ -43,6 +42,4 @@ class Servicios(models.Model):
     objects = ServiciosManager()   
 
     def __str__(self):
-        return str(self.name)+' - '+str(self.valor_paquete)
-
-    
+        return str(self.id)+' - '+str(self.name)+' - '+str(self.valor_paquete)

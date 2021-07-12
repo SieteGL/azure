@@ -19,7 +19,7 @@ class DetallesSerializers(serializers.Serializer):
 
 
 #validando que el nombre de la orden sea unico.
-class OrdenesSerializer(serializers.Serializer):
+class OrdenessSerializer(serializers.Serializer):
     name = serializers.CharField(validators=[UniqueValidator(queryset=Orden.objects.all())])
     #proveedor = serializers.EmailField()
     #model Detalle    

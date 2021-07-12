@@ -9,12 +9,12 @@ app_name = "almacen_app"
 urlpatterns = [
     path(
         'api/almacen/list',
-        views.ListarAlmacen.as_view(),
+        views.ListAlmacen.as_view(),
         name='almacen-lista',
     ),
     path(
         'api/cargar/almacen',
-        views.CargarAlmacenRecepcion.as_view(),
+        views.CargarAlmacen.as_view(),
         name='almacen-crear',
     ),
 ]    

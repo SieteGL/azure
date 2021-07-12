@@ -17,8 +17,10 @@ from rest_framework.generics import (
 )
 # serializadores
 from .serializers import (
+    ServicesSerializers,
+    ListSerializers,
     ServiciosSerializer,
-    ServiciosValidator,
+    # ServiciosValidator,
     ListServiciosSerializer
 
 )
@@ -29,33 +31,48 @@ from .models import (
 )
 from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 
-class CrearListServicios(CreateAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser, ]   
-    serializer_class = ListServiciosSerializer
+class CrearListaServicios(CreateAPIView):
+    serializer_class = ListSerializers
 
+    def create(self, request, *args, **kwargs):
+        serializer = ListSerializers(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-# list de servicios disponibles con sus valores respectivos
+        ServiciosList.objects.create(
+            servicio = serializer.validated_data['servicio_nombre']
+        )        
+        return Response({'SUCCESS':'AGREGADO CON EXITO'})               
+                     
+class CrearServicios(CreateAPIView):
+    serializer_class = ServiciosSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = ServiciosSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        servicios_obj = Servicios.objects.create(
+            name=serializer.validated_data['name'],
+            valor_paquete=serializer.validated_data['valor_paquete']
+        )
+        servicios_obj.save()
+
+        for list in serializer.validated_data['servicios_lista']:
+            list_obj = ServiciosList.objects.get(id=list['servicio'])
+            servicios_obj.servicios_lista.add(list_obj)
+        serializer = ServiciosSerializer(servicios_obj)    
+
+        return Response(serializer.data)            
+
+        
 class ListServicios(ListAPIView):
     serializer_class = ServiciosSerializer
-    permission_classes = [IsAuthenticated, IsEmployeeUser, ]   
+    permission_classes = [IsAuthenticated, IsEmployeeUser|IsAdminUser ]   
 
     def get_queryset(self):
         user = self.request.user
         return Servicios.objects.all()
 
-
-class CreateServicioView(CreateAPIView):
-    #este muestra la informacion a pantalla 
-    serializer_class = ServiciosSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser, ]   
-     
-
-
-#class DescontarAlmacen(CreateAPIView):
-
-
-
-
-#delete servicio y realizar liberacion de existencia en el almacen
-
-##iterar servicios no listaservicios y cambiar orden de guardado revisar si surgen efectos
+class ListServiciosList(ListAPIView):
+    serializer_class =ListServiciosSerializer
+    def get_queryset(self):
+        return ServiciosList.objects.all()
