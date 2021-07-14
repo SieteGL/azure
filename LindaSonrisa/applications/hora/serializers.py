@@ -16,7 +16,8 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'id',
             'nombre',
             'apellido',
-            'especialidades'
+            'especialidades',
+            'email'
             )
 
 #crearagenda create api view revisar

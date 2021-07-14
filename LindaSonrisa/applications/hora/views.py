@@ -118,6 +118,19 @@ class ListarEspecialistas(ListAPIView):
     def get_queryset(self):
         return User.objects.listar_especialistas()
 
+class ListarClientes(ListAPIView):
+    serializer_class = UsuarioSerializer
+
+    def get_queryset(self):
+        return User.objects.listar_clientes()
+
+class ListarProveedores(ListAPIView):
+    serializer_class = UsuarioSerializer
+
+    def get_queryset(self):
+        return User.objects.listar_proveedores()
+
+
 #lista las especialidades y dependiendo del pk (id) muestra los doctores disponibles
 class ListEspecialidades(ListAPIView):
     serializer_class = UsuarioSerializer

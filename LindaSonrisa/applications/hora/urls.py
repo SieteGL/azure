@@ -40,6 +40,16 @@ urlpatterns = [
         name='listar-especialistas',
     ),
     path(
+        'api/listar/clientes',
+        views.ListarClientes.as_view(),
+        name='listar-especialistas',
+    ),
+    path(
+        'api/listar/proveedores',
+        views.ListarProveedores.as_view(),
+        name='listar-especialistas',
+    ),
+    path(
         'api/listar/agenda/especialista/<pk>',
         views.ListHorasEsp.as_view(),
         name='listar-horas-disponibles',
