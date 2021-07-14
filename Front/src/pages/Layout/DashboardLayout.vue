@@ -8,7 +8,7 @@
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link :to="{ name: 'dashboard' }">
         <md-icon>dashboard</md-icon>
-        <p>HAY QUE BORRARLO</p>
+        <p>HOME</p>
       </sidebar-link>
       <sidebar-link v-if="showAdminButton" :to="{ name: 'user-manager' }">
         <md-tooltip md-direction="right">Administrador de usuarios</md-tooltip>

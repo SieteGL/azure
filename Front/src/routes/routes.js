@@ -45,7 +45,7 @@ const routes = [
         path: "dashboard",
         name: "dashboard",
         meta: {
-          title: "Dashboard",
+          title: "Bienvenido a Linda Sonrisa",
           hideFooter: true,
           requiresAuth: true
         },
