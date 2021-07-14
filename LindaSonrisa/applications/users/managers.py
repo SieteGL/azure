@@ -73,5 +73,3 @@ class UserManager(BaseUserManager, models.Manager):
             tipo_usuario=4,                      
         )            
       
-         
-        

@@ -52,6 +52,8 @@ class PkSerializer(serializers.Serializer):
 class TomarHoraSerializer(serializers.Serializer):
     agenda = PkSerializer(many=True)
 
+
+
 class HoraSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reserva

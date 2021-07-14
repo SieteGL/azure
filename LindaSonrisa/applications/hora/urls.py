@@ -59,6 +59,4 @@ urlpatterns = [
         views.ListEspecialidades.as_view(),
         name='listar-especialistas-especialidades',
     ),
-
-
 ]    

@@ -150,4 +150,4 @@ class ListHorasEsp(ListAPIView):
         return Agenda.objects.listar_agenda_especialista(val)
 
 #listar usuarios donde su tipo de usuario sea tipo_usuario=1 y mostrar la lista 
- #de especialidades.
+ #de especialidades
