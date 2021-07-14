@@ -27,22 +27,14 @@
         <md-icon>article</md-icon>
         <p>Ficha Técnica</p>
       </sidebar-link>
-
-      <sidebar-link :to="{ name: 'documentobeneficio' }">
+      <sidebar-link :to="{ name: 'upload-document' }">
         <md-icon>upload</md-icon>
         <p>Adjuntar Documentos</p>
       </sidebar-link>
-
-      <sidebar-link :to="{ name: 'listaProcedimiento' }">
+      <sidebar-link :to="{ name: 'procedures' }">
         <md-icon>article</md-icon>
         <p>Procedimientos</p>
       </sidebar-link>
-
-      <sidebar-link :to="{ name: 'almacen' }">
-        <md-icon>store_mall_directory</md-icon>
-        <p>Almacen</p>
-      </sidebar-link>
-      
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
         <p>Cerrar sessión</p>

@@ -4,15 +4,13 @@ import Dashboard from "@/pages/Dashboard.vue";
 import Availability from "@/pages/Availability.vue";
 import Schedule from "@/pages/Schedule.vue";
 import ClientDataSheet from "@/pages/ClientDataSheet.vue";
+import UploadDocument from "@/pages/UploadDocument.vue";
+import Procedures from "@/pages/Procedures.vue";
 import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
-import AgregarDocumentoBeneficio from "@/pages/Layout/AgregarDocumentoBeneficio.vue";
-import ListaProcedimientos from "@/pages/Layout/ListaProcedimientos.vue";
 import Almacen from "@/pages/Almacen.vue";
-
-
 const routes = [
   {
     path: "/auth",
@@ -93,29 +91,26 @@ const routes = [
         },
         component: ClientDataSheet
       },
-
       {
-        path: "listaProcedimiento",
-        name: "listaProcedimiento",
-        meta: {
-          title: "Lista De Procedimientos",
-          hideFooter: true,
-          requiresAuth: true
-        },
-        component: ListaProcedimientos
-      },
-
-      {
-        path: "documentobeneficio",
-        name: "documentobeneficio",
+        path: "upload-document",
+        name: "upload-document",
         meta: {
           title: "Documento Beneficio",
           hideFooter: true,
           requiresAuth: true
         },
-        component: AgregarDocumentoBeneficio
+        component: UploadDocument
       },
-
+      {
+        path: "procedures",
+        name: "procedures",
+        meta: {
+          title: "Procedimientos",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Procedures
+      },
       {
         path: "almacen",
         name: "almacen",
@@ -125,10 +120,7 @@ const routes = [
           requiresAuth: true
         },
         component: Almacen
-      },
-
-      
-      
+      }
     ]
   }
 ];

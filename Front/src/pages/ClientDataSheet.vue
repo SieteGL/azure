@@ -37,7 +37,9 @@
                 <div class="md-layout md-gutter">
                   <div class="md-layout-item md-medium-size-100 md-size-100">
                     <p class="category">¿Usted Presenta Alguna Alergia?</p>
-                    <md-radio v-model="allergy" v-bind:value="true">Si</md-radio>
+                    <md-radio v-model="allergy" v-bind:value="true"
+                      >Si</md-radio
+                    >
                     <md-radio v-model="allergy" v-bind:value="false"
                       >No</md-radio
                     >
@@ -64,9 +66,36 @@
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-100 md-size-50">
-                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
+                <md-button class="md-primary md-block" v-on:click="submit"
                   >Enviar</md-button
                 >
+              </div>
+            </div>
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-100 md-size-100">
+                <div v-if="dataSheetUploaded.length">
+                  <md-table class="ls--mtop-15px" v-model="dataSheetUploaded">
+                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                      <md-table-cell md-label="Enfermedad">{{
+                        item.disease
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Descripción de la enfermedad">{{
+                        item.diseaseType
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Alergia">{{
+                        item.allergy
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Descripción de la alergia">{{
+                        item.allergyType
+                      }}</md-table-cell>
+                    </md-table-row>
+                  </md-table>
+                </div>
+                <div v-else>
+                  <h4 class="text-center">
+                    No hay documentos disponibles para visualizar
+                  </h4>
+                </div>
               </div>
             </div>
           </md-card-content>
@@ -87,6 +116,10 @@ export default {
       "clientDataSheetAllergyType as allergyType",
       "clientDataSheetDiseaseType as diseaseType"
     ]),
+
+  mounted() {
+    this.loadAllDataSheet();
+  },
 
   methods: {
     submit() {
@@ -113,6 +146,7 @@ export default {
           this.allergy = false;
           this.allergyType = null;
 
+          this.loadAllDataSheet();
           this.showNotificationMessage("Ficha tecnica actualizada", {
             type: "success"
           });
@@ -121,6 +155,18 @@ export default {
           this.sending = false;
           this.showNotificationMessage(this.chooseNotificationMessage(error));
         });
+    },
+
+    loadAllDataSheet() {
+      backend.clientDataSheetLoadAll().then(({ data: { results } }) => {
+        this.dataSheetUploaded = results.map(item => ({
+          original: item,
+          disease: item.enfermedad,
+          diseaseType: item.enfermedades,
+          allergy: item.alergia,
+          allergyType: item.alergias
+        }));
+      });
     }
   },
 
@@ -142,7 +188,9 @@ export default {
     diseaseType: null,
 
     allergy: false,
-    allergyType: null
+    allergyType: null,
+
+    dataSheetUploaded: []
   })
 };
 </script>

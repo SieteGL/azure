@@ -111,6 +111,72 @@ const backend = {
     );
   },
 
+  async uploadDocument() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/documentos/usuario`, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async uploadDocumentRemove(document) {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.delete(
+      `${config.API_LOCATION}/eliminar/documento/${document.id}`,
+      {
+        headers: { Authorization: authorization }
+      }
+    );
+  },
+
+  async uploadDocumentSave(document) {
+    console.log(document);
+
+    if (document.documento === null)
+      throw new ValidationException("Debe seleccionar el tipo de documento");
+    if (document.valor === null || !document.valor.length)
+      throw new ValidationException("Debe seleccionar el valor de documento");
+    if (document.imagen === null || typeof document.imagen === "undefined")
+      throw new ValidationException("Debe subir una imagen");
+
+    console.log(document);
+
+    const formData = new FormData();
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    for (const key in document) {
+      if (Object.hasOwnProperty.call(document, key)) {
+        formData.append(key, document[key]);
+      }
+    }
+
+    // formData.append('file', this.file);
+
+    return axios.post(`${config.API_LOCATION}/agregar/documento`, formData, {
+      headers: {
+        Authorization: authorization,
+        "Content-Type": "multipart/form-data"
+      }
+    });
+  },
+
+  async clients() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios
+      .get(`${config.API_LOCATION}/usuarios/3`, {
+        headers: { Authorization: authorization }
+      })
+      .then(({ data: { results: clients } }) => clients);
+  },
+
   async specialties() {
     return [
       { code: 0, name: "Odontologo" },
@@ -289,6 +355,41 @@ const backend = {
         }
       }
     );
+  },
+
+  async clientDataSheetLoadAll() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/ficha`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  /**
+   * { "proceder": [{"pk": 2}], "tipo_procedimiento": 2, "descripcion_procedimiento": "esto es un ejemplo de procedimiento 2" }
+   *
+   * @param {Objeect} procedure
+   */
+
+  async procedureSave(procedure) {
+    if (procedure.client === null)
+      throw new ValidationException("Debe seleccionar un cliente");
+    if (procedure.procedure === null)
+      throw new ValidationException("Debe seleccionar el procedimiento");
+    if (procedure.description === null || !procedure.description.length)
+      throw new ValidationException("Debe ingresar la descripción del procedimiento");
+    
+    console.log({
+      proceder: [{ pk: procedure.client }],
+      tipo_procedimiento: procedure.procedure,
+      descripcion_procedimiento: procedure.description
+    });
   }
 };
 

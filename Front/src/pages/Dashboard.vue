@@ -1,15 +1,27 @@
+
 <template>
+
+
+  <v-container fluid>
+      <img src="@/assets/img/mujer-perfecta.jpg" alt="">
+    </v-container>
+ </template>
+
+
+<!--<template>
   <div class="content">
     <div class="md-layout">
       <div
         class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
       >
+      
         <chart-card
           :chart-data="dailySalesChart.data"
           :chart-options="dailySalesChart.options"
           :chart-type="'Line'"
           data-background-color="blue"
         >
+        
           <template slot="content">
             <h4 class="title">Daily Sales</h4>
             <p class="category">
@@ -25,7 +37,7 @@
               <md-icon>access_time</md-icon>
               updated 4 minutes ago
             </div>
-          </template>
+          </template>  
         </chart-card>
       </div>
       <div
@@ -309,4 +321,4 @@ export default {
     };
   }
 };
-</script>
+</script> -->
