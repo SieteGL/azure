@@ -46,17 +46,6 @@ class UserManager(BaseUserManager, models.Manager):
         return self.filter(
            tipo_usuario=1 
         )
-
-    def listar_clientes(self):
-        return self.filter(
-           tipo_usuario=3 
-        )
-
-    def listar_proveedores(self):
-        return self.filter(
-           tipo_usuario=4 
-        )
-
     #listando usuarios mediante un identificador que es el tipo de usuario
     def listar_usuarios(self, valor):
         return self.filter(
@@ -73,3 +62,5 @@ class UserManager(BaseUserManager, models.Manager):
             tipo_usuario=4,                      
         )            
       
+         
+        

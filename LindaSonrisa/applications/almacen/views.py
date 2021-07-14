@@ -12,30 +12,29 @@ from rest_framework.response import Response
 #
 from .serializers import (
     AlmacenSerializers,
-    AlmaceSerializers    
-    #AlmacenSerializers
-    )
+    AlmaceSerializers
+    # AlmacenSerializers
+)
 
-from .models import Almacen
-from applications.recepcion.models import Detalles,Recepcion
+from .models import Almacen, Disponible
+from applications.recepcion.models import Detalles, Recepcion
+
 
 class CargarAlmacen(CreateAPIView):
-    serializer_class=AlmaceSerializers
+    serializer_class = AlmaceSerializers
 
-    def create(self,request,*args,**kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = AlmaceSerializers(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         almacen = serializer.validated_data['almacen']
-        list_almacen=[]
+        list_almacen = []    
 
-        for alcen in almacen:  
-              
-            obj_almacen=Recepcion.objects.get(id=alcen['pk'])
-            agregado =obj_almacen.agregado
+        for alcen in almacen:
+            obj_almacen = Recepcion.objects.get(id=alcen['pk'])
+            agregado = obj_almacen.agregado
             valido = obj_almacen.valido
 
-            if agregado == False and valido == True :
+            if agregado == False and valido == True:
                 almacen_obj = Almacen(
                     codigo=obj_almacen.detalles_recepcion.codigo,
                     nombre_producto=obj_almacen.detalles_recepcion.nombre_producto,
@@ -44,29 +43,24 @@ class CargarAlmacen(CreateAPIView):
                     fecha_vencimiento=obj_almacen.detalles_recepcion.fecha_vencimiento,
                     cantidad=obj_almacen.detalles_recepcion.cantidad,
                     precio_unitario=obj_almacen.detalles_recepcion.precio_unitario,
-                    total=obj_almacen.detalles_recepcion.total,            
-                    proveedor=obj_almacen.detalles_recepcion.proveedor                               
+                    total=obj_almacen.detalles_recepcion.total,
+                    proveedor=obj_almacen.detalles_recepcion.proveedor
                 )
                 list_almacen.append(almacen_obj)
                 Almacen.objects.bulk_create(list_almacen)
                 obj_almacen.agregado = True
                 print(obj_almacen.agregado)
                 obj_almacen.save()
-                #nombre = 
-                return Response ({'SUCCESS':'AGREGADO'})
-                    
+                return Response({'SUCCESS': 'AGREGADO AL ALMACEN'})
             elif agregado == True:
-                return Response({'ERROR':'PRODUCTO YA AGREGADO AL ALMACEN'})   
-
+                return Response({'ERROR': 'PRODUCTO YA AGREGADO AL ALMACEN'})
 
 
 class ListAlmacen(ListAPIView):
     serializer_class = AlmacenSerializers
 
-    def get_queryset(self):                
+    def get_queryset(self):
         return Almacen.objects.all()
-
-
 
 
 """
@@ -77,17 +71,12 @@ se dejara almacen para hacer la union de estos productos.
 """
 
 
+# class CrearDisponibles(CreateAPIView):
+#     serializer_class = AlmaceSerializers
 
-
-
-
-
-
-
-
-
-
-
+#     def create(self, request, *args, **kwargs):
+#         serializer = AlmaceSerializers(data=request.data)
+#         serializer.is_valid(raise_exception=True)
 
 
 """
@@ -141,4 +130,61 @@ class CargarAlmacenRecepcion(CreateAPIView):
                 return Response({'RES' : 'No valido'})
         Almacen.objects.bulk_create(lista_recepcion)              
         return Response({'res': 'ok'})
+
+
+
+
+
+# funciona hasta aquí
+                #----------------------------#
+                #dispo = Disponible.objects.all()
+                # if dispo.nombre_producto != obj_almacen.detalles_recepcion.nombre_producto:
+                disponible = Disponible.objects.create(
+                    # obj_almacen es un objeto de recepcion
+                    codigo=obj_almacen.detalles_recepcion.codigo,
+                    nombre_producto=obj_almacen.detalles_recepcion.nombre_producto,
+                    familia=obj_almacen.detalles_recepcion.familia,
+                    fecha_vencimiento=obj_almacen.detalles_recepcion.fecha_vencimiento,
+                    stock=obj_almacen.detalles_recepcion.cantidad,
+                    stock_critico=critico,
+                    precio_unitario=obj_almacen.detalles_recepcion.precio_unitario,
+                    total=obj_almacen.detalles_recepcion.total
+                )
+                #list_disponibles.append(disponible)
+                if disponible.nombre_producto != obj_almacen.detalles_recepcion.nombre_producto:
+                    disponible.save()
+
+                print('stock actualizado')
+
+                stock_actualizado = disponible.stock + \
+                    obj_almacen.detalles_recepcion.cantidad
+                
+
+                # actualizar existencias
+                if disponible.nombre_producto == obj_almacen.detalles_recepcion.nombre_producto:
+                    disponible = Disponible(
+                        # obj_almacen es un objeto de recepcion
+                        codigo=obj_almacen.detalles_recepcion.codigo,
+                        nombre_producto=obj_almacen.detalles_recepcion.nombre_producto,
+                        familia=obj_almacen.detalles_recepcion.familia,
+                        fecha_vencimiento=obj_almacen.detalles_recepcion.fecha_vencimiento,
+                        stock=stock_actualizado,
+                        precio_unitario=obj_almacen.detalles_recepcion.precio_unitario,
+                        stock_critico=disponible.stock_critico
+                    )
+                    disponible.save()
+                    return Response({'SUCCESS': 'ACTUALIZADO CON EXITO EN DISPONIBLES'})
+                # elif dsp.nombre_producto != obj_almacen.detalles_recepcion.nombre_producto:
+
+                #     return Response({'SUCCESS': 'AGREGADO A DISPONIBLES'})
+                    #---#
+
+
+
+
+
+
+
+
+
 """

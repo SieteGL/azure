@@ -37,7 +37,7 @@ class RecepcionSerializer(serializers.Serializer):
 class OrdenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orden
-        fields = ('name',)  
+        fields = ('id','name',)  
 
 class DetallesSerializer(serializers.ModelSerializer):
     ordenes = OrdenSerializer()
@@ -99,6 +99,7 @@ class DetallesProveedor(serializers.ModelSerializer):
     class Meta:
         model = Detalles
         fields = ( 
+            'id',
             'codigo',
             'proveedor',
         )    

@@ -16,8 +16,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'id',
             'nombre',
             'apellido',
-            'especialidades',
-            'email'
+            'especialidades'
             )
 
 #crearagenda create api view revisar
@@ -51,8 +50,6 @@ class PkSerializer(serializers.Serializer):
 
 class TomarHoraSerializer(serializers.Serializer):
     agenda = PkSerializer(many=True)
-
-
 
 class HoraSerializer(serializers.ModelSerializer):
     class Meta:

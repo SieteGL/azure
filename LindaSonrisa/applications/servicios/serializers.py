@@ -10,7 +10,7 @@ from rest_framework.response import Response
 class ListServiciosSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiciosList
-        fields = ('servicio',)
+        fields = ('id','servicio',)
 
 
 class ServiciosSerializer(serializers.ModelSerializer):

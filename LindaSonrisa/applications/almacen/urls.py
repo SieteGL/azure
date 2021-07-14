@@ -1,4 +1,4 @@
-# django
+ # django
 from django.urls import include, path, re_path
 # local
 from . import views

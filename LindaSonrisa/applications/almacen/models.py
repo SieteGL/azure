@@ -101,7 +101,7 @@ class Disponible(models.Model):
         'Nombre del producto',
         max_length=25,
         blank=True
-    )   
+    )
 
     familia = models.CharField(
         'Familia',
@@ -123,4 +123,26 @@ class Disponible(models.Model):
     stock_critico = models.PositiveIntegerField(
         'Stock critico',
         blank=True
-    ) 
+    )
+
+    precio_unitario = models.PositiveIntegerField(
+        'Precio unitario del producto',        
+    )
+
+    total = models.PositiveIntegerField(
+        'Total del producto',
+        null=True,
+        default=True,
+        blank=True,        
+    )
+
+    objects = AlmacenManager()
+
+    class Meta:
+        verbose_name= 'Disponible'
+        verbose_name_plural = 'Disponibles'
+
+     
+    def __str__(self):
+        return str(self.id)+' - '+str(self.codigo)+' - '+str(self.fecha_vencimiento)
+        

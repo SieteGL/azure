@@ -8,6 +8,9 @@ from rest_framework import serializers
 # response
 from rest_framework.response import Response
 # Vistas
+#Permisos
+from rest_framework.permissions import  IsAuthenticated
+from applications.users.permissions import IsEspecialistUser
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -48,6 +51,8 @@ class ListarAgenda(ListAPIView):
 #Especialista crea sus propias horas disponibles. LO VE ESPECIALISTA
 class CrearAgenda(CreateAPIView):
     serializer_class = CrearAgendaSerializer
+    permission_classes = [IsAuthenticated, IsEspecialistUser ]   
+
     def create(self, request, *args, **kwargs):
         serializer = CrearAgendaSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -118,19 +123,6 @@ class ListarEspecialistas(ListAPIView):
     def get_queryset(self):
         return User.objects.listar_especialistas()
 
-class ListarClientes(ListAPIView):
-    serializer_class = UsuarioSerializer
-
-    def get_queryset(self):
-        return User.objects.listar_clientes()
-
-class ListarProveedores(ListAPIView):
-    serializer_class = UsuarioSerializer
-
-    def get_queryset(self):
-        return User.objects.listar_proveedores()
-
-
 #lista las especialidades y dependiendo del pk (id) muestra los doctores disponibles
 class ListEspecialidades(ListAPIView):
     serializer_class = UsuarioSerializer
@@ -150,4 +142,4 @@ class ListHorasEsp(ListAPIView):
         return Agenda.objects.listar_agenda_especialista(val)
 
 #listar usuarios donde su tipo de usuario sea tipo_usuario=1 y mostrar la lista 
- #de especialidades
+ #de especialidades.

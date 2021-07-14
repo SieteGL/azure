@@ -45,7 +45,7 @@ class UserViewSet(viewsets.GenericViewSet):
         """User sign in."""
         
         serializer = UserLoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)                
+        serializer.is_valid(raise_exception=True)                        
         user, token = serializer.save()        
         data = {            
             'user': UserModelSerializer(user).data,
@@ -83,10 +83,13 @@ class CrearViewSet(viewsets.GenericViewSet):
         """User sign up."""
         serializer = EspecialistaSignUpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        if serializer.validated_data['region'] != None:
+            user = serializer.save()
         #token = Token.objects.create(user=user)
-        data = CrearModelSerializer(user).data
-        return Response(data, status=status.HTTP_201_CREATED)
+            data = CrearModelSerializer(user).data
+            return Response(data, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'ERROR':'INGRESE UNA REGION VALIDA'})           
         #return HttpResponseRedirect(reverse(''))
 
     #RECEPCIONISTA

@@ -124,6 +124,10 @@ class Procedimientos(models.Model):
 #view economico
 class Documento(models.Model):
 
+    LIQUIDACION = '0'
+    FINIQUITO = '1'
+    AFP  = '2'
+
     ARCHIVO = (
         ('0','LIQUIDACION'),
         ('1','FINIQUITO'),
@@ -136,7 +140,7 @@ class Documento(models.Model):
         blank=True
     )
     
-    valor = models.CharField(
+    valor = models.IntegerField(
         max_length=250,
         blank=True
     )

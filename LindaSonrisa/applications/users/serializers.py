@@ -19,7 +19,7 @@ from applications.servicios.models import Servicios
 class ListProveedores(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('rut','email','id')
+        fields = ('id','rut','email','id')
 
 class PaginationSerializer(pagination.PageNumberPagination):
     page_size = 5
@@ -31,6 +31,7 @@ class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields =  (
+            'id',
             'email',
             'password',            
         )
@@ -74,15 +75,17 @@ class ListarServiciosPorEspecialista(serializers.ModelSerializer):
     class Meta:
         model = Servicios
         fields = (
+            'id',
             'name',
         )
 
 class ListarEspecialistas(serializers.ModelSerializer):
-    servicios = ListarServiciosPorEspecialista(many=True)
+    # servicios = ListarServiciosPorEspecialista(many=True)
 
     class Meta:
         model = User
         fields = [
+            'id',
             'email',
             'rut',
             'nombre',
@@ -95,7 +98,7 @@ class ListarEspecialistas(serializers.ModelSerializer):
             'direccion',
             'numero',
             'especialidades',
-            'servicios',                        
+            # 'servicios',                        
         ]
 #---
 
