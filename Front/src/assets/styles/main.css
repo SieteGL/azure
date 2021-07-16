@@ -158,3 +158,10 @@ color: white;
   max-width: 100%;
   height: auto;
 }
+
+div#nav{
+  text-align: center;
+}
+div#nav ul{
+  display: inline-block;
+}
