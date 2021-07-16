@@ -1,11 +1,35 @@
-
 <template>
+<div class="md-layout md-alignment-center-center ls--min-height-100vh">
+  <hooper style="max-width:70%;width:auto;height:auto;" :progress="true" :autoPlay="true" :playSpeed="2000">
+  <slide>
+    <img style="max-width:70%;width:auto;height:auto;" src="@/assets/img/img1.jpg" >
+  </slide>
+  <slide>
+    <img style="max-width:70%;width:auto;height:auto;" src="@/assets/img/img2.jpg">
+  </slide>
+  <slide>
+    <img style="max-width:70%;width:auto;height:auto;" src="@/assets/img/img3.jpg">
+  </slide>
+  <slide>
+    <img style="max-width:70%;width:auto;height:auto;" src="@/assets/img/img4.jpg">
+  </slide>
+  
+</hooper>
+</div>
+</template>
 
+<script>
+import { Hooper, Slide } from 'hooper';
+import 'hooper/dist/hooper.css';
 
-  <v-container fluid>
-      <img src="@/assets/img/mujer-perfecta.jpg" alt="">
-    </v-container>
- </template>
+export default {
+  name: 'App',
+  components: {
+    Hooper,
+    Slide
+  }
+};
+</script>
 
 
 <!--<template>
