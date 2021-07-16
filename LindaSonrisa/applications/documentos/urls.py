@@ -65,7 +65,12 @@ urlpatterns = [
     path(
         'api/eliminar/documento/<pk>',
         views.DeleteDocumentos.as_view(),
-        name='delete -documento-cliente',
+        name='delete-documento-cliente',
+    ),
+    path(
+        'api/listar/documentos/cliente',
+        views.ListDocumentosCliente.as_view(),
+        name='listar-documento-cliente',
     ),
     # path(
     #     'api/eliminar/documento/<pk>',

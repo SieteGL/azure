@@ -22,4 +22,14 @@ urlpatterns = [
         views.CrearBoleta.as_view(),
         name='boleta-register'
     ),
+    path(
+        'api/list/boletas',
+        views.ListBoleta.as_view(),
+        name='boleta-register'
+    ),
+    path(
+        'api/list/boletas/user/<pk>',
+        views.ListBoletaUser.as_view(),
+        name='boleta-register'
+    ),
 ]

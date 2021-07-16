@@ -125,17 +125,7 @@ class Disponible(models.Model):
         blank=True
     )
 
-    precio_unitario = models.PositiveIntegerField(
-        'Precio unitario del producto',        
-    )
-
-    total = models.PositiveIntegerField(
-        'Total del producto',
-        null=True,
-        default=True,
-        blank=True,        
-    )
-
+    
     objects = AlmacenManager()
 
     class Meta:

@@ -56,11 +56,33 @@ class UserManager(BaseUserManager, models.Manager):
         return self.filter(
             especialidades__icontains=val
         )
+    #-----#
+    def traer_administradores(self):
+        return self.filter(
+            tipo_usuario=0,                      
+        )
+
+    def traer_especialistas(self):
+        return self.filter(
+            tipo_usuario=1,                      
+        )            
+
+    def traer_recepcionistas(self):
+        return self.filter(
+            tipo_usuario=2,                      
+        )  
+
+    def traer_clientes(self):
+        return self.filter(
+            tipo_usuario=3,                      
+        )  
 
     def traer_proveedores(self):
         return self.filter(
             tipo_usuario=4,                      
-        )            
+        )        
+
+
       
          
         

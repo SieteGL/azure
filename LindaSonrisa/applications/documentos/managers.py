@@ -19,6 +19,12 @@ class ConsultasManager(models.Manager):
             cliente_id=valor
         )        
 
+    def documentos_por_usuario(self, valor):
+        return self.filter(
+            cliente=valor
+        )
+    
+    
     # def ficha_tecnica_usuario(self, user):
     #     return self.filter(
     #         cliente=user

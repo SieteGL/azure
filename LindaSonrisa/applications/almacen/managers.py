@@ -42,5 +42,13 @@ class AlmacenManager(models.Manager):
     #     return self.filter(
     #         codigo=
     #     )
-
+        
+    def buscar_por_stock(self,stock):
+        return self.filter(
+            stock>=stock
+        )
     
+    def filtrar_almacen(self, **filtros):
+        return self.filter(
+            cantidad__range=(filtros['stockI'],filtros['stockF'])
+        )

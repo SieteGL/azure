@@ -11,7 +11,7 @@ urlpatterns = [
         'api/crear/lista/servicios',
         views.CrearListaServicios.as_view(),
         name='servicios-lista',
-    ),
+    ),    
     path(
         'api/crear/servicios',
         views.CrearServicios.as_view(),
@@ -25,6 +25,21 @@ urlpatterns = [
     path(
         'api/list/servicios',
         views.ListServiciosList.as_view(),
+        name='servicios-lista',
+    ), 
+    path(
+        'api/eliminar/list-servicios/<pk>',
+        views.EliminarListServicios.as_view(),
+        name='servicios-lista',
+    ),
+    path(
+        'api/eliminar/servicios/<pk>',
+        views.EliminarServicios.as_view(),
+        name='servicios-lista',
+    ),
+    path(
+        'api/actualizar/servicios/<pk>',
+        views.UpdateServicios.as_view(),
         name='servicios-lista',
     ),
     # 

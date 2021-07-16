@@ -8,6 +8,9 @@ class BoletaManager(models.Manager):
         )
         return consulta
 
-
+    def boleta_por_cliente(self,valor):
+        return self.filter(
+            boleta__cliente_id=valor
+        )
 
     

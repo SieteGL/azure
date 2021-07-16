@@ -12,7 +12,8 @@ from rest_framework.response import Response
 #
 from .serializers import (
     AlmacenSerializers,
-    AlmaceSerializers
+    AlmaceSerializers,
+    PruebaSerializers
     # AlmacenSerializers
 )
 
@@ -28,12 +29,16 @@ class CargarAlmacen(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         almacen = serializer.validated_data['almacen']
         list_almacen = []    
+        list_disponibles = []
 
         for alcen in almacen:
             obj_almacen = Recepcion.objects.get(id=alcen['pk'])
             agregado = obj_almacen.agregado
             valido = obj_almacen.valido
-
+            #--
+            codig = obj_almacen.detalles_recepcion.codigo
+            nombre = obj_almacen.detalles_recepcion.nombre_producto
+            #--
             if agregado == False and valido == True:
                 almacen_obj = Almacen(
                     codigo=obj_almacen.detalles_recepcion.codigo,
@@ -48,9 +53,41 @@ class CargarAlmacen(CreateAPIView):
                 )
                 list_almacen.append(almacen_obj)
                 Almacen.objects.bulk_create(list_almacen)
-                obj_almacen.agregado = True
-                print(obj_almacen.agregado)
+                obj_almacen.agregado = True                
                 obj_almacen.save()
+                #---#
+                disp = Disponible.objects.all()
+                
+                for eje in disp:
+                    code = eje.codigo
+                    prod_nombre = eje.nombre_producto
+                    print('for')
+                    print(code)
+                    print(prod_nombre)
+                    #----
+
+                    #codigo y nombre iguales ya que codigo tiene la fecha de vencimiento
+                if code != codig and prod_nombre != nombre: 
+                    disponibles =Disponible(
+                        codigo = almacen_obj.codigo,
+                        nombre_producto = almacen_obj.nombre_producto,
+                        familia = almacen_obj.familia,
+                        fecha_vencimiento = almacen_obj.fecha_vencimiento,
+                        stock = almacen_obj.cantidad,
+                        stock_critico = 25
+                    )
+                    list_disponibles.append(disponibles)
+                    Disponible.objects.bulk_create(list_disponibles)                
+                elif code == codig and prod_nombre == nombre:
+                    print('antes')
+                    
+                
+                    eje.stock = eje.stock + obj_almacen.detalles_recepcion.cantidad
+                    eje.save()
+                    print('despues')
+                    print(eje.stock)
+                    
+
                 return Response({'SUCCESS': 'AGREGADO AL ALMACEN'})
             elif agregado == True:
                 return Response({'ERROR': 'PRODUCTO YA AGREGADO AL ALMACEN'})
@@ -179,12 +216,19 @@ class CargarAlmacenRecepcion(CreateAPIView):
                 #     return Response({'SUCCESS': 'AGREGADO A DISPONIBLES'})
                     #---#
 
-
-
-
-
-
-
-
-
 """
+
+
+class ListAlmacenFiltro(ListAPIView):
+    serializer_class = AlmacenSerializers
+
+    def get_queryset(self):        
+        stockI = self.request.query_params.get('stockI', None)
+        stockF = self.request.query_params.get('stockF', None)
+        if stockI is None:
+            return Almacen.objects.all()
+        else:
+            return Almacen.objects.filtrar_almacen(
+            stockI = stockI,
+            stockF = stockF
+            )

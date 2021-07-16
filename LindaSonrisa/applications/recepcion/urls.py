@@ -56,7 +56,7 @@ urlpatterns = [
         name='Actualizar-estado'
     ),
     path(
-        'api/listar/ordenes/',
+        'api/listar/ordenes',
         views.ListDetalles.as_view(),
         name='Actualizar-estado'
     ),

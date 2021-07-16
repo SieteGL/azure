@@ -8,22 +8,11 @@ class AlmacenSerializers(serializers.ModelSerializer):
         model = Almacen
         fields = '__all__'
 
-
-
-# class ActualizarAlmacen(serializers.Serializer):
-#     pk = serializers.IntegerField() 
-    
-
-# class ActualizarSerializer(serializers.Serializer):
-#     #ejemplo =  AlmacenSerializers()   
-#     valido = serializers.BooleanField()
-#     detalless = ActualizarAlmacen(many=True)
-  
-
 class OrdenSerializers(serializers.Serializer):
     pk = serializers.IntegerField()
 
 class AlmaceSerializers(serializers.Serializer):
-    almacen = OrdenSerializers(many=True)
+    almacen = OrdenSerializers(many=True)     
 
-#class AlmacenAgregarSerializer       
+class PruebaSerializers(serializers.Serializer):
+    stock = serializers.IntegerField()

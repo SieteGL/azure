@@ -17,4 +17,9 @@ urlpatterns = [
         views.CargarAlmacen.as_view(),
         name='almacen-crear',
     ),
+    path(
+        'api/filtrar/almacen',
+        views.ListAlmacenFiltro.as_view(),
+        name='almacen-filtrar',
+    ),
 ]    

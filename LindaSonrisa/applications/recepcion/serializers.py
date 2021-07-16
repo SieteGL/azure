@@ -15,7 +15,7 @@ class DetallesSerializers(serializers.Serializer):
     descripcion = serializers.CharField()
     fecha_vencimiento=serializers.CharField(required=False, allow_null=True)        
     pk = serializers.IntegerField()
-    recepcionado = BooleanField()
+    #recepcionado = BooleanField()
 
 
 #validando que el nombre de la orden sea unico.
@@ -43,7 +43,7 @@ class DetallesSerializer(serializers.ModelSerializer):
     ordenes = OrdenSerializer()
     class Meta:
         model = Detalles
-        fields = ( 
+        fields = (
             'id',
             'ordenes',
             'nombre_producto',
@@ -80,8 +80,8 @@ class EstadoSerializer(serializers.Serializer):
 
 
 class ReceptorSerializer(serializers.Serializer):
-    valido = serializers.BooleanField()
-    agregado = serializers.BooleanField()
+    # valido = serializers.BooleanField()
+    # agregado = serializers.BooleanField()
     detalles = ActualizarAlmacen(many=True)
 
 

@@ -12,8 +12,36 @@ urlpatterns = [
         name='usuarios-lista'
     ),
     path(
+        'api/administrador/sistema',
+        views.ListarAdministradores.as_view(),
+        name='usuarios-admin-todos'
+    ),                
+    path(
+        'api/especialistas/sistema',
+        views.ListarEspecialistas.as_view(),
+        name='usuarios-espe-todos'
+    ),                
+    path(
+        'api/recepcionistas/sistema',
+        views.ListarRecepcionista.as_view(),
+        name='usuarios-recep-todos'
+    ),                
+    path(
+        'api/cliente/sistema',
+        views.ListarClientes.as_view(),
+        name='usuarios-client-todos'
+    ),                
+    path(
         'api/proveedores/sistema',
         views.ListarProveedores.as_view(),
-        name='usuarios-lista'
-    ),                
+        name='usuarios-provee-todos'
+    ),
+    ###PRUEBA
+    #                 
+    # path(
+    #     'api/update/admin/<pk>',
+    #     views.UpdateUser.as_view(),
+    #     name='update-admin'
+    # ),                
+                   
 ]

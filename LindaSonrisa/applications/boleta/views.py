@@ -22,6 +22,9 @@ from applications.users.models import User
 
 from .serializers import (
     BoletaSerializer,
+    BoletaServicioSerializer,
+    Boletaserializers,
+    PaginationSerializer
 
 )
 from .managers import BoletaManager
@@ -35,15 +38,15 @@ class CrearBoleta(CreateAPIView):
         serializer = BoletaSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         dscto = 0
-
         boleta_lista = []
+        serverces = serializer.validated_data['servicios']
 
         boleta = serializer.validated_data['datos']
 
         for boletas in boleta:
 
             empresa = Empresa.objects.get(id=boletas['empresa'])
-            servicios = Servicios.objects.get(id=boletas['servicios'])
+            #servicios = Servicios.objects.get(id=boletas['servicios'])
             documento = Documento.objects.get(id=boletas['documento'])
             cliente = User.objects.get(id=boletas['cliente'])
             especialista = User.objects.get(id=boletas['especialista'])
@@ -51,7 +54,7 @@ class CrearBoleta(CreateAPIView):
 
             tipo_documento = documento.documento
             valor_documento = documento.valor
-#cabecera
+# cabecera
             if tipo_documento == '0':
                 if valor_documento > 20000 and valor_documento <= 350000:
                     # porcentaje para calculos
@@ -156,7 +159,7 @@ class CrearBoleta(CreateAPIView):
                         documento=tipo_documento,
                         descuento=dscto
                     )
-                    invoce.save()                    
+                    invoce.save()
                 elif valor_documento > 50000 and valor_documento <= 75000:
                     dscto = 35
                     invoce = Boleta.objects.create(
@@ -191,54 +194,48 @@ class CrearBoleta(CreateAPIView):
                     )
                     invoce.save()
 
-        #for            
-    #def    
+        # for
+    # def   
+            
+
             # block descuento
-            a = servicios.valor_paquete*invoce.descuento
-            print(a)
-            b = a / 100
-            print(b)
-            total = servicios.valor_paquete - b
-            print(total)
-            #end block descuento
+            # revisar bloque completo
+            for servs in serverces:
+                servicios = Servicios.objects.get(id=servs['pk'])
+                sub = servicios.valor_paquete 
+                a = servicios.valor_paquete*invoce.descuento
+                b = a / 100
+                total =+ servicios.valor_paquete - b
+                
+            # end block descuento
+                boleta_servicio = BoletaServicio(
+                    boleta=invoce,
+                    especialista=especialista,
+                    sub_total=sub,
+                    total=total
+                )
+                boleta_servicio.save()
+                
+                boleta_servicio.serviciosList.add(servicios)
             
-            boleta_servicio = BoletaServicio(
-                boleta = invoce,                
-                especialista = especialista,
-                sub_total = servicios.valor_paquete,
-                total = total
-            )     
-            boleta_servicio.save()           
-            boleta_servicio.serviciosList.add(servicios)
-            
-        return Response({'success':'funciona'})                
+            # boleta_servicio.save()
+        return Response({'success': 'funciona'})
 
 
+class ListBoleta(ListAPIView):
+    pagination_class = PaginationSerializer
+    serializer_class=BoletaServicioSerializer
+    
+    def get_queryset(self):
+        return BoletaServicio.objects.all()
 
+class ListBoletaUser(ListAPIView):
+    pagination_class = PaginationSerializer
+    serializer_class=BoletaServicioSerializer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def get_queryset(self):
+        valor = self.kwargs['pk']
+        return BoletaServicio.objects.boleta_por_cliente(valor)
 
 
 

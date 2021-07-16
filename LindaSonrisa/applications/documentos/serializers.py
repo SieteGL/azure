@@ -3,6 +3,8 @@ from rest_framework import serializers, pagination
 from .models import FichaTecnica, Procedimientos, Documento
 #
 from applications.users.models import User
+#
+from rest_framework.validators import UniqueTogetherValidator
 
 class FichaTecnicaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,6 +36,12 @@ class DocumentosSerializer(serializers.ModelSerializer):
             'imagen',
             'prod_created',
         )
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Documento.objects.all(),
+                fields=['documento','cliente']
+            )
+        ]
 
 class PaginationSerializer(pagination.PageNumberPagination):
     page_size = 5
@@ -44,6 +52,12 @@ class ProcesarDocumentos(serializers.Serializer):
     documento = serializers.IntegerField()
     valor = serializers.CharField()
     imagen = serializers.ImageField()
+    # validators = [
+    #         UniqueTogetherValidator(
+    #             queryset=Documento.objects.all(),
+    #             fields=['documento','cliente_id']
+    #         )
+    #     ]
 
 
 class pkSerializer(serializers.Serializer):

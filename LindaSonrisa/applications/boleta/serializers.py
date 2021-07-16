@@ -5,44 +5,50 @@ from rest_framework import serializers, pagination
 from .models import BoletaServicio, Boleta
 # model de un 3ro
 from applications.servicios.models import Servicios
+#terceros models
+from applications.users.models import User
+#
+from applications.configuracion.models import Empresa
+
+class EmpresaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Empresa
+        fields = '__all__'
 
 #Serializadores para el ListPorCliente
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
 class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Servicios
-        fields = ('id','servicio')
+        fields = '__all__'
 
 #modelos para listar boletas
-class Boletaserializer(serializers.ModelSerializer):    
-    #bien
-    detalle = serializers.SerializerMethodField()
+class Boletaserializers(serializers.ModelSerializer):    
+    
+    cliente = UserSerializer()
+    empresa = EmpresaSerializer()
     class Meta:
         model = Boleta
-        fields = (
-            'id',
-            'empresa',#bueno
-            'cliente',#bueno
-            'serviciosList',#bueno
-            'detalle'
-        )
-    
-    # def get_detalle(self, obj):        
-    #     query = BoletaServicio.objects.boletas_por_usuario(obj.cliente)
-    #     boletaF_serializada = BoletaServicioSerializer(query, many=True).data
-    #     return boletaF_serializada      
-
+        fields = '__all__'
+        
 class BoletaServicioSerializer(serializers.ModelSerializer):    
-    
+
+    boleta = Boletaserializers()
+    serviciosList = ServicesSerializer(many=True)
+    especialista = UserSerializer()
     class Meta:
         model = BoletaServicio
         fields = (       
             'id',     
-            #'valor_unitario',
-            'cantidad',
-            'valor_total',
-            'fecha_atencion',
-            #'serviciosLista',
-            'boleta',                   
+            'boleta',
+            'serviciosList',
+            'especialista',
+            'sub_total', 
+            'total'         
         )
 
 
@@ -85,12 +91,13 @@ class BoletaServicioSerializer(serializers.ModelSerializer):
 #     stock_critico = serializers.IntegerField()
 #     valor_unitario = serializers.IntegerField()
 
-
+class PKSerializers(serializers.Serializer):
+    pk = serializers.IntegerField()
 
 class DatosSerializers(serializers.Serializer):
     #PK de servicios, user, documentos,
     empresa = serializers.IntegerField()
-    servicios = serializers.IntegerField()
+    # servicios = serializers.IntegerField()
     documento = serializers.IntegerField()
     cliente = serializers.IntegerField()
     especialista = serializers.IntegerField()
@@ -98,4 +105,8 @@ class DatosSerializers(serializers.Serializer):
 
 class BoletaSerializer(serializers.Serializer):
     datos = DatosSerializers(many=True)
-    
+    servicios = PKSerializers(many=True)
+
+class PaginationSerializer(pagination.PageNumberPagination):
+    page_size = 3
+    max_page_size = 25   

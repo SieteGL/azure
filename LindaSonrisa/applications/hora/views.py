@@ -1,5 +1,6 @@
 #
 #from re import S
+from typing import List
 from django.utils import timezone
 from datetime import datetime
 #
@@ -74,10 +75,19 @@ class CrearAgenda(CreateAPIView):
                 return Response({'SUCCESS': 'HORA AGREGADA CON EXITO'})
         else:
             return Response({'ERROR': 'USTED NO ES UN ESPECIALISTA ...'})
+
 #Eliminar una hora especifica pasar id de la hora que se desea eliminar. LO VE ESPECIALISTA
 class EliminarHora(DestroyAPIView):
     serializer_class = AgendaSerializer
     queryset = Agenda.objects.all()  
+
+# class EliminarHoraEspecialista(DestroyAPIView):
+#     serializer_class = AgendaSerializer
+
+#     def get_queryset(self):
+#         valor = self.queryset.user
+#         queryset = Agenda.objects.agenda_por_especialista(valor)
+#         return queryset
 
 ###########
 #El cliente podrá visualizar las horas disponibles. Que el especialsita entrego Linea.45
@@ -108,11 +118,16 @@ class TomarHora(CreateAPIView):
         agendita.delete()
         return Response({'SUCCESS','HORA TOMADA CON EXITO'})
 
-class ListHora(ListAPIView):
+class ListHoraPaciente(ListAPIView):
     serializer_class = HoraSerializer
     def get_queryset(self):
         email = self.request.user.email
         return Reserva.objects.listar_horas(email)
+
+class ListHoras(ListAPIView):
+    serializer_class = HoraSerializer
+    def get_queryset(self):        
+        return Reserva.objects.all()
 
 #lista informacion especialista full para ser mostrado en el front
 

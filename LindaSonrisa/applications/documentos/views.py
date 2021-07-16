@@ -73,6 +73,33 @@ class ListFichaTecnica(ListAPIView):
         return FichaTecnica.objects.all()
 
 #############################################################
+class ProcedimientoCrear(CreateAPIView):
+    serializer_class = ProcesarProcedimientos
+
+    def create(self, request, *args, **kwargs):
+        serializer = ProcesarProcedimientos(data=request.data)
+        serializer.is_valid(raise_exception=True)        
+
+        procederes = EspecialistaProcedimiento.objects.create(
+            fecha = timezone.now(),
+            especialista = self.request.user
+        )
+        procedimientos_list = []
+
+        procedimientos = serializer.validated_data['proceder']
+
+        for proce in procedimientos:
+            cliente = User.objects.get(id=proce['pk'])
+
+            procedimniento = Procedimientos(
+                tipo_procedimiento=serializer.validated_data['tipo_procedimiento'],
+                descripcion_procedimiento=serializer.validated_data['descripcion_procedimiento'],
+                cliente = cliente,
+                Especialista_Procedimiento=procederes           
+            )
+            procedimientos_list.append(procedimniento)
+        Procedimientos.objects.bulk_create(procedimientos_list)
+        return Response({'SUCCESS':'PROCEDIMIENTO AGREGADO CON EXITO'})
 
 #Listar procedimientos por clientes
 class ListarProcedimientosCliente(ListAPIView):
@@ -91,6 +118,17 @@ class ListarProcedimientos(ListAPIView):
         
         return Procedimientos.objects.all()
 
+class EditarProcedimientos(UpdateAPIView):
+
+    serializer_class = ProcedimientoSerializer
+    pagination_class = PaginationSerializer
+    queryset = Procedimientos.objects.all()
+
+#eliminar procedimiento por id del cliente
+class EliminarProcedimientos(DestroyAPIView):
+    serializer_class = ProcedimientoSerializer
+    pagination_class = PaginationSerializer
+    queryset = Procedimientos.objects.all()
 
 #Agregar procedimiento a cliente
 """class CrearProcedimientos(CreateAPIView):
@@ -106,24 +144,14 @@ class ListarProcedimientos(ListAPIView):
             fecha_procedimientos = timezone.now(),
             tipo_procedimiento = serializer.validated_data['tipo_procedimiento'],
             descripcion_procedimiento = serializer.validated_data['descripcion_procedimiento'],
-            cliente = self.request.user
+            cliente = self.request.user 
         )
         procedimientos.save()
 
         return Response({'res' : 'Procedimiento del cliente agregado'})"""
 
 #actualizar procedimiento del paciente
-class EditarProcedimientos(UpdateAPIView):
 
-    serializer_class = ProcedimientoSerializer
-    pagination_class = PaginationSerializer
-    queryset = Procedimientos.objects.all()
-
-#eliminar procedimiento por id del cliente
-class EliminarProcedimientos(DestroyAPIView):
-    serializer_class = ProcedimientoSerializer
-    pagination_class = PaginationSerializer
-    queryset = Procedimientos.objects.all()
 
 ####################################################
 
@@ -169,33 +197,20 @@ class DeleteDocumentos(DestroyAPIView):
     permission_classes = [IsAuthenticated, IsClienteUser, IsAdminUser,]
     queryset = Documento.objects.all()
         
-    
-class ProcedimientoCrear(CreateAPIView):
-    serializer_class = ProcesarProcedimientos
+class ListDocumentosCliente(ListAPIView):
+    serializer_class = DocumentosSerializer
 
-    def create(self, request, *args, **kwargs):
-        serializer = ProcesarProcedimientos(data=request.data)
-        serializer.is_valid(raise_exception=True)        
+    def get_queryset(self):
+        valor = self.request.user
+        return Documento.objects.documentos_por_usuario(valor)
 
-        procederes = EspecialistaProcedimiento.objects.create(
-            fecha = timezone.now(),
-            especialista = self.request.user
-        )
-        procedimientos_list = []
-
-        procedimientos = serializer.validated_data['proceder']
-
-        for proce in procedimientos:
-            cliente = User.objects.get(id=proce['pk'])
-
-            procedimniento = Procedimientos(
-                tipo_procedimiento=serializer.validated_data['tipo_procedimiento'],
-                descripcion_procedimiento=serializer.validated_data['descripcion_procedimiento'],
-                cliente = cliente,
-                Especialista_Procedimiento=procederes           
-            )
-            procedimientos_list.append(procedimniento)
-        Procedimientos.objects.bulk_create(procedimientos_list)
-        return Response({'SUCCESS':'PROCEDIMIENTO AGREGADO CON EXITO'})
         
+# class ListarProcedimientos(ListAPIView):
+#     serializer_class = ProcedimientoSerializer
+#     def get_queryset(self):
+#         queryset = Procedimientos.objects.all()
+#         return queryset
 
+# class EliminarProcedimientos(DestroyAPIView):
+#     serializer_class = ProcedimientoSerializer
+    

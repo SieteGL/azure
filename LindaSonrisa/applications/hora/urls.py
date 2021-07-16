@@ -29,8 +29,13 @@ urlpatterns = [
     ),
     path(
         'api/listar/hora',
-        views.ListHora.as_view(),
+        views.ListHoraPaciente.as_view(),
         name='listar-hora-paciente',
+    ),
+    path(
+        'api/listar/horas',
+        views.ListHoras.as_view(),
+        name='listar-horas',
     ),
 
     ###

@@ -135,7 +135,7 @@ class CrearPedido(CreateAPIView):
                 total=tot,
                 proveedor=id_proveedor,
                 valid='1',
-                recepcionado=details['recepcionado']
+                recepcionado=False
             )
             list_detalles.append(detalles)
         Detalles.objects.bulk_create(list_detalles)                
@@ -155,7 +155,6 @@ class CrearPedido(CreateAPIView):
 
 class ListRecepcion(ListAPIView):
     serializer_class = RecepcionSerializer
-
     def get_queryset(self):                       
         return Recepcion.objects.all()
 
@@ -180,10 +179,11 @@ class CrearRecepcion(CreateAPIView):
                 receptor = self.request.user,
                 #cambiar a Orden
                 detalles_recepcion = id_detalles,
-                valido = serializer.validated_data['valido'],
-                agregado = serializer.validated_data['agregado']
+                valido = True,
+                agregado = False
             )
             list_recepcion.append(recepcion)
+            
             probando = Detalles.objects.all()
             for details in probando:                
                 details.recepcionado = True
@@ -198,7 +198,7 @@ class CrearRecepcion(CreateAPIView):
 
                 #Pensar que si necesito con urgencia 1 producto lo puedo aceptar, sin aceptar los demas 
                 # y poder atender un paciente si es nececsario
-
+        # if id_detalles.recepcionado != True:
         Recepcion.objects.bulk_create(list_recepcion)
         
         
@@ -326,7 +326,7 @@ class ListDetalles(ListAPIView):
 
 
 class ListOrdenPedidos(ListAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser, IsEmployeeUser]
+    permission_classes = [IsAuthenticated, IsAdminUser| IsEmployeeUser]
     serializer_class = DetallesSerializer
 
     def get_queryset(self):

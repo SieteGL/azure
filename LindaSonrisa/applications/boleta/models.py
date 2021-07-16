@@ -41,6 +41,8 @@ class Boleta(models.Model):
         'Descuento a realizar'
     )
 
+    objects = BoletaManager()
+
 #agregar empresa FK
     def __str__(self):
         return  str(self.id)+' - '+str(self.cliente)
@@ -63,10 +65,12 @@ class BoletaServicio(models.Model):
     )
 
     sub_total = models.IntegerField(
-        'Sub-Total de la atencion'
+        'Sub-Total de la atencion',
+        null=True
     )
     total = models.IntegerField(
-        'Total operaciones'
+        'Total operaciones',
+        null=True
     )
     objects = BoletaManager()
 
@@ -76,5 +80,5 @@ class BoletaServicio(models.Model):
         verbose_name_plural = 'Detalles'
 
     def __str__(self):
-        return  str(self.boleta)     
+        return  str(self.id)+'*********'+str(self.boleta)     
     

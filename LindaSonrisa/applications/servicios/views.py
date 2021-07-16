@@ -42,6 +42,7 @@ class CrearListaServicios(CreateAPIView):
             servicio = serializer.validated_data['servicio_nombre']
         )        
         return Response({'SUCCESS':'AGREGADO CON EXITO'})               
+
                      
 class CrearServicios(CreateAPIView):
     serializer_class = ServiciosSerializer
@@ -76,3 +77,33 @@ class ListServiciosList(ListAPIView):
     serializer_class =ListServiciosSerializer
     def get_queryset(self):
         return ServiciosList.objects.all()
+
+class EliminarListServicios(DestroyAPIView):
+    serializer_class = ListServiciosSerializer  
+    
+    def get_queryset(self):
+        queryset = ServiciosList.objects.all()                 
+        return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()            
+        self.perform_destroy(instance)  
+        return Response({'SUCCESS':'ELIMINADO CON EXITO'})
+
+class EliminarServicios(DestroyAPIView):
+    serializer_class = ServiciosSerializer  
+    
+    def get_queryset(self):
+        queryset = Servicios.objects.all()                 
+        return queryset
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()            
+        self.perform_destroy(instance)  
+        return Response({'SUCCESS':'ELIMINADO CON EXITO'})
+
+#falta ver que paso con el edit
+class UpdateServicios(UpdateAPIView):
+    serializer_class = ServiciosSerializer 
+    queryset = Servicios.objects.all() 
+    
