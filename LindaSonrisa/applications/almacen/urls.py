@@ -18,8 +18,8 @@ urlpatterns = [
         name='almacen-crear',
     ),
     path(
-        'api/filtrar/almacen',
-        views.ListAlmacenFiltro.as_view(),
+        'api/filtrar/disponibles',
+        views.ListDisponiblesFiltro.as_view(),
         name='almacen-filtrar',
     ),
 ]    

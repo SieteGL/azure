@@ -13,18 +13,6 @@ class IsClienteUser(BasePermission):
             return False
         return True
 
-#admin acceso
-"""
-class IsAdminUser(permissions.BasePermission):
-    
-    def has_permission(self, request, view):
-
-        try:
-            user = User.objects.get(email=request.user, tipo_usuario=0)
-        except User.DoesNotExist:
-            return False
-        return True
-"""
 #especialista acceso
 class IsEspecialistUser(BasePermission):
 
@@ -57,4 +45,3 @@ class IsSupplierUser(BasePermission):
         except User.DoesNotExist:
             return False
         return True
-

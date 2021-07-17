@@ -1,6 +1,7 @@
+from django.db.models import fields
 from rest_framework import serializers, pagination
 #
-from .models import Almacen, Familia
+from .models import Almacen, Disponible, Familia
 
 class AlmacenSerializers(serializers.ModelSerializer):
  
@@ -16,3 +17,9 @@ class AlmaceSerializers(serializers.Serializer):
 
 class PruebaSerializers(serializers.Serializer):
     stock = serializers.IntegerField()
+
+class DisponiblesSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model=Disponible
+        fields= '__all__'

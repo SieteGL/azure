@@ -13,7 +13,8 @@ from rest_framework.response import Response
 from .serializers import (
     AlmacenSerializers,
     AlmaceSerializers,
-    PruebaSerializers
+    PruebaSerializers,
+    DisponiblesSerializers
     # AlmacenSerializers
 )
 
@@ -219,16 +220,34 @@ class CargarAlmacenRecepcion(CreateAPIView):
 """
 
 
-class ListAlmacenFiltro(ListAPIView):
-    serializer_class = AlmacenSerializers
+class ListDisponiblesFiltro(ListAPIView):
+    serializer_class = DisponiblesSerializers
 
     def get_queryset(self):        
         stockI = self.request.query_params.get('stockI', None)
         stockF = self.request.query_params.get('stockF', None)
-        if stockI is None:
-            return Almacen.objects.all()
-        else:
-            return Almacen.objects.filtrar_almacen(
-            stockI = stockI,
-            stockF = stockF
+        fecha_vencimiento = self.request.query_params.get('fecha_vencimiento', None)
+        # fecha_vencimientoF = self.request.query_params.get('fechaF', None)
+        codigo = self.request.query_params.get('codigo', None)
+        familia = self.request.query_params.get('familia', None)
+
+        if stockI is None and stockF is None and fecha_vencimiento is None and codigo is None and familia is None:
+            return Disponible.objects.all()            
+
+        if stockI is not None and stockF is not None:
+            return Disponible.objects.filtrar_stock(
+                stockI = stockI,
+                stockF = stockF,                
+            )
+        if fecha_vencimiento is not None:
+            return Disponible.objects.filtrar_fecha(            
+                fecha_vencimiento = fecha_vencimiento                        
+            )        
+        if codigo is not None:
+            return Disponible.objects.filtrar_codigo(
+                codigo = codigo
+            )   
+        if familia is not None:
+            return Disponible.objects.filtrar_familia(  
+                familia=familia              
             )

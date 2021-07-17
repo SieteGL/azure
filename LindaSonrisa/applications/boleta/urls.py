@@ -32,4 +32,9 @@ urlpatterns = [
         views.ListBoletaUser.as_view(),
         name='boleta-register'
     ),
+    path(
+        'api/list/boletas/filtro',
+        views.ListBoletaFiltro.as_view(),
+        name='boleta-register'
+    ),
 ]

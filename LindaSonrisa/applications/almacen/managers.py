@@ -48,7 +48,22 @@ class AlmacenManager(models.Manager):
             stock>=stock
         )
     
-    def filtrar_almacen(self, **filtros):
+    def filtrar_stock(self, **filtros):
         return self.filter(
-            cantidad__range=(filtros['stockI'],filtros['stockF'])
+            stock__range=(filtros['stockI'],filtros['stockF']),            
+        )
+    
+    def filtrar_fecha(self, **filtros):
+        return self.filter(
+            fecha_vencimiento=filtros['fecha_vencimiento']         
+        )
+
+    def filtrar_codigo(self, **filtros):
+        return self.filter(
+            codigo__icontains=filtros['codigo']
+        )
+
+    def filtrar_familia(self, **filtros):
+        return self.filter(
+            familia__icontains=filtros['filtrar_familia']
         )

@@ -30,6 +30,18 @@ from .serializers import (
 from .managers import BoletaManager
 #from LindaSonrisa.applications.boleta import serializers
 
+class ListBoletaFiltro(ListAPIView):
+    serializer_class = BoletaServicioSerializer
+
+    def get_queryset(self):        
+        rut = self.request.query_params.get('rut', None)
+        if rut is None:
+            return BoletaServicio.objects.all()
+        if rut is not None:
+            return BoletaServicio.objects.boleta_rut(
+               rut=rut 
+            )            
+
 
 class CrearBoleta(CreateAPIView):
     serializer_class = BoletaSerializer
@@ -205,14 +217,15 @@ class CrearBoleta(CreateAPIView):
                 sub = servicios.valor_paquete 
                 a = servicios.valor_paquete*invoce.descuento
                 b = a / 100
-                total =+ servicios.valor_paquete - b
-                
+                total = servicios.valor_paquete - b
+                totals = total
+            
             # end block descuento
                 boleta_servicio = BoletaServicio(
                     boleta=invoce,
                     especialista=especialista,
                     sub_total=sub,
-                    total=total
+                    total=totals
                 )
                 boleta_servicio.save()
                 

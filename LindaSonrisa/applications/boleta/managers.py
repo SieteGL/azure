@@ -12,5 +12,9 @@ class BoletaManager(models.Manager):
         return self.filter(
             boleta__cliente_id=valor
         )
+    def boleta_rut(self, **filtros):
+        return self.filter(
+            boleta__cliente__rut__icontains=filtros['rut']
+        )
 
     

@@ -141,7 +141,7 @@ class Documento(models.Model):
     )
     
     valor = models.IntegerField(
-        max_length=250,
+        'Valor del documento',
         blank=True
     )
 
