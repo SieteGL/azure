@@ -184,11 +184,10 @@ class CrearRecepcion(CreateAPIView):
             )
             list_recepcion.append(recepcion)
             
-            probando = Detalles.objects.all()
-            for details in probando:                
-                details.recepcionado = True
-                details.valid = False           
-                details.save()
+            #
+            id_detalles.valid=False
+            id_detalles.recepcionado=True
+            id_detalles.save()
                 #despues de agregar la recepcion, se realiza la actualizacion del
                 #estado en Detalles de recepcionado e is_valid(choices)
                 #ademas se cambia el valido de recepcion para decir que es valido y poder
