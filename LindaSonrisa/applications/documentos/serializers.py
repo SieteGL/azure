@@ -34,7 +34,7 @@ class DocumentosSerializer(serializers.ModelSerializer):
             'documento',
             'valor',
             'imagen',
-            'prod_created',
+            # 'prod_created',
         )
         validators = [
             UniqueTogetherValidator(
