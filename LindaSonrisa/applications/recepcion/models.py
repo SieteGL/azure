@@ -191,9 +191,11 @@ class Recepcion(models.Model):
 
     agregado = models.BooleanField(default=False)
 
+    objects = RecepcionManager()
+
     class Meta:
         verbose_name='3- Recepcion de productos'
-        verbose_name_plural = '4- Recepcion de los productos'
+        verbose_name_plural = '3- Recepcion de los productos'
     def __str__(self):
         return str(self.id)+' - '+str(self.detalles_recepcion)+ ' - '+str(self.receptor)
 

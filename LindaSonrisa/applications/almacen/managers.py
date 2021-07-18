@@ -67,3 +67,5 @@ class AlmacenManager(models.Manager):
         return self.filter(
             familia__icontains=filtros['filtrar_familia']
         )
+
+    

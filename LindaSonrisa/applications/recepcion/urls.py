@@ -60,5 +60,10 @@ urlpatterns = [
         views.ListDetalles.as_view(),
         name='Actualizar-estado'
     ),
+    path(
+        'api/listar/no/agregados',
+        views.ListAgregados.as_view(),
+        name='Actualizar-estado'
+    ),
     
 ]

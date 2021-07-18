@@ -62,7 +62,8 @@ class RecepcionSerializer(serializers.ModelSerializer):
             'id',
             'receptor',
             'detalles_recepcion',
-            'valido'
+            'valido',
+            'agregado'
         )
 
 #Serializar estados 

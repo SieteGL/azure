@@ -40,3 +40,8 @@ class RecepcionManager(models.Manager):
         return self.filter(
             proveedor_id=user
         )
+
+    def listar_no_agregados(self):
+        return self.filter(
+            agregado=False
+        )

@@ -251,3 +251,9 @@ class ListDisponiblesFiltro(ListAPIView):
             return Disponible.objects.filtrar_familia(  
                 familia=familia              
             )
+
+class ListAgregados(ListAPIView):
+    serializer_class = AlmacenSerializers
+
+    def get_queryset(self):
+        return Almacen.objects.listar_no_agregados()  

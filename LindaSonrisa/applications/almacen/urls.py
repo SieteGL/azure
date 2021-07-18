@@ -22,4 +22,9 @@ urlpatterns = [
         views.ListDisponiblesFiltro.as_view(),
         name='almacen-filtrar',
     ),
+    # path(
+    #     'api/listar/no/agregados',
+    #     views.ListAgregados.as_view(),
+    #     name='almacen-agregados',
+    # ),
 ]    

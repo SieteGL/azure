@@ -258,7 +258,6 @@ class ListDetalles(ListAPIView):
 
 
 
-
 #-----------------------------------------------#
 
 # combinar la creacion de #Orden mas #Detalles
@@ -376,4 +375,9 @@ class RevisarRecepcionAlmacen(CreateAPIView):
         return Response({'res': 'ok'})
 
 
+class ListAgregados(ListAPIView):
+    serializer_class = RecepcionSerializer
+
+    def get_queryset(self):
+        return Recepcion.objects.listar_no_agregados()  
 # ESTADO PROVEEDOR TIENE ACCESO A ESTA SECCION PARA DECIR EN QUE ESTAN LOS PEDIDOS NECESARIOS
