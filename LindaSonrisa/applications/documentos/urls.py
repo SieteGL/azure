@@ -72,6 +72,11 @@ urlpatterns = [
         views.ListDocumentosCliente.as_view(),
         name='listar-documento-cliente',
     ),
+    path(
+        'api/editar/ficha/<pk>',
+        views.FichaTecnicaUpdate.as_view(),
+        name='editar-ficha-tecnica',
+    ),
     # path(
     #     'api/eliminar/documento/<pk>',
     #     views.ProcedimientoCrear.as_view(),

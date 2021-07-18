@@ -17,6 +17,6 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('tipo_usuario','especialidades')
     #
     # def fotos(self, obj):        
-    #     return format_html('<img src={} width="50" height="50" />', obj.avatar.url )
+    #     return format_html('<img src={} width="30" height="30" />', obj.avatar.url )
 
 admin.site.register(User, UserAdmin)

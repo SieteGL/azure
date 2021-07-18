@@ -6,6 +6,7 @@ from datetime import datetime
 from django.shortcuts import render
 #response
 from rest_framework.response import Response
+from rest_framework import status
 #Vistas
 from rest_framework.generics import (
     ListAPIView,
@@ -22,6 +23,7 @@ from .serializers import (
     ProcesarProcedimientos,
     ProcesarFichaTecnica,
     PaginationSerializer,
+    FichaUpdateSerializer
     
     
 )
@@ -212,12 +214,24 @@ class ListDocumentosCliente(ListAPIView):
         return Documento.objects.documentos_por_usuario(valor)
 
         
-# class ListarProcedimientos(ListAPIView):
-#     serializer_class = ProcedimientoSerializer
-#     def get_queryset(self):
-#         queryset = Procedimientos.objects.all()
-#         return queryset
+class FichaTecnicaUpdate(UpdateAPIView):
+    serializer_class = FichaUpdateSerializer
 
-# class EliminarProcedimientos(DestroyAPIView):
-#     serializer_class = ProcedimientoSerializer
+    def get_queryset(self,pk):
+        return self.get_serializer().Meta.model.objects.filter(id = pk).first()
     
+    #muestra los datos a modificar
+    def patch(self,request,pk=None):
+        
+        if self.get_queryset(pk):
+            ficha_serializer = self.serializer_class(self.get_queryset(pk))
+            return Response(ficha_serializer.data,status = status.HTTP_200_OK)
+        return Response({'error','No existe ficha con estos datos'},status = status.HTTP_400_BAD_REQUEST)
+    
+    def put(self,request,pk=None):
+        if self.get_queryset(pk):
+            ficha_serializer = self.serializer_class(self.get_queryset(pk),data = request.data)
+            if ficha_serializer.is_valid():
+                ficha_serializer.save()
+                return Response(ficha_serializer.data,status = status.HTTP_200_OK)
+            return Response(ficha_serializer.data,errors = status.HTTP_400_BAD_REQUEST)

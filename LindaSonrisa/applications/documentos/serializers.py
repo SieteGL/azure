@@ -6,6 +6,11 @@ from applications.users.models import User
 #
 from rest_framework.validators import UniqueTogetherValidator
 
+class FichaUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FichaTecnica
+        fields = ['id','enfermedad','alergia','enfermedades','alergias']
+
 class FichaTecnicaSerializer(serializers.ModelSerializer):
     class Meta:
         model = FichaTecnica
