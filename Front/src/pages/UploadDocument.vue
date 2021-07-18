@@ -63,9 +63,11 @@
                   >Guardar</md-button
                 >
               </div>
+              <!--
               <div class="md-layout-item md-medium-size-50">
                 <md-button class="md-success md-block">Editar</md-button>
               </div>
+              -->
             </div>
 
             <div class="md-layout">

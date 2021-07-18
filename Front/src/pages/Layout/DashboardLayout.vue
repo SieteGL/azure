@@ -35,6 +35,22 @@
         <md-icon>article</md-icon>
         <p>Procedimientos</p>
       </sidebar-link>
+      <sidebar-link :to="{ name: 'reception' }">
+        <md-icon>article</md-icon>
+        <p>Recepción</p>
+      </sidebar-link>
+      <sidebar-link :to="{ name: 'warehouse' }">
+        <md-icon>article</md-icon>
+        <p>Recepción 2</p>
+      </sidebar-link>
+      <sidebar-link :to="{ name: 'warehouse-view' }">
+        <md-icon>article</md-icon>
+        <p>Almacen</p>
+      </sidebar-link>
+      <sidebar-link :to="{ name: 'order' }">
+        <md-icon>article</md-icon>
+        <p>Pedido</p>
+      </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
         <p>Cerrar sessión</p>
@@ -79,7 +95,7 @@ export default {
       showAdminButton: false,
       showSpecialistButton: false,
       themeColor: "green",
-      themeBackgroundImage: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
+      themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
     };
   }
 };

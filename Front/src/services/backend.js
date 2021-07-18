@@ -28,7 +28,7 @@ const backend = {
    */
   async isSpecialist(token, email) {
     return axios
-      .get(config.API_LOCATION_IS_SPECIALIST, {
+      .get(`${config.API_LOCATION}/listar/especialistas`, {
         headers: { Authorization: token }
       })
       .then(({ data: { results: specialists } }) =>
@@ -171,7 +171,7 @@ const backend = {
     const authorization = await token.authorization();
 
     return axios
-      .get(`${config.API_LOCATION}/usuarios/3`, {
+      .get(`${config.API_LOCATION}/cliente/sistema`, {
         headers: { Authorization: authorization }
       })
       .then(({ data: { results: clients } }) => clients);
@@ -371,24 +371,194 @@ const backend = {
     });
   },
 
+  async procedureDelete(procedure) {
+    // const token = Token.load();
+    // const authorization = await token.authorization();
+
+    return axios.delete(
+      `${config.API_LOCATION}/eliminar/Procedimiento/${procedure.id}`
+    );
+  },
+
   /**
    * { "proceder": [{"pk": 2}], "tipo_procedimiento": 2, "descripcion_procedimiento": "esto es un ejemplo de procedimiento 2" }
    *
    * @param {Objeect} procedure
    */
-
   async procedureSave(procedure) {
     if (procedure.client === null)
       throw new ValidationException("Debe seleccionar un cliente");
     if (procedure.procedure === null)
       throw new ValidationException("Debe seleccionar el procedimiento");
     if (procedure.description === null || !procedure.description.length)
-      throw new ValidationException("Debe ingresar la descripción del procedimiento");
-    
-    console.log({
+      throw new ValidationException(
+        "Debe ingresar la descripción del procedimiento"
+      );
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
       proceder: [{ pk: procedure.client }],
       tipo_procedimiento: procedure.procedure,
       descripcion_procedimiento: procedure.description
+    };
+
+    return axios.post(`${config.API_LOCATION}/agregar/procedimiento`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async procedureEdit(procedure) {
+    if (procedure.client === null)
+      throw new ValidationException("Debe seleccionar un cliente");
+    if (procedure.procedure === null)
+      throw new ValidationException("Debe seleccionar el procedimiento");
+    if (procedure.description === null || !procedure.description.length)
+      throw new ValidationException(
+        "Debe ingresar la descripción del procedimiento"
+      );
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
+      // TODO
+      // Validar
+      Especialista_Procedimiento: procedure.id,
+      cliente: procedure.client,
+      tipo_procedimiento: procedure.procedure,
+      descripcion_procedimiento: procedure.description
+    };
+
+    return axios.put(
+      `${config.API_LOCATION}/editar/Procedimiento/${procedure.id}`,
+      body,
+      {
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
+  },
+
+  async procedureSaved() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/procedimiento`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async products() {
+    return axios.get(`${config.API_LOCATION}/almacen/list`, {
+      params: {
+        limit: 1000
+      }
+    });
+  },
+
+  async providers() {
+    return axios.get(`${config.API_LOCATION}/proveedores/sistema`, {
+      params: {
+        limit: 1000
+      }
+    });
+  },
+
+  async orders() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/ordenes`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async receptions() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/no/agregados`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async makeOrder(order, details) {
+    if (order === null || !order.length)
+      throw new ValidationException("Debe ingresar en nombre de la orden");
+    if (!details.length)
+      throw new ValidationException("Debe ingresar los productos");
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
+      name: order,
+      detalle: details.map(item => ({
+        cantidad: item.quantity,
+        precio_unitario: item.price,
+        nombre_producto: item.name,
+        familia: item.family,
+        descripcion: item.description,
+        recepcionado: "False",
+        fecha_vencimiento: item.vigency,
+        pk: item.provider.id
+      }))
+    };
+
+    return axios.post(`${config.API_LOCATION}/pedido/p`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async makeReception(product) {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
+      detalles: [{ pk: product.id }]
+    };
+
+    return axios.post(`${config.API_LOCATION}/crear/recepcion`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async storeReception(product) {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
+      almacen: [{ pk: product.id }]
+    };
+
+    return axios.post(`${config.API_LOCATION}/cargar/almacen`, body, {
+      headers: {
+        Authorization: authorization
+      }
     });
   }
 };

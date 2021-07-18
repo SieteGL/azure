@@ -6,11 +6,15 @@ import Schedule from "@/pages/Schedule.vue";
 import ClientDataSheet from "@/pages/ClientDataSheet.vue";
 import UploadDocument from "@/pages/UploadDocument.vue";
 import Procedures from "@/pages/Procedures.vue";
+import Order from "@/pages/Order.vue";
+import Reception from "@/pages/Reception.vue";
+import Warehouse from "@/pages/Warehouse.vue";
+import WarehouseList from "@/pages/WarehouseList.vue";
 import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
-import Almacen from "@/pages/Almacen.vue";
+
 const routes = [
   {
     path: "/auth",
@@ -112,14 +116,44 @@ const routes = [
         component: Procedures
       },
       {
-        path: "almacen",
-        name: "almacen",
+        path: "reception",
+        name: "reception",
+        meta: {
+          title: "Recepción",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Reception
+      },
+      {
+        path: "warehouse",
+        name: "warehouse",
         meta: {
           title: "Almacen",
           hideFooter: true,
           requiresAuth: true
         },
-        component: Almacen
+        component: Warehouse
+      },
+      {
+        path: "warehouse/view",
+        name: "warehouse-view",
+        meta: {
+          title: "Almacen",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: WarehouseList
+      },
+      {
+        path: "order",
+        name: "order",
+        meta: {
+          title: "Perdido",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Order
       }
     ]
   }

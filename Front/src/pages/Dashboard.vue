@@ -1,6 +1,6 @@
 <template>
 <div class="content" align="center">
-  <hooper style="max-width:70%;width:auto;height:auto;" :progress="true" :autoPlay="true" :playSpeed="2000">
+  <hooper style="max-width:70%;width:auto;height:auto;" :progress="true" :autoPlay="true" :playSpeed="7000">
   <slide>
     <img style="max-width:70%;width:auto;height:auto;" src="@/assets/img/img1.jpg">
   </slide>
