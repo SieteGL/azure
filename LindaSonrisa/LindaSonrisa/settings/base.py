@@ -31,6 +31,7 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    
 )
 
 LOCAL_APPS = (    
