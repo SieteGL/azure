@@ -41,7 +41,7 @@
       </sidebar-link>
       <sidebar-link :to="{ name: 'warehouse' }">
         <md-icon>article</md-icon>
-        <p>Recepción 2</p>
+        <p>Cargar Almacen</p>
       </sidebar-link>
       <sidebar-link :to="{ name: 'warehouse-view' }">
         <md-icon>article</md-icon>
