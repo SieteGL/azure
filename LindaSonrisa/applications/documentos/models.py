@@ -104,6 +104,7 @@ class Procedimientos(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Cliente'
     )
+    
     Especialista_Procedimiento = models.ForeignKey(
         EspecialistaProcedimiento,
         on_delete=models.CASCADE,

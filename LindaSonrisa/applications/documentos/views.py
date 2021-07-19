@@ -86,6 +86,7 @@ class ProcedimientoCrear(CreateAPIView):
             fecha = timezone.now(),
             especialista = self.request.user
         )
+        
         procedimientos_list = []
 
         procedimientos = serializer.validated_data['proceder']

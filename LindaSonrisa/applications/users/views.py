@@ -1,5 +1,7 @@
 
 # Django REST Framework
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 from django.db.models import query
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -18,7 +20,8 @@ from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 from .serializers import (        
     ListarEspecialistas,
     ListProveedores,
-    CrearModelSerializer
+    CrearModelSerializer,
+    #CustomTokenObtainPairSerializer
 )
 
 # Models
@@ -86,3 +89,28 @@ class ListarProveedores(ListAPIView):
 # class UpdateUser(UpdateAPIView):
 #     serializer_class = CrearModelSerializer     
 #     queryset = User.objects.all()
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Customizes JWT default Serializer to add more information about user"""
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # token['id'] = user.id        
+        token['rut'] = user.rut
+        token['name'] = user.nombre
+        token['apellido'] = user.apellido
+        token['email'] = user.email
+        token['especialidades'] = user.especialidades
+        token['is_superuser'] = user.is_superuser
+        token['is_staff'] = user.is_staff
+        token['is_active'] = user.is_active
+        token['tipo_usuario'] = user.tipo_usuario
+        token['is_esp'] = user.is_esp
+        token['is_emp'] = user.is_emp
+        token['is_cli'] = user.is_cli
+        token['is_pro'] = user.is_pro
+        return token   
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    # Replace the serializer with your custom
+    serializer_class = CustomTokenObtainPairSerializer

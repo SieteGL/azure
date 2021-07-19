@@ -4,7 +4,7 @@
 from django.contrib.auth import password_validation, authenticate
 #
 from django.core.validators import RegexValidator, FileExtensionValidator
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 # Django REST Framework
 from rest_framework import serializers, pagination
 from rest_framework.authtoken.models import Token
@@ -328,3 +328,19 @@ class ProveedorSignUpSerializer(serializers.Serializer):
         data.pop('password_confirmation')
         user = User.objects.create_proveedor(**data)
         return user            
+
+
+# class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     """Customizes JWT default Serializer to add more information about user"""
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
+#         token['id'] = user.id
+#         token['name'] = user.name
+#         token['email'] = user.email
+#         token['is_superuser'] = user.is_superuser
+#         token['is_staff'] = user.is_staff
+#         token['tipo_usuario'] = user.tipo_usuario
+#         token['is_active'] = user.is_active
+
+#         return token        

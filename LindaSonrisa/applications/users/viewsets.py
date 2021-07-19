@@ -1,5 +1,8 @@
 
 # Django REST Framework
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+#
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 
@@ -128,3 +131,22 @@ class CrearClienteViewSet(viewsets.GenericViewSet):
         #token = Token.objects.create(user=user)
         data = CrearModelSerializer(user).data
         return Response(data, status=status.HTTP_201_CREATED)
+
+# class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     """Customizes JWT default Serializer to add more information about user"""
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
+#         token['id'] = user.id
+#         token['name'] = user.name
+#         token['email'] = user.email
+#         token['is_superuser'] = user.is_superuser
+#         token['is_staff'] = user.is_staff
+#         token['tipo_usuario'] = user.tipo_usuario
+#         token['is_active'] = user.is_active
+
+#         return token   
+
+# class CustomTokenObtainPairView(TokenObtainPairView):
+#     # Replace the serializer with your custom
+#     serializer_class = CustomTokenObtainPairSerializer        

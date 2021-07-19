@@ -36,6 +36,10 @@ urlpatterns = [
         views.ListarProveedores.as_view(),
         name='usuarios-provee-todos'
     ),
+    path(
+        'api/token/',
+        views.CustomTokenObtainPairView.as_view(), 
+     name='token_obtain_pair'),
     ###PRUEBA
     #                 
     # path(

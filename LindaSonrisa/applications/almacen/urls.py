@@ -18,7 +18,7 @@ urlpatterns = [
         name='almacen-crear',
     ),
     path(
-        'api/filtrar/disponibles',
+        'api/filtrar/disponibles', 
         views.ListDisponiblesFiltro.as_view(),
         name='almacen-filtrar',
     ),

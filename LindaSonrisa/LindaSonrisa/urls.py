@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     
     #
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),    
     #routers app
@@ -26,6 +26,7 @@ urlpatterns = [
     re_path('', include('applications.servicios.urls')),
     re_path('', include('applications.recepcion.urls')),
     re_path('', include('applications.hora.urls')),
+    re_path('', include('applications.configuracion.urls')),
     # users app Create access to different modules
     #re_path('', include('applications.users.urls')),
  ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -20,12 +20,12 @@ class Empresa(models.Model):
         ('1','+591'),
         ('2','+595'),
         ('3','+56'),
-        ('4',''),
-        ('5',''),
-        ('6',''),
-        ('7',''),
-        ('8',''),
-        ('9',''),
+        ('4','+57'),
+        ('5','+51'),
+        ('6','+598'),
+        ('7','+593'),
+        ('8','+52'),
+        ('9','+58'),
     )
     #agregar numeros faltantes al area
 
@@ -88,6 +88,10 @@ class Empresa(models.Model):
         max_length=30,
         blank=True
     )    
+
+    numeracion = models.IntegerField(
+        'Numeracion del establecimiento'
+    )
 
     def get_pias_display(self):                
         return ''.join([pais for pais in self.pais[:100]])
