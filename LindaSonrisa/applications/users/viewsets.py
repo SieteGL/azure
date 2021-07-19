@@ -36,7 +36,7 @@ from .serializers import (
 # Models
 from .models import User
 
-
+#se dejo de usar porque se implemento JWT para validacion mediante Token
 class UserViewSet(viewsets.GenericViewSet):
 
     queryset = User.objects.filter(is_active=True)
@@ -64,7 +64,7 @@ class CrearViewSet(viewsets.GenericViewSet):
     serializer_class = CrearModelSerializer
     
     #def get_permissions(self):
-    permission_classes = [IsAuthenticated, IsAdminUser, ]
+    permission_classes = [IsAuthenticated, IsAdminUser]
         #return [permission() for permission in permission_classes]  
 
     #ADMINISTRADOR
@@ -120,7 +120,7 @@ class CrearViewSet(viewsets.GenericViewSet):
 
 class CrearClienteViewSet(viewsets.GenericViewSet):
     serializer_class = CrearModelSerializer
-
+    
     #CLIENTE
     @action(detail=False, methods=['post'])
     def cli(self, request):

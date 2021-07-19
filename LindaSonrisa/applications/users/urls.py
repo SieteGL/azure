@@ -39,7 +39,7 @@ urlpatterns = [
     path(
         'api/token/',
         views.CustomTokenObtainPairView.as_view(), 
-     name='token_obtain_pair'),
+        name='token_obtain_pair'),
     ###PRUEBA
     #                 
     # path(

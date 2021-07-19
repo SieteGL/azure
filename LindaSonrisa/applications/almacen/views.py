@@ -28,6 +28,7 @@ class CargarAlmacen(CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = AlmaceSerializers(data=request.data)
         serializer.is_valid(raise_exception=True)
+
         almacen = serializer.validated_data['almacen']
         list_almacen = []    
         list_disponibles = []
@@ -57,6 +58,8 @@ class CargarAlmacen(CreateAPIView):
                 obj_almacen.agregado = True                
                 obj_almacen.save()
                 #---#
+                code = ""
+                prod_nombre = ""
                 disp = Disponible.objects.all()
                 
                 for eje in disp:
@@ -78,10 +81,10 @@ class CargarAlmacen(CreateAPIView):
                         stock_critico = 25
                     )
                     list_disponibles.append(disponibles)
-                    Disponible.objects.bulk_create(list_disponibles)                
+                    Disponible.objects.bulk_create(list_disponibles)
+                    return Response({'SUCCESS': 'AGREGADO AL ALMACEN'})                
                 elif code == codig and prod_nombre == nombre:
-                    print('antes')
-                    
+                    print('antes')                    
                 
                     eje.stock = eje.stock + obj_almacen.detalles_recepcion.cantidad
                     eje.save()
@@ -89,7 +92,7 @@ class CargarAlmacen(CreateAPIView):
                     print(eje.stock)
                     
 
-                return Response({'SUCCESS': 'AGREGADO AL ALMACEN'})
+                return Response({'SUCCESS': 'ACTUALIZADO AL ALMACEN'})
             elif agregado == True:
                 return Response({'ERROR': 'PRODUCTO YA AGREGADO AL ALMACEN'})
 

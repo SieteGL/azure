@@ -8,6 +8,7 @@ from django.shortcuts import render
 from rest_framework import serializers
 # response
 from rest_framework.response import Response
+from rest_framework import status
 # Vistas
 from rest_framework.generics import (
     ListAPIView,
@@ -33,6 +34,7 @@ from rest_framework.permissions import  IsAuthenticated, IsAdminUser
 
 class CrearListaServicios(CreateAPIView):
     serializer_class = ListSerializers
+    permission_classes = [IsAuthenticated, IsAdminUser | IsEmployeeUser]
 
     def create(self, request, *args, **kwargs):
         serializer = ListSerializers(data=request.data)
@@ -46,6 +48,7 @@ class CrearListaServicios(CreateAPIView):
                      
 class CrearServicios(CreateAPIView):
     serializer_class = ServiciosSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser | IsEmployeeUser]
 
     def create(self, request, *args, **kwargs):
         serializer = ServiciosSerializer(data=request.data)
@@ -103,7 +106,30 @@ class EliminarServicios(DestroyAPIView):
         return Response({'SUCCESS':'ELIMINADO CON EXITO'})
 
 #falta ver que paso con el edit
+# class UpdateServicios(UpdateAPIView):
+#     serializer_class = ServiciosSerializer 
+#     queryset = Servicios.objects.all() 
+    
+
 class UpdateServicios(UpdateAPIView):
-    serializer_class = ServiciosSerializer 
-    queryset = Servicios.objects.all() 
+    serializer_class = ServiciosSerializer
+
+    def get_queryset(self,pk):
+        return self.get_serializer().Meta.model.objects.filter(id = pk).first()
+    
+    #muestra los datos a modificar
+    def patch(self,request,pk=None):
+        
+        if self.get_queryset(pk):
+            servicios_serializer = self.serializer_class(self.get_queryset(pk))
+            return Response(servicios_serializer.data,status = status.HTTP_200_OK)
+        return Response({'error','No existe ficha con estos datos'},status = status.HTTP_400_BAD_REQUEST)
+    
+    def put(self,request,pk=None):
+        if self.get_queryset(pk):
+            servicios_serializer = self.serializer_class(self.get_queryset(pk),data = request.data)
+            if servicios_serializer.is_valid():
+                servicios_serializer.save()
+                return Response(servicios_serializer.data,status = status.HTTP_200_OK)
+            return Response(servicios_serializer.data,errors = status.HTTP_400_BAD_REQUEST)
     
