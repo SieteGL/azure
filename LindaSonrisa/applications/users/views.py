@@ -50,7 +50,7 @@ class ListarTipoUsuarios(ListAPIView):
 #listar administradores
 class ListarAdministradores(ListAPIView):
     serializer_class = CrearModelSerializer
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):        
         return User.objects.traer_administradores()
@@ -59,7 +59,7 @@ class ListarAdministradores(ListAPIView):
 #listar recepcionista
 class ListarRecepcionista(ListAPIView):
     serializer_class = CrearModelSerializer
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):        
         return User.objects.traer_recepcionistas()
@@ -68,7 +68,7 @@ class ListarRecepcionista(ListAPIView):
 #listar especialistas
 class ListarEspecialistas(ListAPIView):
     serializer_class = CrearModelSerializer
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):        
         return User.objects.traer_especialistas()
@@ -77,7 +77,7 @@ class ListarEspecialistas(ListAPIView):
 #listar clientes
 class ListarClientes(ListAPIView):
     serializer_class = CrearModelSerializer
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):        
         return User.objects.traer_clientes()
@@ -86,7 +86,7 @@ class ListarClientes(ListAPIView):
 #listar Servicios por especialistas
 class ListarProveedores(ListAPIView):
     serializer_class = CrearModelSerializer
-    permission_classes = [IsAuthenticated]
+    
 
     def get_queryset(self):        
         return User.objects.traer_proveedores()
