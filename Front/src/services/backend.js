@@ -560,6 +560,105 @@ const backend = {
         Authorization: authorization
       }
     });
+  },
+
+  async serviceCreate(service) {
+    if (service.name === null || !service.name.length)
+      throw new ValidationException("Debe ingresar el nombre del servicio");
+    if (service.amount === null || !service.amount.length)
+      throw new ValidationException("Debe ingresar el valor del servicio");
+    if (!service.collection.length)
+      throw new ValidationException("Debe ingresar el paquete de servicios");
+    const token = Token.load();
+    const authorization = await token.authorization();
+    const body = {
+      name: service.name,
+      valor_paquete: service.amount,
+      servicios_lista: service.collection.map(item => ({ servicio: item }))
+    };
+    return axios.post(`${config.API_LOCATION}/crear/servicios`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async serviceList() {
+    return axios.get(`${config.API_LOCATION}/list/servicios`, {
+      params: {
+        limit: 1000
+      }
+    });
+  },
+
+  async serviceListDelete(service) {
+    if (
+      service === null ||
+      service.id === null ||
+      typeof service.id === "undefined"
+    )
+      throw new ValidationException("Debe ingresar el servicio a eliminar");
+
+    // const token = Token.load();
+    // const authorization = await token.authorization();
+
+    return axios.delete(
+      `${config.API_LOCATION}/eliminar/list-servicios/${service.id}`
+    );
+  },
+
+  async serviceListCreated() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/servicios/lista`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async serviceListDeleteCreated(service) {
+    if (
+      service === null ||
+      service.id === null ||
+      typeof service.id === "undefined"
+    )
+      throw new ValidationException("Debe ingresar el servicio a eliminar");
+
+    // const token = Token.load();
+    // const authorization = await token.authorization();
+
+    return axios.delete(
+      `${config.API_LOCATION}/eliminar/servicios/${service.id}`
+    );
+  },
+
+  async serviceNew(service) {
+    if (service === null || !service.length)
+      throw new ValidationException("Debe ingresar el nombre del servicio");
+
+     const token = Token.load();
+     const authorization = await token.authorization();
+
+    const body = {
+      servicio_nombre: service
+    };
+
+    return axios.post(`${config.API_LOCATION}/crear/lista/servicios`, body, { headers: {
+      Authorization: authorization
+    }});
+  },
+
+  async warehouseFilterList() {
+    return axios.get(`${config.API_LOCATION}/filtrar/disponibles`, {
+      params: {
+        limit: 1000
+      }
+    });
   }
 };
 

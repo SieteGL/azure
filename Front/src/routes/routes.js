@@ -14,6 +14,7 @@ import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
+import Services from "@/pages/Services.vue";
 
 
 const routes = [
@@ -155,7 +156,19 @@ const routes = [
           requiresAuth: true
         },
         component: Order
+      },
+
+      {
+        path: "services",
+        name: "services",
+        meta: {
+          title: "Servicios",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Services
       }
+      
     ]
   }
 ];

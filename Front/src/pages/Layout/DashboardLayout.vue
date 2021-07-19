@@ -51,6 +51,10 @@
         <md-icon>article</md-icon>
         <p>Pedido</p>
       </sidebar-link>
+      <sidebar-link :to="{ name: 'services' }">
+        <md-icon>article</md-icon>
+        <p>Servicios</p>
+      </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
         <p>Cerrar sessión</p>
