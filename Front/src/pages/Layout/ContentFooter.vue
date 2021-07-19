@@ -1,34 +1,29 @@
 <template>
-  <footer class="footer">
+  <footer  class="footer">
     <div class="container">
       <nav>
         <ul>
           <li>
-            <a href="https://www.creative-tim.com">Creative Tim</a>
+            <a href="">Profesionales</a>
           </li>
           <li>
-            <a href="https://creative-tim.com/presentation">
-              About Us
+            <a href="">
+              Beneficio
             </a>
           </li>
           <li>
-            <a href="http://blog.creative-tim.com">
-              Blog
+            <a href="">
+              Contáctanos
             </a>
           </li>
           <li>
-            <a href="https://www.creative-tim.com/license">
-              Licenses
+            <a href="">
+              ¿Quienes Somos?
             </a>
           </li>
         </ul>
       </nav>
-      <div class="copyright text-center">
-        &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.creative-tim.com/?ref=mdf-vuejs" target="_blank"
-          >Creative Tim</a
-        >, made with <i class="fa fa-heart heart"></i> for a better web
-      </div>
+      <img style="max-width:200px;width:auto;height:auto;" src="@/assets/img/logo color horizontal.png">
     </div>
   </footer>
 </template>
