@@ -50,6 +50,7 @@ class CrearBoleta(CreateAPIView):
         serializer = BoletaSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         dscto = 0
+        boleta_numero=0
         boleta_lista = []
         serverces = serializer.validated_data['servicios']
 
@@ -66,13 +67,21 @@ class CrearBoleta(CreateAPIView):
 
             tipo_documento = documento.documento
             valor_documento = documento.valor
-# cabecera
+# cabecera  
+            numero = 0
+            
+            bolet = Boleta.objects.filter().last()
+            if bolet is not None:                
+                numero = bolet.boleta_numero
+                numero += 1
+
+            print(numero)
             if tipo_documento == '0':
-                if valor_documento > 20000 and valor_documento <= 350000:
+                if valor_documento >= 0 and valor_documento <= 350000:
                     # porcentaje para calculos
                     dscto = 50
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -80,10 +89,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 350000 and valor_documento <= 600000:
+                elif valor_documento >= 350000 and valor_documento <= 600000:
                     dscto = 35
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -91,10 +100,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 600000 and valor_documento <= 900000:
+                elif valor_documento >= 600000 and valor_documento <= 900000:
                     dscto = 20
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -102,10 +111,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 900000 and valor_documento <= 1250000:
+                elif valor_documento >= 900000 and valor_documento <= 1250000:
                     dscto = 5
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -114,11 +123,11 @@ class CrearBoleta(CreateAPIView):
                     )
                     invoce.save()
             elif tipo_documento == '1':
-                if valor_documento > 1000 and valor_documento <= 300000:
+                if valor_documento >= 0 and valor_documento <= 300000:
                     # porcentaje para calculos
                     dscto = 85
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -126,10 +135,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 300000 and valor_documento <= 600000:
+                elif valor_documento >= 300000 and valor_documento <= 600000:
                     dscto = 50
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -137,10 +146,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 600000 and valor_documento <= 900000:
+                elif valor_documento >= 600000 and valor_documento <= 900000:
                     dscto = 35
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -148,10 +157,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 900000 and valor_documento <= 1250000:
+                elif valor_documento >= 900000 and valor_documento <= 1250000:
                     dscto = 5
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -160,11 +169,11 @@ class CrearBoleta(CreateAPIView):
                     )
                     invoce.save()
             elif tipo_documento == '2':
-                if valor_documento > 30000 and valor_documento <= 50000:
+                if valor_documento >= 0 and valor_documento <= 50000:
                     # porcentaje para calculos
                     dscto = 50
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -172,10 +181,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 50000 and valor_documento <= 75000:
+                elif valor_documento >= 50000 and valor_documento <= 75000:
                     dscto = 35
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -183,10 +192,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 75000 and valor_documento <= 90000:
+                elif valor_documento >= 75000 and valor_documento <= 90000:
                     dscto = 20
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -194,10 +203,10 @@ class CrearBoleta(CreateAPIView):
                         descuento=dscto
                     )
                     invoce.save()
-                elif valor_documento > 90000 and valor_documento <= 110000:
+                elif valor_documento >= 90000 and valor_documento <= 110000:
                     dscto = 5
                     invoce = Boleta.objects.create(
-                        boleta_numero=1,
+                        boleta_numero=numero,
                         fecha_atencion=timezone.now(),
                         empresa=empresa,
                         cliente=cliente,
@@ -209,16 +218,23 @@ class CrearBoleta(CreateAPIView):
         # for
     # def   
             
-
+            total=0
+            totals=0
+            sub=0
+            b=0
             # block descuento
             # revisar bloque completo
             for servs in serverces:
                 servicios = Servicios.objects.get(id=servs['pk'])
-                sub = servicios.valor_paquete 
-                a = servicios.valor_paquete*invoce.descuento
+                sub += servicios.valor_paquete 
+                #sub += sub
+                print(sub)
+                a = servicios.valor_paquete*dscto
                 b = a / 100
+                print('descuento')
+                print(dscto)
                 total = servicios.valor_paquete - b
-                totals = total
+                totals += total
             
             # end block descuento
                 boleta_servicio = BoletaServicio(
@@ -227,9 +243,10 @@ class CrearBoleta(CreateAPIView):
                     sub_total=sub,
                     total=totals
                 )
-                boleta_servicio.save()
-                
-                boleta_servicio.serviciosList.add(servicios)
+            #bueno se guarda una vez
+            boleta_servicio.save()
+            servicios = Servicios.objects.get(id=servs['pk'])
+            boleta_servicio.serviciosList.add(servicios)
             
             # boleta_servicio.save()
         return Response({'success': 'funciona'})
