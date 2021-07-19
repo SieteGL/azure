@@ -44,6 +44,10 @@ class Token {
       .then(({ data: { access } }) => access);
   }
 
+  contentData() {
+    return Token.parse(this._atob());
+  }
+
   expireOn() {
     const time = Token.parse(this._atob()).exp;
     const seconds = 3;

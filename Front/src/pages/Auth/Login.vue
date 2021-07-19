@@ -75,28 +75,29 @@ import rules from "@/services/validations.js";
 import Token from "@/services/Token.js";
 
 export default {
-  
   validations: () => rules(["username", "required as password"]),
   methods: {
     submit() {
       this.$v.$touch();
+
       if (this.$v.$invalid) {
         this.showNotificationMessage("Debe completar los campos seleccionados");
         return;
       }
+
       this.sending = true;
       backend
         .login(this.username, this.password)
         .then(async tokens => {
           const token = new Token(tokens);
-          const authorization = await token.store().authorization();
-          const isAdmin = await backend.isAdmin(authorization, this.username);
-          const isSpecialist = await backend.isSpecialist(
-            authorization,
-            this.username
-          );
-          this.$settings.set("isAdmin", isAdmin);
-          this.$settings.set("isSpecialist", isSpecialist);
+          const user = await token.store().contentData();
+ 
+          this.$settings.set("isAdmin", user.is_superuser);
+          this.$settings.set("isSpecialist", user.is_esp);
+          this.$settings.set("isClient", user.is_cli);
+          this.$settings.set("isProvider", user.is_pro);
+          this.$settings.set("isEmployee", user.is_emp);
+
           this.$router.push("/dashboard");
         })
         .catch(error => {

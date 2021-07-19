@@ -15,6 +15,7 @@ import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
 
+
 const routes = [
   {
     path: "/auth",
