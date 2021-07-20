@@ -15,45 +15,61 @@
         <md-icon>person</md-icon>
         <p>Usuarios</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'schedule' }">
+      <sidebar-link v-if="showScheduleButton" :to="{ name: 'schedule' }">
         <md-icon>event</md-icon>
         <p>Agenda</p>
       </sidebar-link>
-      <sidebar-link v-if="!showSpecialistButton" :to="{ name: 'availability' }">
+      <sidebar-link
+        v-if="showAvailabilityButton"
+        :to="{ name: 'availability' }"
+      >
         <md-icon>event</md-icon>
         <p>Reserva De Hora</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'client-data-sheet' }">
+      <sidebar-link
+        v-if="showClientDataSheetButton"
+        :to="{ name: 'client-data-sheet' }"
+      >
         <md-icon>article</md-icon>
         <p>Ficha Técnica</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'upload-document' }">
+      <sidebar-link
+        v-if="showUploadDocumentButton"
+        :to="{ name: 'upload-document' }"
+      >
         <md-icon>upload</md-icon>
         <p>Adjuntar Documentos</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'procedures' }">
+      <sidebar-link v-if="showProceduresButton" :to="{ name: 'procedures' }">
         <md-icon>article</md-icon>
         <p>Procedimientos</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'reception' }">
+      <sidebar-link v-if="showReceptionButton" :to="{ name: 'reception' }">
         <md-icon>article</md-icon>
         <p>Recepción</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'warehouse' }">
+      <sidebar-link v-if="showWarehouseButton" :to="{ name: 'warehouse' }">
         <md-icon>article</md-icon>
         <p>Cargar Almacen</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'warehouse-view' }">
+      <sidebar-link
+        v-if="showWarehouseViewButton"
+        :to="{ name: 'warehouse-view' }"
+      >
         <md-icon>article</md-icon>
         <p>Almacen</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'order' }">
+      <sidebar-link v-if="showOrderButton" :to="{ name: 'order' }">
         <md-icon>article</md-icon>
         <p>Pedido</p>
       </sidebar-link>
-      <sidebar-link :to="{ name: 'services' }">
+      <sidebar-link v-if="showServicesButton" :to="{ name: 'services' }">
         <md-icon>article</md-icon>
         <p>Servicios</p>
+      </sidebar-link>
+      <sidebar-link v-if="showTicketButton" :to="{ name: 'ticket' }">
+        <md-icon>article</md-icon>
+        <p>Boleta</p>
       </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
         <md-icon>logout</md-icon>
@@ -89,15 +105,56 @@ export default {
   },
 
   beforeMount() {
-    this.showAdminButton = this.$settings.get("isAdmin", false);
-    this.showSpecialistButton = this.$settings.get("isSpecialist", false);
+    // { name: 'schedule' }          cliente, especialista, recepcionista
+    // { name: 'availability' }      cliente,
+    // { name: 'client-data-sheet' } cliente, especialista
+    // { name: 'upload-document' }   cliente,
+    // { name: 'procedures' }        especialista
+    // { name: 'reception' }         recepcionista
+    // { name: 'warehouse' }         recepcionista
+    // { name: 'warehouse-view' }    recepcionista
+    // { name: 'order' }             ???
+    // { name: 'services' }          ???
+    // { name: 'ticket' }            ???
+    // { name: 'logout' }            ???
+
+    const isAdmin = this.$settings.get("isAdmin", false);
+    const isClient = this.$settings.get("isClient", false);
+    const isEmployee = this.$settings.get("isEmployee", false);
+    const isProvider = this.$settings.get("isProvider", false);
+    const isSpecialist = this.$settings.get("isSpecialist", false);
+
+    this.showAdminButton = isAdmin;
+    this.showScheduleButton = isAdmin || isClient || isSpecialist || isEmployee;
+    this.showAvailabilityButton = isAdmin || isClient;
+    this.showClientDataSheetButton = isAdmin || isClient || isSpecialist;
+    this.showUploadDocumentButton = isAdmin || isClient;
+    this.showProceduresButton = isAdmin || isSpecialist;
+    this.showReceptionButton = isAdmin || isEmployee;
+    this.showWarehouseButton = isAdmin || isEmployee;
+    this.showWarehouseViewButton = isAdmin || isEmployee;
+    this.showOrderButton = isAdmin;
+    this.showServicesButton = isAdmin;
+    this.showTicketButton = isAdmin || isEmployee;
+
     this.themeColor = this.$settings.get("themeColor", "green");
   },
 
   data() {
     return {
       showAdminButton: false,
-      showSpecialistButton: false,
+      showAvailabilityButton: false,
+      showScheduleButton: false,
+      showClientDataSheetButton: false,
+      showUploadDocumentButton: false,
+      showProceduresButton: false,
+      showReceptionButton: false,
+      showWarehouseButton: false,
+      showWarehouseViewButton: false,
+      showOrderButton: false,
+      showServicesButton: false,
+      showTicketButton: false,
+
       themeColor: "green",
       themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
     };

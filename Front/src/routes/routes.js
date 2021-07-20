@@ -10,12 +10,12 @@ import Order from "@/pages/Order.vue";
 import Reception from "@/pages/Reception.vue";
 import Warehouse from "@/pages/Warehouse.vue";
 import WarehouseList from "@/pages/WarehouseList.vue";
+import Services from "@/pages/Services.vue";
+import Ticket from "@/pages/Ticket.vue";
 import Login from "@/pages/Auth/Login.vue";
 import Register from "@/pages/Auth/Register.vue";
 import UserManager from "@/pages/Admin/UserManager.vue";
 import storage from "@/services/storage.js";
-import Services from "@/pages/Services.vue";
-
 
 const routes = [
   {
@@ -51,8 +51,8 @@ const routes = [
         path: "dashboard",
         name: "dashboard",
         meta: {
-          title: "Bienvenido a Linda Sonrisa",
-          hideFooter: false,
+          title: "Dashboard",
+          hideFooter: true,
           requiresAuth: true
         },
         component: Dashboard
@@ -157,7 +157,6 @@ const routes = [
         },
         component: Order
       },
-
       {
         path: "services",
         name: "services",
@@ -167,8 +166,17 @@ const routes = [
           requiresAuth: true
         },
         component: Services
+      },
+      {
+        path: "ticket",
+        name: "ticket",
+        meta: {
+          title: "Boleta",
+          hideFooter: true,
+          requiresAuth: true
+        },
+        component: Ticket
       }
-      
     ]
   }
 ];

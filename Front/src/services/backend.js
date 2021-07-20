@@ -115,7 +115,12 @@ const backend = {
     const token = Token.load();
     const authorization = await token.authorization();
 
-    return axios.get(`${config.API_LOCATION}/documentos/usuario`, {
+    // return axios.get(`${config.API_LOCATION}/documentos/usuario`, {
+    //   headers: {
+    //     Authorization: authorization
+    //   }
+    // });
+    return axios.get(`${config.API_LOCATION}/listar/documentos/cliente`, {
       headers: {
         Authorization: authorization
       }
@@ -135,8 +140,6 @@ const backend = {
   },
 
   async uploadDocumentSave(document) {
-    console.log(document);
-
     if (document.documento === null)
       throw new ValidationException("Debe seleccionar el tipo de documento");
     if (document.valor === null || !document.valor.length)
@@ -569,13 +572,16 @@ const backend = {
       throw new ValidationException("Debe ingresar el valor del servicio");
     if (!service.collection.length)
       throw new ValidationException("Debe ingresar el paquete de servicios");
+
     const token = Token.load();
     const authorization = await token.authorization();
+
     const body = {
       name: service.name,
       valor_paquete: service.amount,
       servicios_lista: service.collection.map(item => ({ servicio: item }))
     };
+
     return axios.post(`${config.API_LOCATION}/crear/servicios`, body, {
       headers: {
         Authorization: authorization
@@ -641,22 +647,73 @@ const backend = {
     if (service === null || !service.length)
       throw new ValidationException("Debe ingresar el nombre del servicio");
 
-     const token = Token.load();
-     const authorization = await token.authorization();
+    const token = Token.load();
+    const authorization = await token.authorization();
 
     const body = {
       servicio_nombre: service
     };
 
-    return axios.post(`${config.API_LOCATION}/crear/lista/servicios`, body, { headers: {
-      Authorization: authorization
-    }});
+    return axios.post(`${config.API_LOCATION}/crear/lista/servicios`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
   },
 
   async warehouseFilterList() {
     return axios.get(`${config.API_LOCATION}/filtrar/disponibles`, {
       params: {
         limit: 1000
+      }
+    });
+  },
+
+  async ticketCreate(ticket) {
+    if (ticket.company === null)
+      throw new ValidationException("Debe seleccionar la empresa");
+    if (ticket.client === null)
+      throw new ValidationException("Debe seleccionar el cliente");
+    if (ticket.warehouse === null)
+      throw new ValidationException("Debe seleccionar el almacen");
+    if (ticket.doctor === null)
+        throw new ValidationException("Debe seleccionar el especialista");
+    if (!ticket.services.length)
+      throw new ValidationException("Debe seleccionar los servicios");
+
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    const body = {
+      datos: [
+        {
+          empresa: ticket.company,
+          documento: ticket.document,
+          cliente: ticket.client,
+          especialista: ticket.doctor,
+          almacen: ticket.warehouse
+        }
+      ],
+      servicios: ticket.services.map(item => ({ pk: item.id }))
+    };
+
+    return axios.post(`${config.API_LOCATION}/boleta/create`, body, {
+      headers: {
+        Authorization: authorization
+      }
+    });
+  },
+
+  async companies() {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.get(`${config.API_LOCATION}/listar/empresa`, {
+      params: {
+        limit: 1000
+      },
+      headers: {
+        Authorization: authorization
       }
     });
   }
