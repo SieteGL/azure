@@ -121,7 +121,7 @@
                 </div>
                 <div v-else>
                   <h4 class="text-center">
-                    No hay ordenes disponibles para visualizar
+                    No hay servicios disponibles para visualizar
                   </h4>
                 </div>
               </div>
@@ -134,9 +134,40 @@
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button  class="md-danger md-block" v-on:click="clearTicket"
+                <md-button class="md-danger md-block" v-on:click="clearTicket"
                   >Cancelar Boleta</md-button
                 >
+              </div>
+            </div>
+
+            <div class="md-layout">
+              <div class="md-layout-item md-medium-size-100 md-size-100">
+                <div v-if="tickets.length">
+                  <md-table class="ls--mtop-15px" v-model="tickets">
+                    <md-table-row slot="md-table-row" slot-scope="{ item }">
+                      <md-table-cell md-label="Nº">{{
+                        item.code
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Especialista">{{
+                        item.specialist
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Cliente">{{
+                        item.client
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Empresa">{{
+                        item.company
+                      }}</md-table-cell>
+                      <md-table-cell md-label="Servicios">{{
+                        item.services
+                      }}</md-table-cell>
+                    </md-table-row>
+                  </md-table>
+                </div>
+                <div v-else>
+                  <h4 class="text-center">
+                    No hay boletas disponibles para visualizar
+                  </h4>
+                </div>
               </div>
             </div>
           </md-card-content>
@@ -159,6 +190,7 @@ export default {
     this.loadAllCompanies();
     this.loadAllServices();
     this.loadAllWarehouse();
+    this.loadAllTickets();
   },
 
   methods: {
@@ -274,6 +306,19 @@ export default {
           code: item.codigo
         }));
       });
+    },
+
+    loadAllTickets() {
+      backend.loadAllTickets().then(({ data: { results } }) => {
+        this.tickets = results.map(item => ({
+          original: item,
+          code: item.boleta.boleta_numero,
+          specialist: `${item.especialista.nombre} ${item.especialista.apellido}`,
+          client: `${item.boleta.cliente.nombre} ${item.boleta.cliente.apellido}`,
+          company: item.boleta.empresa.nombre_empresa,
+          services: item.serviciosList.map(item => item.name).join(', ')
+        }))
+      });
     }
   },
 
@@ -292,7 +337,8 @@ export default {
     services: [],
     warehouseList: [],
 
-    collection: []
+    collection: [],
+    tickets: []
   })
 };
 </script>

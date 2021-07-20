@@ -753,6 +753,14 @@ const backend = {
     }).catch(() => {
       return null;
     });
+  },
+
+  async loadAllTickets() {
+    return axios.get(`${config.API_LOCATION}/list/boletas`, {
+      params: {
+        limit: 1000
+      }
+    });
   }
 };
 

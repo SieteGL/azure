@@ -167,3 +167,9 @@ div#nav ul{
 }
 
 /* carousel prueba*/
+.main-panel {
+  background-image: url("../img/fondo linda sonrisa 3.jpg");
+  background-position: left; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
