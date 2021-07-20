@@ -7,9 +7,7 @@
       </div>
      
     </div>
-    <md-toolbar md-elevation="0" class="md-transparent">
-        
-      </md-toolbar>
+   
   </md-toolbar>
   
   

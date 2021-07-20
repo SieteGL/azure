@@ -59,8 +59,8 @@
         </div>
       </div>
     </div>
-    <div class="md-layout md-alignment-center-center ls--min-height-10vh">
-    <footer class="footer">
+    <div class="ls--footer">
+    <footer  class="footer">
       <p> Clínica Dental Linda Sonrisa © Todos los derechos reservados / Avenida Los Flamencos 6752 Of 611, Huechuraba, Santiago.</p> 
     </footer>
     </div>

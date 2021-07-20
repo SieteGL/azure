@@ -166,10 +166,19 @@ div#nav ul{
   display: inline-block;
 }
 
-/* carousel prueba*/
+/* main-panel*/
 .main-panel {
   background-image: url("../img/fondo linda sonrisa 3.jpg");
   background-position: left; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-size: cover; /* Resize the background image to cover the entire containr */
+  min-height: 100vh;
+}
+.ls--footer {
+  position: absolute;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
 }
