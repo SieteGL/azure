@@ -39,7 +39,7 @@
 
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-100 md-size-50">
-                <md-button class="md-primary md-block" v-on:click="submit"
+                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
                   >Añadir Servicio</md-button
                 >
               </div>
@@ -97,7 +97,7 @@
             </div>
             <div class="md-layout">
               <div class="md-layout-item md-size-100">
-                <md-button
+                <md-button data-background-color="colorboton"
                   class="md-primary md-block"
                   v-on:click="submitService"
                   >Crear Servicio</md-button

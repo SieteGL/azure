@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header>
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Almacen</h4>
             <p class="category">Filtros</p>
           </md-card-header>
@@ -49,12 +49,12 @@
 
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
-                <md-button class="md-primary md-block" v-on:click="filter"
+                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="filter"
                   >Filtrar</md-button
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button class="md-info md-block" v-on:click="filterClear"
+                <md-button data-background-color="red" class="md-info md-block" v-on:click="filterClear"
                   >Limpiar filtros</md-button
                 >
               </div>

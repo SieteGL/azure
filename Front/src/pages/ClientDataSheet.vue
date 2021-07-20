@@ -66,7 +66,7 @@
                 </div>
               </div>
               <div class="md-layout-item md-medium-size-100 md-size-50">
-                <md-button class="md-primary md-block" v-on:click="submit"
+                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
                   >Enviar</md-button
                 >
               </div>

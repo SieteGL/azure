@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-size-66">
         <md-card>
-          <md-card-header>
+          <md-card-header data-background-color="pruebacolor">
             <h4 class="title">Datos de Orden</h4>
           </md-card-header>
           <md-card-content>
@@ -68,7 +68,7 @@
               <div
                 class="md-layout-item md-medium-size-100 md-large-size-30 md-size-20"
               >
-                <md-button class="md-info md-block" v-on:click="addProduct"
+                <md-button data-background-color="colorboton" class="md-info md-block" v-on:click="addProduct"
                   >Añadir Producto</md-button
                 >
               </div>
