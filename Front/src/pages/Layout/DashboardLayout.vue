@@ -156,7 +156,7 @@ export default {
       showTicketButton: false,
 
       themeColor: "green",
-      themeBackgroundImage: require("@/assets/img/sidebar-2.jpg")
+      themeBackgroundImage: require("@/assets/img/pexels-tara-winstead-6691478.jpg")
     };
   }
 };
