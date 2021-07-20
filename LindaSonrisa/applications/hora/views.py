@@ -52,7 +52,7 @@ class ListarAgenda(ListAPIView):
 #Especialista crea sus propias horas disponibles. LO VE ESPECIALISTA
 class CrearAgenda(CreateAPIView):
     serializer_class = CrearAgendaSerializer
-    permission_classes = [IsAuthenticated, IsEspecialistUser ]   
+    # permission_classes = [IsAuthenticated, IsEspecialistUser ]   
 
     def create(self, request, *args, **kwargs):
         serializer = CrearAgendaSerializer(data=request.data)

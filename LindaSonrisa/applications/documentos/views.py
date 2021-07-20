@@ -171,6 +171,13 @@ class ListDocumentsUser(ListAPIView):
     def get_queryset(self):        
         return Documento.objects.all()
 
+class ListDocumentsBoleta(ListAPIView):
+    serializer_class = DocumentosSerializer
+
+    def get_queryset(self):
+        valor = self.kwargs['pk']
+        return Documento.objects.usuario_boleta(valor)
+
 #Crear Documentos funcion usuarios
 class CrearDocumentos(CreateAPIView):
     

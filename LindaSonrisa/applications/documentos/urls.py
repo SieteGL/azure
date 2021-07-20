@@ -77,6 +77,11 @@ urlpatterns = [
         views.FichaTecnicaUpdate.as_view(),
         name='editar-ficha-tecnica',
     ),
+    path(
+        'api/listar/documento/<pk>',
+        views.ListDocumentsBoleta.as_view(),
+        name='editar-ficha-tecnica',
+    ),
     # path(
     #     'api/eliminar/documento/<pk>',
     #     views.ProcedimientoCrear.as_view(),

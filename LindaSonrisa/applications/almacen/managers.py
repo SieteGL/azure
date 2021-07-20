@@ -65,7 +65,7 @@ class AlmacenManager(models.Manager):
 
     def filtrar_familia(self, **filtros):
         return self.filter(
-            familia__icontains=filtros['filtrar_familia']
+            familia__icontains=filtros['familia']
         )
 
     

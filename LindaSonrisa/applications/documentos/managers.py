@@ -29,3 +29,9 @@ class ConsultasManager(models.Manager):
     #     return self.filter(
     #         cliente=user
     #     )        
+
+
+    def usuario_boleta(self, valor):
+        return self.filter(
+            cliente=valor
+        )
