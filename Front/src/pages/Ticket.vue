@@ -134,7 +134,7 @@
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button class="md-danger md-block" v-on:click="clearTicket"
+                <md-button  class="md-danger md-block" v-on:click="clearTicket"
                   >Cancelar Boleta</md-button
                 >
               </div>
@@ -166,7 +166,6 @@ export default {
       backend
         .ticketCreate({
           company: this.company,
-          document: 1,
           doctor: this.doctor,
           client: this.client,
           warehouse: this.warehouse,
@@ -174,7 +173,6 @@ export default {
         })
         .then(response => {
           this.clear();
-          this.collection = [];
           this.showNotificationMessage("Boleta creada con exito", {
             type: "success"
           });
@@ -199,16 +197,17 @@ export default {
 
     clear() {
       this.client = null;
+      this.company = null;
       this.doctor = null;
       this.service = null;
       this.warehouse = null;
+      this.collection = [];
     },
 
     clearTicket() {
       this.$confirm("Esta usted seguro?")
         .then(async () => {
           this.clear();
-          this.collection = [];
         })
         .catch(error => {
           if (typeof error === "undefined") {
@@ -252,7 +251,7 @@ export default {
           original: item,
           id: item.id,
           name: item.nombre_empresa
-        }))
+        }));
       });
     },
 

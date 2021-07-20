@@ -41,7 +41,7 @@
               </div>
               <div class="md-layout-item md-medium-size-50">
                 <md-button data-background-color="red" class="md-info md-block" v-on:click="filterClear"
-                    >Limpiar filtros</md-button
+                  >Limpiar filtros</md-button
                 >
               </div>
             </div>
@@ -74,10 +74,10 @@
                       <md-table-cell>
                         <md-button
                           v-on:click="submit(item)"
-                          class="md-icon-button md-dense md-success"
+                          class="md-just-icon md-success"
                         >
                           <md-icon>done</md-icon>
-                        </md-button>                        
+                        </md-button>
                       </md-table-cell>
                     </md-table-row>
                   </md-table>

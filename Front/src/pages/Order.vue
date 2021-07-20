@@ -125,7 +125,7 @@
             </div>
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
-                <md-button class="md-primary md-block" v-on:click="submit"
+                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
                   >Generar Orden</md-button
                 >
               </div>

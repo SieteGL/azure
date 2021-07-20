@@ -54,7 +54,7 @@
                 >
               </div>
               <div class="md-layout-item md-medium-size-50">
-                <md-button data-background-color="red" class="md-info md-block" v-on:click="filterClear"
+                <md-button  data-background-color="red" class="md-info md-block" v-on:click="filterClear"
                   >Limpiar filtros</md-button
                 >
               </div>

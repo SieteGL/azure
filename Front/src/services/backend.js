@@ -360,6 +360,26 @@ const backend = {
     );
   },
 
+  async clientEditDataSheet(data, id) {
+    const token = Token.load();
+    const authorization = await token.authorization();
+
+    return axios.put(
+      `${config.API_LOCATION}/editar/ficha/${id}`,
+      {
+        alergia: data.alergia ? "S" : "N",
+        alergias: data.alergias || "NO",
+        enfermedad: data.enfermedad ? "S" : "N",
+        enfermedades: data.enfermedades || "NO"
+      },
+      {
+        headers: {
+          Authorization: authorization
+        }
+      }
+    );
+  },
+
   async clientDataSheetLoadAll() {
     const token = Token.load();
     const authorization = await token.authorization();
@@ -677,9 +697,14 @@ const backend = {
     if (ticket.warehouse === null)
       throw new ValidationException("Debe seleccionar el almacen");
     if (ticket.doctor === null)
-        throw new ValidationException("Debe seleccionar el especialista");
+      throw new ValidationException("Debe seleccionar el especialista");
     if (!ticket.services.length)
       throw new ValidationException("Debe seleccionar los servicios");
+
+
+    const document = await this.documentByUser(ticket.client);
+    if (document === null)
+      throw new ValidationException("El cliente no tiene el documento cargado");
 
     const token = Token.load();
     const authorization = await token.authorization();
@@ -688,7 +713,7 @@ const backend = {
       datos: [
         {
           empresa: ticket.company,
-          documento: ticket.document,
+          documento: document.id,
           cliente: ticket.client,
           especialista: ticket.doctor,
           almacen: ticket.warehouse
@@ -715,6 +740,18 @@ const backend = {
       headers: {
         Authorization: authorization
       }
+    });
+  },
+
+  async documentByUser(client) {
+    return axios.get(`${config.API_LOCATION}/listar/documento/${client}`, {
+      params: {
+        limit: 1000
+      }
+    }).then(({ data: { results } }) => {
+      return results.length ? results[0] : null;
+    }).catch(() => {
+      return null;
     });
   }
 };

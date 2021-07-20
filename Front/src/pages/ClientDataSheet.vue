@@ -64,10 +64,17 @@
                   </div>
                   -->
                 </div>
-              </div>
+              </div>              
+            </div>
+            <div class="md-layout">
               <div class="md-layout-item md-medium-size-100 md-size-50">
                 <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="submit"
                   >Enviar</md-button
+                >
+              </div>
+              <div class="md-layout-item md-medium-size-100 md-size-50">
+                <md-button class="md-danger md-block" v-on:click="clear"
+                  >Limpiar Formulario</md-button
                 >
               </div>
             </div>
@@ -88,6 +95,14 @@
                       <md-table-cell md-label="Descripción de la alergia">{{
                         item.allergyType
                       }}</md-table-cell>
+                      <md-table-cell>
+                        <md-button
+                          v-on:click="edit(item)"
+                          class="md-primary md-just-icon"
+                        >
+                          <md-icon>edit</md-icon>
+                        </md-button>
+                      </md-table-cell>
                     </md-table-row>
                   </md-table>
                 </div>
@@ -130,22 +145,43 @@ export default {
         return;
       }
 
+      if (this.sheetEdit === null) { this.submitCreate(); }
+      else { this.submitEdit(); }
+
       // Aplicar si se quiere limpiar los colores de alerta de la pantalla
       this.$v.$reset();
+    },
 
+    submitCreate() {      
       backend
         .clientDataSheet({
           enfermedad: this.disease,
           enfermedades: this.diseaseType,
           alergia: this.allergy,
           alergias: this.allergyType
+        },)
+        .then(({ data }) => {          
+          this.clear();
+          this.loadAllDataSheet();
+          this.showNotificationMessage("Ficha tecnica creada", {
+            type: "success"
+          });
         })
-        .then(({ data }) => {
-          this.disease = false;
-          this.diseaseType = null;
-          this.allergy = false;
-          this.allergyType = null;
-
+        .catch(error => {
+          this.sending = false;
+          this.showNotificationMessage(this.chooseNotificationMessage(error));
+        });
+    },
+    submitEdit() {
+      backend
+        .clientEditDataSheet({
+          enfermedad: this.disease,
+          enfermedades: this.diseaseType,
+          alergia: this.allergy,
+          alergias: this.allergyType
+        }, this.sheetEdit.id)
+        .then(({ data }) => {          
+          this.clear();
           this.loadAllDataSheet();
           this.showNotificationMessage("Ficha tecnica actualizada", {
             type: "success"
@@ -155,6 +191,25 @@ export default {
           this.sending = false;
           this.showNotificationMessage(this.chooseNotificationMessage(error));
         });
+    },
+
+    clear() {
+      this.sheetEdit = null;
+      this.disease = false;
+      this.diseaseType = null;
+      this.allergy = false;
+      this.allergyType = null;
+    },
+
+    edit(event) {
+      const { original } = event;
+
+      this.sheetEdit = original;
+
+      this.disease = original.enfermedad === 'S';
+      this.diseaseType = original.enfermedades === 'NO' ? null : original.enfermedades;
+      this.allergy = original.alergia === 'S';
+      this.allergyType = original.alergias === 'NO' ? null : original.alergias;
     },
 
     loadAllDataSheet() {
@@ -184,6 +239,8 @@ export default {
   },
 
   data: () => ({
+    sheetEdit: null,
+
     disease: false,
     diseaseType: null,
 

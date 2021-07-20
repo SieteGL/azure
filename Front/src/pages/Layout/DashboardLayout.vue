@@ -125,7 +125,7 @@ export default {
     const isSpecialist = this.$settings.get("isSpecialist", false);
 
     this.showAdminButton = isAdmin;
-    this.showScheduleButton = isAdmin || isClient || isSpecialist || isEmployee;
+    this.showScheduleButton = isAdmin || isClient || isSpecialist;
     this.showAvailabilityButton = isAdmin || isClient;
     this.showClientDataSheetButton = isAdmin || isClient || isSpecialist;
     this.showUploadDocumentButton = isAdmin || isClient;
@@ -133,7 +133,7 @@ export default {
     this.showReceptionButton = isAdmin || isEmployee;
     this.showWarehouseButton = isAdmin || isEmployee;
     this.showWarehouseViewButton = isAdmin || isEmployee;
-    this.showOrderButton = isAdmin;
+    this.showOrderButton = isAdmin || isEmployee;
     this.showServicesButton = isAdmin;
     this.showTicketButton = isAdmin || isEmployee;
 

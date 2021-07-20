@@ -62,7 +62,7 @@
                       <md-table-cell>
                         <md-button
                           v-on:click="deleteServiceCreated(item)"
-                          class="md-icon-button md-dense md-danger"
+                          class="md-just-icon md-danger"
                         >
                           <md-icon>delete</md-icon>
                         </md-button>
@@ -115,7 +115,7 @@
                       <md-table-cell>
                         <md-button
                           v-on:click="deleteService(item)"
-                          class="md-icon-button md-dense md-danger"
+                          class="md-just-icon md-danger"
                         >
                           <md-icon>delete</md-icon>
                         </md-button>

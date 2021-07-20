@@ -35,7 +35,7 @@
             </div>
             <div class="md-layout">
               <div class="md-layout-item md-medium-size-50">
-                <md-button data-background-color="colorboton" class="md-primary md-block" v-on:click="filter"
+                <md-button  data-background-color="colorboton" class="md-primary md-block" v-on:click="filter"
                   >Filtrar</md-button
                 >
               </div>
@@ -71,7 +71,7 @@
                       <md-table-cell>
                         <md-button
                           v-on:click="submit(item)"
-                          class="md-icon-button md-dense md-success"
+                          class="md-just-icon md-success"
                         >
                           <md-icon>done</md-icon>
                         </md-button>
@@ -106,21 +106,17 @@ export default {
 
   methods: {
     submit(order) {
-      backend.storeReception(order.original).then(response => {
-        this.showNotificationMessage("Producto almacenado con exito", {
-          type: "success"
+      backend
+        .storeReception(order.original)
+        .then(response => {
+          this.showNotificationMessage("Producto almacenado con exito", {
+            type: "success"
+          });
+          this.loadOrders();
+        })
+        .catch(error => {
+          this.showNotificationMessage(this.chooseNotificationMessage(error));
         });
-        // TODO
-        // No se puede aplicar pq la api me devuelve error
-        this.loadOrders();
-      }).catch(error => {
-        this.showNotificationMessage("Producto almacenado con exito", {
-          type: "success"
-        });
-        // TODO
-        // No se puede aplicar pq la api me devuelve error
-        this.loadOrders();
-      });
     },
 
     filter() {
