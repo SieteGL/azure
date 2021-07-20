@@ -12,7 +12,7 @@
       </sidebar-link>
       <sidebar-link v-if="showAdminButton" :to="{ name: 'user-manager' }">
         <md-tooltip md-direction="right">Administrador de usuarios</md-tooltip>
-        <md-icon>person</md-icon>
+        <md-icon>manage_accounts</md-icon>
         <p>Usuarios</p>
       </sidebar-link>
       <sidebar-link v-if="showScheduleButton" :to="{ name: 'schedule' }">
@@ -30,7 +30,7 @@
         v-if="showClientDataSheetButton"
         :to="{ name: 'client-data-sheet' }"
       >
-        <md-icon>article</md-icon>
+        <md-icon>description</md-icon>
         <p>Ficha Técnica</p>
       </sidebar-link>
       <sidebar-link
@@ -45,22 +45,22 @@
         <p>Procedimientos</p>
       </sidebar-link>
       <sidebar-link v-if="showReceptionButton" :to="{ name: 'reception' }">
-        <md-icon>article</md-icon>
+        <md-icon>pending_actions</md-icon>
         <p>Recepción</p>
       </sidebar-link>
       <sidebar-link v-if="showWarehouseButton" :to="{ name: 'warehouse' }">
-        <md-icon>article</md-icon>
+        <md-icon>shopping_cart</md-icon>
         <p>Cargar Almacen</p>
       </sidebar-link>
       <sidebar-link
         v-if="showWarehouseViewButton"
         :to="{ name: 'warehouse-view' }"
       >
-        <md-icon>article</md-icon>
+        <md-icon>inventory</md-icon>
         <p>Almacen</p>
       </sidebar-link>
       <sidebar-link v-if="showOrderButton" :to="{ name: 'order' }">
-        <md-icon>article</md-icon>
+        <md-icon>store</md-icon>
         <p>Pedido</p>
       </sidebar-link>
       <sidebar-link v-if="showServicesButton" :to="{ name: 'services' }">
@@ -68,7 +68,7 @@
         <p>Servicios</p>
       </sidebar-link>
       <sidebar-link v-if="showTicketButton" :to="{ name: 'ticket' }">
-        <md-icon>article</md-icon>
+        <md-icon>check</md-icon>
         <p>Boleta</p>
       </sidebar-link>
       <sidebar-link :to="{ name: 'logout' }">
