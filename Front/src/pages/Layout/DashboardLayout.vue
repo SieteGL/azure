@@ -127,7 +127,7 @@ export default {
     this.showAdminButton = isAdmin;
     this.showScheduleButton = isAdmin || isClient || isSpecialist;
     this.showAvailabilityButton = isAdmin || isClient;
-    this.showClientDataSheetButton = isAdmin || isClient || isSpecialist;
+    this.showClientDataSheetButton = isAdmin || isClient;
     this.showUploadDocumentButton = isAdmin || isClient;
     this.showProceduresButton = isAdmin || isSpecialist;
     this.showReceptionButton = isAdmin || isEmployee;
