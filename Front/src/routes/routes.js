@@ -151,7 +151,7 @@ const routes = [
         path: "order",
         name: "order",
         meta: {
-          title: "Perdido",
+          title: "Pedido",
           hideFooter: true,
           requiresAuth: true
         },
