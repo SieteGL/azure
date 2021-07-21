@@ -21,7 +21,7 @@ const validations = {
   },
   lastname: {
     required,
-    minLength: minLength(6)
+    minLength: minLength(2)
   },
   run: {
     required,

@@ -61,7 +61,7 @@
     </div>
     <div class="ls--footer">
     <footer  class="footer">
-      <p> Clínica Dental Linda Sonrisa © Todos los derechos reservados / Avenida Los Flamencos 6752 Of 611, Huechuraba, Santiago.</p> 
+      <p> Clínica Dental Linda Sonrisa © Todos los derechos reservados /  Calle Nueva 1660, Huechuraba, Región Metropolitana.</p> 
     </footer>
     </div>
   </div>
