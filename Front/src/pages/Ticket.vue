@@ -36,7 +36,7 @@
                   </md-select>
                 </md-field>
               </div>
-              <div class="md-layout-item md-medium-size-100 md-size-50">
+              <!--<div class="md-layout-item md-medium-size-100 md-size-50">
                 <md-field>
                   <label>Almacen</label>
                   <md-select v-model="warehouse">
@@ -48,8 +48,8 @@
                       >{{ item.code }}
                     </md-option>
                   </md-select>
-                </md-field>
-              </div>
+                </md-field> 
+              </div> -->
               <div class="md-layout-item md-medium-size-100 md-size-50">
                 <md-field>
                   <label>Especialista</label>

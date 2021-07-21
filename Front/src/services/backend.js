@@ -694,8 +694,8 @@ const backend = {
       throw new ValidationException("Debe seleccionar la empresa");
     if (ticket.client === null)
       throw new ValidationException("Debe seleccionar el cliente");
-    if (ticket.warehouse === null)
-      throw new ValidationException("Debe seleccionar el almacen");
+    /*if (ticket.warehouse === null)
+      throw new ValidationException("Debe seleccionar el almacen");*/
     if (ticket.doctor === null)
       throw new ValidationException("Debe seleccionar el especialista");
     if (!ticket.services.length)
@@ -716,7 +716,7 @@ const backend = {
           documento: document.id,
           cliente: ticket.client,
           especialista: ticket.doctor,
-          almacen: ticket.warehouse
+          /*almacen: ticket.warehouse*/
         }
       ],
       servicios: ticket.services.map(item => ({ pk: item.id }))
